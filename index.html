@@ -2,223 +2,244 @@
 <html lang="sk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0b0f14">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>TomoEarn</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#0b0f14;
-    color:#fff
+  margin:0;
+  background:#0b111a;
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
 }
 
 header{
-    padding:18px;
-    text-align:center;
-    background:#111821;
-    border-bottom:1px solid #26313d;
-    position:sticky;
-    top:0;
-    z-index:10
+  background:#101925;
+  border-bottom:1px solid #273343;
+  text-align:center;
+  padding:28px 15px;
+  position:sticky;
+  top:0;
+  z-index:10;
 }
 
 .logo{
-    font-size:30px;
-    font-weight:bold
+  font-size:42px;
+  font-weight:800;
 }
 
 .logo span{
-    color:#35d07f
+  color:#32d583;
 }
 
 .container{
-    max-width:620px;
-    margin:auto;
-    padding:18px
+  width:100%;
+  max-width:760px;
+  margin:auto;
+  padding:20px 16px 60px;
 }
 
 .card{
-    background:#111821;
-    border:1px solid #26313d;
-    border-radius:18px;
-    padding:20px;
-    margin-bottom:18px
+  background:#151e2a;
+  border:1px solid #263344;
+  border-radius:24px;
+  padding:24px;
+  margin-bottom:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,.18);
 }
 
-.balance{
-    background:#14251c;
-    border:1px solid #24563b;
-    border-radius:18px;
-    padding:25px;
-    text-align:center;
-    margin-bottom:18px
+h2{
+  margin-top:0;
 }
 
-.balance-title{
-    color:#aab5bf;
-    font-size:13px
-}
-
-.balance-value{
-    font-size:38px;
-    font-weight:bold;
-    margin-top:8px
-}
-
-input,select{
-    width:100%;
-    padding:14px;
-    margin:7px 0;
-    border-radius:12px;
-    border:1px solid #354453;
-    background:#18212b;
-    color:#fff;
-    font-size:16px
+input,
+select{
+  width:100%;
+  padding:14px;
+  margin:7px 0 12px;
+  border-radius:12px;
+  border:1px solid #354457;
+  background:#0d151f;
+  color:#fff;
+  font-size:16px;
 }
 
 button{
-    width:100%;
-    padding:14px;
-    margin-top:8px;
-    border:0;
-    border-radius:12px;
-    font-weight:bold;
-    font-size:15px;
-    cursor:pointer
+  border:0;
+  border-radius:13px;
+  padding:14px 18px;
+  background:#32d583;
+  color:#07120c;
+  font-weight:800;
+  font-size:16px;
+  cursor:pointer;
 }
 
-.primary{
-    background:#35d07f;
-    color:#06100a
+button:disabled{
+  opacity:.5;
+  cursor:not-allowed;
 }
 
 .secondary{
-    background:#202b36;
-    color:#fff;
-    border:1px solid #354453
+  background:#263447;
+  color:#fff;
 }
 
-.hidden{
-    display:none!important
+.danger{
+  background:#e5484d;
+  color:#fff;
 }
 
 .message{
-    padding:12px;
-    border-radius:10px;
-    background:#18212b;
-    color:#aab5bf;
-    margin-bottom:12px
+  margin-top:12px;
+  font-weight:700;
 }
 
-.task{
-    background:#18212b;
-    border-radius:14px;
-    padding:18px;
-    text-align:center
+.error{
+  color:#ff7070;
 }
 
-.task-title{
-    font-size:20px;
-    font-weight:bold
+.success{
+  color:#32d583;
 }
 
-.task-info{
-    color:#aab5bf;
-    font-size:14px;
-    margin:8px 0
+.balance-box{
+  text-align:center;
 }
 
-.task-video{
-    width:100%;
-    max-height:330px;
-    margin:15px 0;
-    border-radius:14px;
-    background:#000
-}
-
-.video-placeholder{
-    width:100%;
-    height:240px;
-    margin:15px 0;
-    border-radius:14px;
-    background:#050708;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#68747f
-}
-
-.timer{
-    font-size:42px;
-    font-weight:bold;
-    color:#35d07f;
-    margin:15px
-}
-
-.progress{
-    height:8px;
-    background:#26313d;
-    border-radius:20px;
-    overflow:hidden
-}
-
-.progress-bar{
-    height:100%;
-    width:0;
-    background:#35d07f;
-    transition:width 1s linear
+.balance{
+  font-size:36px;
+  font-weight:800;
+  color:#32d583;
+  margin:12px 0;
 }
 
 .stats{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
 }
 
 .stat{
-    background:#18212b;
-    padding:15px;
-    border-radius:12px;
-    text-align:center
+  background:#101925;
+  border-radius:16px;
+  padding:18px;
+  text-align:center;
 }
 
-.stat-number{
-    font-size:20px;
-    font-weight:bold
+.stat strong{
+  display:block;
+  font-size:25px;
+  margin-top:8px;
 }
 
-.stat-label{
-    color:#8e9aa5;
-    font-size:12px;
-    margin-top:5px
+.task-title{
+  text-align:center;
+  font-size:30px;
+  font-weight:800;
+  margin:10px 0 22px;
 }
 
-.refbox{
-    background:#18212b;
-    padding:14px;
-    border-radius:12px;
-    word-break:break-all;
-    color:#35d07f;
-    font-size:13px;
-    margin-top:10px
+.video-box{
+  width:100%;
+  aspect-ratio:16/9;
+  background:#05070a;
+  border-radius:22px;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:25px;
 }
 
-.wallet{
-    background:#18212b;
-    border-radius:14px;
-    padding:15px;
-    margin-top:12px
+.video-box video,
+.video-box iframe{
+  width:100%;
+  height:100%;
+  border:0;
 }
 
-.wallet-title{
-    font-weight:bold;
-    margin-bottom:5px
+.video-placeholder{
+  color:#687485;
+  font-size:30px;
+}
+
+.timer{
+  text-align:center;
+  font-size:40px;
+  font-weight:800;
+  color:#32d583;
+  margin:12px 0;
+}
+
+.progress{
+  height:12px;
+  background:#273343;
+  border-radius:20px;
+  overflow:hidden;
+  margin:15px 0;
+}
+
+.progress-bar{
+  height:100%;
+  width:0%;
+  background:#32d583;
+  transition:width .2s linear;
+}
+
+.launch{
+  width:100%;
+  font-size:21px;
+  padding:17px;
+}
+
+.small{
+  color:#8c99aa;
+  font-size:14px;
+}
+
+.ref-link{
+  display:flex;
+  gap:8px;
+}
+
+.ref-link input{
+  margin:0;
+}
+
+.ref-link button{
+  white-space:nowrap;
+}
+
+.hidden{
+  display:none !important;
+}
+
+footer{
+  text-align:center;
+  color:#687485;
+  padding:30px 10px;
+  font-size:13px;
+}
+
+@media(max-width:520px){
+  .logo{
+    font-size:36px;
+  }
+
+  .card{
+    padding:20px;
+  }
+
+  .task-title{
+    font-size:26px;
+  }
 }
 </style>
 </head>
@@ -226,1730 +247,1215 @@ button{
 <body>
 
 <header>
-    <div class="logo">Tomo<span>Earn</span></div>
+  <div class="logo">Tomo<span>Earn</span></div>
 </header>
 
 <div class="container">
 
-<!-- LOGIN -->
+<!-- AUTH -->
+<section id="authSection" class="card">
 
-<div class="card" id="authBox">
+  <h2>Prihlásenie</h2>
 
-<h2>Prihlásenie</h2>
-
-<div id="message" class="message">
-Prihlás sa alebo vytvor nový účet.
-</div>
-
-<input
+  <input
     id="email"
     type="email"
-    placeholder="Email"
->
+    placeholder="E-mail"
+    autocomplete="email"
+  >
 
-<input
+  <input
     id="password"
     type="password"
     placeholder="Heslo"
->
+    autocomplete="current-password"
+  >
 
-<button
-    class="primary"
-    onclick="login()"
->
-PRIHLÁSIŤ
-</button>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;">
+    <button onclick="login()">PRIHLÁSIŤ</button>
+    <button class="secondary" onclick="register()">REGISTRÁCIA</button>
+  </div>
 
-<button
-    class="secondary"
-    onclick="register()"
->
-VYTVORIŤ ÚČET
-</button>
+  <div id="authMessage" class="message"></div>
 
-</div>
+</section>
 
 
 <!-- APP -->
+<div id="appSection" class="hidden">
 
-<div id="app" class="hidden">
+  <!-- BALANCE -->
+  <section class="card balance-box">
 
-<!-- BALANCE -->
+    <h2>💰 Balance</h2>
 
-<div class="balance">
+    <div id="balance" class="balance">
+      0.00000000
+    </div>
 
-<div class="balance-title">
-YOUR BALANCE
-</div>
+    <div class="small">
+      Dostupný zostatok
+    </div>
 
-<div
-    class="balance-value"
-    id="balance"
->
-$0.0000
-</div>
+  </section>
 
-</div>
 
+  <!-- WATCH -->
+  <section class="card">
 
-<!-- WATCH -->
+    <h2>🎬 Watch & Earn</h2>
 
-<div class="card">
+    <p class="small">
+      Jedno LAUNCH. Videá pokračujú automaticky.
+    </p>
 
-<h2>Watch & Earn</h2>
+    <div id="taskArea">
 
-<div class="task-info">
-Jedno LAUNCH. Videá pokračujú automaticky.
-</div>
+      <div class="task-title">
+        Načítavam...
+      </div>
 
-<div id="taskList">
-Načítavam...
-</div>
+    </div>
 
-</div>
+  </section>
 
 
-<!-- STATISTICS -->
+  <!-- STATISTICS -->
+  <section class="card">
 
-<div class="card">
+    <h2>📊 Statistics</h2>
 
-<h2>Statistics</h2>
+    <div class="stats">
 
-<div class="stats">
+      <div class="stat">
+        Dokončené
+        <strong id="completedCount">0</strong>
+      </div>
 
-<div class="stat">
+      <div class="stat">
+        Zarobené
+        <strong id="earnedTotal">0.00000000</strong>
+      </div>
 
-<div
-    class="stat-number"
-    id="tasks"
->
-0
-</div>
+    </div>
 
-<div class="stat-label">
-COMPLETED TASKS
-</div>
+  </section>
 
-</div>
 
-<div class="stat">
+  <!-- REFERRAL -->
+  <section class="card">
 
-<div
-    class="stat-number"
-    id="earned"
->
-$0.0000
-</div>
+    <h2>👥 Referral</h2>
 
-<div class="stat-label">
-TOTAL EARNED
-</div>
+    <p class="small">
+      Tvoj referral kód:
+    </p>
 
-</div>
+    <input
+      id="refCode"
+      readonly
+    >
 
-</div>
+    <p class="small">
+      Tvoj referral link:
+    </p>
 
-</div>
+    <div class="ref-link">
 
+      <input
+        id="refLink"
+        readonly
+      >
 
-<!-- REFERRAL -->
+      <button onclick="copyReferral()">
+        KOPÍROVAŤ
+      </button>
 
-<div class="card">
+    </div>
 
-<h2>Referral</h2>
+    <p id="refMessage" class="message"></p>
 
-<div class="task-info">
-Tvoj osobný referral odkaz:
-</div>
+    <div class="stats">
 
-<div
-    class="refbox"
-    id="refLink"
->
-Načítavam...
-</div>
+      <div class="stat">
+        Referrals
+        <strong id="refCount">0</strong>
+      </div>
 
-<button
-    class="primary"
-    onclick="copyReferral()"
->
-KOPÍROVAŤ REFERRAL LINK
-</button>
+      <div class="stat">
+        Referral earnings
+        <strong id="refEarned">0.00000000</strong>
+      </div>
 
-<div
-    class="stats"
-    style="margin-top:12px"
->
+    </div>
 
-<div class="stat">
+  </section>
 
-<div
-    class="stat-number"
-    id="refCount"
->
-0
-</div>
 
-<div class="stat-label">
-POZVANÍ
-</div>
+  <!-- WITHDRAW -->
+  <section class="card">
 
-</div>
+    <h2>💸 Withdraw</h2>
 
-<div class="stat">
+    <p class="small">
+      Výber je dostupný v BTC alebo USDT.
+    </p>
 
-<div
-    class="stat-number"
-    id="refEarned"
->
-$0.0000
-</div>
+    <label>BTC adresa</label>
 
-<div class="stat-label">
-REFERRAL ZÁROBOK
-</div>
+    <input
+      id="btcWallet"
+      type="text"
+      placeholder="BTC wallet address"
+    >
 
-</div>
+    <button onclick="saveWallet('BTC')">
+      ULOŽIŤ BTC
+    </button>
 
-</div>
 
-</div>
+    <br><br>
 
+    <label>USDT adresa</label>
 
-<!-- WITHDRAW -->
+    <input
+      id="usdtWallet"
+      type="text"
+      placeholder="USDT wallet address"
+    >
 
-<div class="card">
+    <button onclick="saveWallet('USDT')">
+      ULOŽIŤ USDT
+    </button>
 
-<h2>Withdraw</h2>
 
-<div class="task-info">
-BTC alebo USDT
-</div>
+    <hr style="border-color:#273343;margin:25px 0;">
 
 
-<div class="wallet">
+    <label>Mena výberu</label>
 
-<div class="wallet-title">
-BTC wallet
-</div>
+    <select id="withdrawCurrency">
+      <option value="BTC">BTC</option>
+      <option value="USDT">USDT</option>
+    </select>
 
-<input
-    id="btcAddress"
-    placeholder="BTC adresa"
->
 
-<button
-    class="secondary"
-    onclick="saveWallet('BTC')"
->
-ULOŽIŤ BTC
-</button>
+    <label>Suma</label>
 
-</div>
+    <input
+      id="withdrawAmount"
+      type="number"
+      step="0.00000001"
+      min="0"
+      placeholder="Suma"
+    >
 
 
-<div class="wallet">
+    <label>Wallet adresa</label>
 
-<div class="wallet-title">
-USDT wallet
-</div>
+    <input
+      id="withdrawWallet"
+      type="text"
+      placeholder="BTC alebo USDT adresa"
+    >
 
-<input
-    id="usdtAddress"
-    placeholder="USDT adresa"
->
 
-<button
-    class="secondary"
-    onclick="saveWallet('USDT')"
->
-ULOŽIŤ USDT
-</button>
+    <button
+      class="launch"
+      onclick="withdraw()"
+    >
+      📤 POŽIADAŤ O VÝBER
+    </button>
 
-</div>
+    <div id="withdrawMessage" class="message"></div>
 
+  </section>
 
-<div class="wallet">
 
-<select id="withdrawCurrency">
+  <!-- ACCOUNT -->
+  <section class="card">
 
-<option value="BTC">
-BTC
-</option>
+    <h2>👤 Account</h2>
 
-<option value="USDT">
-USDT
-</option>
+    <p>
+      Prihlásený účet:
+    </p>
 
-</select>
+    <p
+      id="accountEmail"
+      class="small"
+    ></p>
 
-<input
-    id="withdrawAmount"
-    type="number"
-    min="0"
-    step="0.00000001"
-    placeholder="Suma"
->
+    <button
+      class="danger"
+      onclick="logout()"
+    >
+      ODHLÁSIŤ
+    </button>
 
-<button
-    class="primary"
-    onclick="withdraw()"
->
-POŽIADAŤ O VÝBER
-</button>
+  </section>
 
 </div>
 
 </div>
 
-
-<!-- ACCOUNT -->
-
-<div class="card">
-
-<h2>Account</h2>
-
-<div
-    id="userEmail"
-    class="task-info"
->
--
-</div>
-
-<div
-    id="referralCode"
-    class="task-info"
->
-Referral: -
-</div>
-
-<button
-    class="secondary"
-    onclick="logout()"
->
-ODHLÁSIŤ
-</button>
-
-</div>
-
-</div>
-
-</div>
+<footer>
+  TomoEarn © 2026
+</footer>
 
 
 <script>
 
-/* =====================================================
-SUPABASE
-===================================================== */
-
 const SUPABASE_URL =
-"https://irfrtnzetkejbdaihmmo.supabase.co";
+  "https://irfrtnzetkejbdaihmmo.supabase.co";
 
 const SUPABASE_KEY =
-"sb_publishable_j95JBEVTQIsqp10TiGymSQ_wZVI4ADB";
+  "sb_publishable_j95JBEVTQIsqp10TiGymSQ_wZVI4ADB";
 
-const client =
-supabase.createClient(
+const supabaseClient =
+  window.supabase.createClient(
     SUPABASE_URL,
     SUPABASE_KEY
-);
+  );
 
-
-/* =====================================================
-GLOBAL
-===================================================== */
 
 let currentUser = null;
-let running = false;
-let currentTask = null;
+
+let tasks = [];
+
+let currentTaskIndex =
+  Number(localStorage.getItem("tomo_task_index") || 0);
+
+let timerInterval = null;
+
+let taskRunning = false;
 
 
-/* =====================================================
-HELPERS
-===================================================== */
-
-function escapeHtml(value){
-
-    return String(value)
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-
-}
-
-
-function showMessage(text){
-
-    const el =
-        document.getElementById("message");
-
-    if(el){
-        el.textContent = text;
-    }
-
-}
-
-
-/* =====================================================
-REFERRAL FROM URL
-===================================================== */
-
-const params =
-    new URLSearchParams(
-        window.location.search
-    );
-
-const incomingReferral =
-    params.get("ref");
-
-
-/* =====================================================
-REGISTER
-===================================================== */
+/* =========================
+   AUTH
+========================= */
 
 async function register(){
 
-    const email =
-        document.getElementById("email")
-        .value
-        .trim();
+  const email =
+    document.getElementById("email").value.trim();
 
-    const password =
-        document.getElementById("password")
-        .value;
+  const password =
+    document.getElementById("password").value;
 
+  const msg =
+    document.getElementById("authMessage");
 
-    if(!email || !password){
+  msg.textContent = "";
 
-        showMessage(
-            "Vyplň email a heslo."
-        );
+  if(!email || !password){
 
-        return;
+    msg.className = "message error";
+    msg.textContent =
+      "Vyplň e-mail a heslo.";
+
+    return;
+  }
+
+  if(password.length < 6){
+
+    msg.className = "message error";
+    msg.textContent =
+      "Heslo musí mať aspoň 6 znakov.";
+
+    return;
+  }
+
+  try{
+
+    const ref =
+      new URLSearchParams(location.search)
+      .get("ref");
+
+    if(ref){
+      localStorage.setItem(
+        "tomo_referrer",
+        ref
+      );
     }
-
-
-    if(password.length < 6){
-
-        showMessage(
-            "Heslo musí mať minimálne 6 znakov."
-        );
-
-        return;
-    }
-
 
     const {data,error} =
-        await client.auth.signUp({
+      await supabaseClient.auth.signUp({
+        email,
+        password
+      });
 
-            email,
-            password
+    if(error) throw error;
 
-        });
+    msg.className = "message success";
 
+    msg.textContent =
+      "✅ Registrácia úspešná. Ak treba, potvrď e-mail.";
 
-    if(error){
+  }catch(e){
 
-        showMessage(error.message);
+    msg.className = "message error";
 
-        return;
-    }
-
-
-    /*
-    Referral sa zapíše iba vtedy,
-    keď nový používateľ prišiel
-    cez referral URL.
-    */
-
-    if(
-        data.user &&
-        incomingReferral
-    ){
-
-        const {error:refError} =
-            await client
-            .from("referrals")
-            .insert({
-
-                referrer_code:
-                    incomingReferral,
-
-                referred_user_id:
-                    data.user.id,
-
-                earned:0
-
-            });
-
-
-        if(refError){
-
-            console.log(
-                "Referral insert:",
-                refError
-            );
-
-        }
-
-    }
-
-
-    showMessage(
-        "Účet bol vytvorený."
-    );
-
+    msg.textContent =
+      "⚠️ " + e.message;
+  }
 }
 
-
-/* =====================================================
-LOGIN
-===================================================== */
 
 async function login(){
 
-    const email =
-        document.getElementById("email")
-        .value
-        .trim();
+  const email =
+    document.getElementById("email").value.trim();
 
-    const password =
-        document.getElementById("password")
-        .value;
+  const password =
+    document.getElementById("password").value;
 
+  const msg =
+    document.getElementById("authMessage");
 
-    if(!email || !password){
+  msg.textContent = "";
 
-        showMessage(
-            "Vyplň email a heslo."
-        );
-
-        return;
-    }
-
+  try{
 
     const {data,error} =
-        await client.auth.signInWithPassword({
+      await supabaseClient.auth.signInWithPassword({
+        email,
+        password
+      });
 
-            email,
-            password
+    if(error) throw error;
 
-        });
+    currentUser = data.user;
 
+    await showApp();
 
-    if(error){
+  }catch(e){
 
-        showMessage(error.message);
+    msg.className = "message error";
 
-        return;
-    }
-
-
-    await loadUser();
-
+    msg.textContent =
+      "⚠️ " + e.message;
+  }
 }
 
-
-/* =====================================================
-LOAD USER
-===================================================== */
-
-async function loadUser(){
-
-    const {data} =
-        await client.auth.getUser();
-
-
-    currentUser =
-        data.user;
-
-
-    if(!currentUser){
-
-        document
-            .getElementById("authBox")
-            .classList.remove("hidden");
-
-        document
-            .getElementById("app")
-            .classList.add("hidden");
-
-        return;
-    }
-
-
-    document
-        .getElementById("authBox")
-        .classList.add("hidden");
-
-
-    document
-        .getElementById("app")
-        .classList.remove("hidden");
-
-
-    document
-        .getElementById("userEmail")
-        .textContent =
-            currentUser.email || "";
-
-
-    await loadProfile();
-    await loadWallets();
-    await loadReferral();
-    await loadStats();
-    await loadTasks();
-
-}
-
-
-/* =====================================================
-PROFILE
-===================================================== */
-
-async function loadProfile(){
-
-    const {data,error} =
-        await client
-        .from("profiles")
-        .select("*")
-        .eq("id",currentUser.id)
-        .maybeSingle();
-
-
-    if(error){
-
-        console.log(
-            "Profile:",
-            error
-        );
-
-        return;
-    }
-
-
-    if(!data){
-        return;
-    }
-
-
-    const balance =
-        Number(data.balance || 0);
-
-
-    document
-        .getElementById("balance")
-        .textContent =
-            "$" +
-            balance.toFixed(4);
-
-}
-
-
-/* =====================================================
-STATISTICS
-===================================================== */
-
-async function loadStats(){
-
-    const {data,error} =
-        await client
-        .from("task_completions")
-        .select("id,reward")
-        .eq(
-            "user_id",
-            currentUser.id
-        )
-        .eq(
-            "status",
-            "completed"
-        );
-
-
-    if(error){
-
-        console.log(
-            "Stats:",
-            error
-        );
-
-        return;
-    }
-
-
-    const rows =
-        data || [];
-
-
-    document
-        .getElementById("tasks")
-        .textContent =
-            rows.length;
-
-
-    let total = 0;
-
-
-    rows.forEach(row => {
-
-        total +=
-            Number(
-                row.reward || 0
-            );
-
-    });
-
-
-    document
-        .getElementById("earned")
-        .textContent =
-            "$" +
-            total.toFixed(4);
-
-}
-
-
-/* =====================================================
-REFERRAL
-===================================================== */
-
-async function loadReferral(){
-
-    /*
-    Najprv načítame existujúci kód.
-    */
-
-    const {data:profile,error} =
-        await client
-        .from("profiles")
-        .select("referral_code")
-        .eq(
-            "id",
-            currentUser.id
-        )
-        .maybeSingle();
-
-
-    if(error){
-
-        console.log(
-            "Referral profile:",
-            error
-        );
-
-    }
-
-
-    let code =
-        profile &&
-        profile.referral_code
-        ?
-        profile.referral_code
-        :
-        null;
-
-
-    /*
-    OPRAVA STARÝCH ÚČTOV:
-
-    Ak referral_code chýba,
-    vytvoríme ho lokálne podľa UUID.
-
-    */
-
-    if(
-        !code &&
-        currentUser.id
-    ){
-
-        code =
-            "TOMO-" +
-            currentUser.id
-                .replaceAll("-","")
-                .substring(0,8)
-                .toUpperCase();
-
-    }
-
-
-    /*
-    ZOBRAZÍME LINK
-    */
-
-    if(code){
-
-        const link =
-            window.location.origin +
-            window.location.pathname +
-            "?ref=" +
-            encodeURIComponent(code);
-
-
-        document
-            .getElementById("refLink")
-            .textContent =
-                link;
-
-
-        document
-            .getElementById("referralCode")
-            .textContent =
-                "Referral: " +
-                code;
-
-
-        /*
-        Referral štatistiky.
-        */
-
-        const {
-            data:referrals,
-            error:refError
-        } =
-            await client
-            .from("referrals")
-            .select("*")
-            .eq(
-                "referrer_code",
-                code
-            );
-
-
-        if(!refError){
-
-            const rows =
-                referrals || [];
-
-
-            document
-                .getElementById("refCount")
-                .textContent =
-                    rows.length;
-
-
-            let total = 0;
-
-
-            rows.forEach(row => {
-
-                total +=
-                    Number(
-                        row.earned ||
-                        row.reward ||
-                        0
-                    );
-
-            });
-
-
-            document
-                .getElementById("refEarned")
-                .textContent =
-                    "$" +
-                    total.toFixed(4);
-
-        }
-
-    }else{
-
-        document
-            .getElementById("refLink")
-            .textContent =
-                "Referral link sa nepodarilo vytvoriť.";
-
-    }
-
-}
-
-
-/* =====================================================
-COPY REFERRAL
-===================================================== */
-
-async function copyReferral(){
-
-    const link =
-        document
-        .getElementById("refLink")
-        .textContent;
-
-
-    if(
-        !link ||
-        link.includes("Načítavam") ||
-        link.includes("nepodarilo")
-    ){
-
-        return;
-    }
-
-
-    try{
-
-        await navigator.clipboard.writeText(link);
-
-        alert(
-            "Referral link skopírovaný."
-        );
-
-    }catch(error){
-
-        alert(link);
-
-    }
-
-}
-
-
-/* =====================================================
-TASKS
-===================================================== */
-
-async function loadTasks(){
-
-    if(running){
-        return;
-    }
-
-
-    const list =
-        document.getElementById("taskList");
-
-
-    const {data,error} =
-        await client
-        .from("tasks")
-        .select("*")
-        .eq("active",true)
-        .order("sort_order");
-
-
-    if(error){
-
-        console.log(
-            "Tasks:",
-            error
-        );
-
-        /*
-        Fallback pre databázu,
-        kde ešte sort_order nie je vyplnený.
-        */
-
-        const fallback =
-            await client
-            .from("tasks")
-            .select("*")
-            .eq("active",true)
-            .order("id");
-
-
-        if(fallback.error){
-
-            list.innerHTML =
-                "<div class='task-info'>" +
-                "Úlohy sa nepodarilo načítať." +
-                "</div>";
-
-            return;
-        }
-
-
-        renderNextTask(
-            fallback.data || []
-        );
-
-        return;
-    }
-
-
-    renderNextTask(
-        data || []
-    );
-
-}
-
-
-/* =====================================================
-NEXT TASK
-===================================================== */
-
-function renderNextTask(tasks){
-
-    const list =
-        document.getElementById("taskList");
-
-
-    if(!tasks.length){
-
-        list.innerHTML =
-            "<div class='task'>" +
-            "Momentálne nie sú dostupné videá." +
-            "</div>";
-
-        return;
-    }
-
-
-    let index =
-        Number(
-            localStorage.getItem(
-                "tomo_task_index"
-            ) || 0
-        );
-
-
-    if(
-        index < 0 ||
-        index >= tasks.length
-    ){
-
-        index = 0;
-
-    }
-
-
-    currentTask =
-        tasks[index];
-
-
-    list.innerHTML =
-
-        "<div class='task'>" +
-
-        "<div class='task-title'>" +
-        escapeHtml(
-            currentTask.title
-        ) +
-        "</div>" +
-
-        "<div class='task-info'>" +
-
-        "Čas: " +
-        Number(
-            currentTask.duration_seconds
-        ) +
-        " sekúnd" +
-
-        "<br>" +
-
-        "Odmena: $" +
-        Number(
-            currentTask.reward || 0
-        ).toFixed(4) +
-
-        "</div>" +
-
-        "<button " +
-        "class='primary' " +
-        "onclick='startTask(" +
-        Number(currentTask.id) +
-        ")'>" +
-
-        "LAUNCH" +
-
-        "</button>" +
-
-        "</div>";
-
-}
-
-
-/* =====================================================
-START TASK
-===================================================== */
-
-async function startTask(taskId){
-
-    if(running){
-        return;
-    }
-
-
-    running = true;
-
-
-    const {data:task,error} =
-        await client
-        .from("tasks")
-        .select("*")
-        .eq("id",taskId)
-        .eq("active",true)
-        .maybeSingle();
-
-
-    if(error || !task){
-
-        running = false;
-
-        alert(
-            "Video už nie je dostupné."
-        );
-
-        return;
-    }
-
-
-    currentTask = task;
-
-
-    /*
-    SERVER START
-    */
-
-    const {
-        error:startError
-    } =
-        await client.rpc(
-            "start_task",
-            {
-                p_task_id:
-                    Number(task.id)
-            }
-        );
-
-
-    if(startError){
-
-        running = false;
-
-        alert(
-            startError.message
-        );
-
-        return;
-    }
-
-
-    const seconds =
-        Number(
-            task.duration_seconds
-        );
-
-
-    let remaining =
-        seconds;
-
-
-    const list =
-        document.getElementById(
-            "taskList"
-        );
-
-
-    let videoHtml = "";
-
-
-    if(task.video_url){
-
-        videoHtml =
-            "<video " +
-            "id='taskVideo' " +
-            "class='task-video' " +
-            "playsinline " +
-            "autoplay muted>" +
-
-            "<source src='" +
-            escapeHtml(
-                task.video_url
-            ) +
-            "'>" +
-
-            "</video>";
-
-    }else{
-
-        videoHtml =
-            "<div class='video-placeholder'>" +
-            "VIDEO" +
-            "</div>";
-
-    }
-
-
-    list.innerHTML =
-
-        "<div class='task'>" +
-
-        "<div class='task-title'>" +
-        escapeHtml(
-            task.title
-        ) +
-        "</div>" +
-
-        videoHtml +
-
-        "<div " +
-        "class='timer' " +
-        "id='taskTimer'>" +
-
-        remaining +
-
-        "</div>" +
-
-        "<div class='progress'>" +
-
-        "<div " +
-        "class='progress-bar' " +
-        "id='taskProgress'>" +
-
-        "</div>" +
-
-        "</div>" +
-
-        "<div " +
-        "class='task-info' " +
-        "id='taskStatus'>" +
-
-        "Video prebieha..." +
-
-        "</div>" +
-
-        "</div>";
-
-
-    const video =
-        document.getElementById(
-            "taskVideo"
-        );
-
-
-    if(video){
-
-        video
-            .play()
-            .catch(
-                () => {}
-            );
-
-    }
-
-
-    /*
-    TIMER
-    */
-
-    const interval =
-        setInterval(
-            async () => {
-
-                remaining--;
-
-
-                const timer =
-                    document.getElementById(
-                        "taskTimer"
-                    );
-
-
-                const progress =
-                    document.getElementById(
-                        "taskProgress"
-                    );
-
-
-                if(timer){
-
-                    timer.textContent =
-                        Math.max(
-                            remaining,
-                            0
-                        );
-
-                }
-
-
-                if(progress){
-
-                    const percent =
-                        (
-                            (
-                                seconds -
-                                remaining
-                            )
-                            /
-                            seconds
-                        ) * 100;
-
-
-                    progress.style.width =
-                        Math.min(
-                            percent,
-                            100
-                        ) + "%";
-
-                }
-
-
-                if(remaining <= 0){
-
-                    clearInterval(
-                        interval
-                    );
-
-
-                    if(timer){
-                        timer.textContent = "✓";
-                    }
-
-
-                    if(progress){
-                        progress.style.width =
-                            "100%";
-                    }
-
-
-                    const status =
-                        document.getElementById(
-                            "taskStatus"
-                        );
-
-
-                    if(status){
-
-                        status.textContent =
-                            "Kontrolujem dokončenie...";
-
-                    }
-
-
-                    /*
-                    SERVER COMPLETE
-                    */
-
-                    const {
-                        data:completeData,
-                        error:completeError
-                    } =
-                        await client.rpc(
-                            "complete_task",
-                            {
-                                p_task_id:
-                                    Number(task.id)
-                            }
-                        );
-
-
-                    if(completeError){
-
-                        running = false;
-
-                        console.log(
-                            completeError
-                        );
-
-
-                        if(status){
-
-                            status.textContent =
-                                completeError.message;
-
-                        }
-
-                        return;
-                    }
-
-
-                    if(
-                        completeData &&
-                        completeData.balance !== undefined
-                    ){
-
-                        document
-                            .getElementById(
-                                "balance"
-                            )
-                            .textContent =
-                                "$" +
-                                Number(
-                                    completeData.balance
-                                ).toFixed(4);
-
-                    }
-
-
-                    if(status){
-
-                        status.textContent =
-                            "✓ Odmena pripísaná. Ďalšie video...";
-
-                    }
-
-
-                    /*
-                    ZISTÍME PORADIE
-                    */
-
-                    const {data:allTasks} =
-                        await client
-                        .from("tasks")
-                        .select(
-                            "id,sort_order"
-                        )
-                        .eq(
-                            "active",
-                            true
-                        )
-                        .order(
-                            "sort_order"
-                        );
-
-
-                    if(
-                        allTasks &&
-                        allTasks.length
-                    ){
-
-                        const currentIndex =
-                            allTasks.findIndex(
-                                x =>
-                                    Number(x.id) ===
-                                    Number(task.id)
-                            );
-
-
-                        let nextIndex =
-                            currentIndex + 1;
-
-
-                        if(
-                            nextIndex >=
-                            allTasks.length
-                        ){
-
-                            nextIndex = 0;
-
-                        }
-
-
-                        localStorage.setItem(
-                            "tomo_task_index",
-                            nextIndex
-                        );
-
-                    }
-
-
-                    running = false;
-
-
-                    /*
-                    AUTOMATICKÉ ĎALŠIE VIDEO
-                    */
-
-                    setTimeout(
-                        async () => {
-
-                            await loadTasks();
-                            await loadProfile();
-                            await loadStats();
-                            await loadReferral();
-
-                        },
-                        800
-                    );
-
-                }
-
-            },
-            1000
-        );
-
-}
-
-
-/* =====================================================
-WALLETS
-===================================================== */
-
-async function loadWallets(){
-
-    const {data,error} =
-        await client
-        .from("profiles")
-        .select(
-            "btc_address,usdt_address"
-        )
-        .eq(
-            "id",
-            currentUser.id
-        )
-        .maybeSingle();
-
-
-    if(error){
-
-        console.log(
-            "Wallet:",
-            error
-        );
-
-        return;
-    }
-
-
-    if(!data){
-        return;
-    }
-
-
-    document
-        .getElementById(
-            "btcAddress"
-        )
-        .value =
-            data.btc_address || "";
-
-
-    document
-        .getElementById(
-            "usdtAddress"
-        )
-        .value =
-            data.usdt_address || "";
-
-}
-
-
-/* =====================================================
-SAVE WALLET
-===================================================== */
-
-async function saveWallet(currency){
-
-    const input =
-        currency === "BTC"
-        ?
-        document.getElementById(
-            "btcAddress"
-        )
-        :
-        document.getElementById(
-            "usdtAddress"
-        );
-
-
-    const wallet =
-        input.value.trim();
-
-
-    if(!wallet){
-
-        alert(
-            "Zadaj wallet adresu."
-        );
-
-        return;
-    }
-
-
-    const {error} =
-        await client.rpc(
-            "save_wallet",
-            {
-                p_currency:
-                    currency,
-
-                p_wallet:
-                    wallet
-            }
-        );
-
-
-    if(error){
-
-        console.log(error);
-
-        alert(
-            error.message
-        );
-
-        return;
-    }
-
-
-    alert(
-        currency +
-        " adresa bola uložená."
-    );
-
-}
-
-
-/* =====================================================
-WITHDRAW
-===================================================== */
-
-async function withdraw(){
-
-    const currency =
-        document
-        .getElementById(
-            "withdrawCurrency"
-        )
-        .value;
-
-
-    const amount =
-        Number(
-            document
-            .getElementById(
-                "withdrawAmount"
-            )
-            .value
-        );
-
-
-    if(
-        !amount ||
-        amount <= 0
-    ){
-
-        alert(
-            "Zadaj platnú sumu."
-        );
-
-        return;
-    }
-
-
-    const wallet =
-        currency === "BTC"
-        ?
-        document
-        .getElementById(
-            "btcAddress"
-        )
-        .value
-        .trim()
-        :
-        document
-        .getElementById(
-            "usdtAddress"
-        )
-        .value
-        .trim();
-
-
-    if(!wallet){
-
-        alert(
-            "Najprv zadaj wallet adresu."
-        );
-
-        return;
-    }
-
-
-    const {
-        data,
-        error
-    } =
-        await client.rpc(
-            "create_withdrawal",
-            {
-
-                p_currency:
-                    currency,
-
-                p_amount:
-                    amount,
-
-                p_wallet:
-                    wallet
-
-            }
-        );
-
-
-    if(error){
-
-        console.log(error);
-
-        alert(
-            error.message
-        );
-
-        return;
-    }
-
-
-    document
-        .getElementById(
-            "withdrawAmount"
-        )
-        .value = "";
-
-
-    if(
-        data &&
-        data.remaining_balance !== undefined
-    ){
-
-        document
-            .getElementById(
-                "balance"
-            )
-            .textContent =
-                "$" +
-                Number(
-                    data.remaining_balance
-                ).toFixed(4);
-
-    }
-
-
-    alert(
-        "Žiadosť o výber bola vytvorená."
-    );
-
-}
-
-
-/* =====================================================
-LOGOUT
-===================================================== */
 
 async function logout(){
 
-    await client.auth.signOut();
+  await supabaseClient.auth.signOut();
 
-    currentUser = null;
-    running = false;
+  currentUser = null;
 
-    location.reload();
+  document
+    .getElementById("appSection")
+    .classList.add("hidden");
+
+  document
+    .getElementById("authSection")
+    .classList.remove("hidden");
+}
+
+
+/* =========================
+   START APP
+========================= */
+
+async function showApp(){
+
+  document
+    .getElementById("authSection")
+    .classList.add("hidden");
+
+  document
+    .getElementById("appSection")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("accountEmail")
+    .textContent =
+      currentUser.email || "";
+
+  await loadProfile();
+
+  await loadTasks();
+
+  await loadStatistics();
+
+  await loadReferral();
 
 }
 
 
-/* =====================================================
-AUTH STATE
-===================================================== */
+/* =========================
+   PROFILE
+========================= */
 
-client.auth.onAuthStateChange(
-    async (
-        event,
-        session
-    ) => {
+async function loadProfile(){
 
-        if(session){
+  const {data,error} =
+    await supabaseClient
+      .from("profiles")
+      .select("*")
+      .eq("id",currentUser.id)
+      .maybeSingle();
 
-            await loadUser();
+  if(error){
 
-        }
+    console.error(error);
+    return;
+  }
 
+  const balance =
+    Number(data?.balance || 0);
+
+  document
+    .getElementById("balance")
+    .textContent =
+      balance.toFixed(8);
+
+  document
+    .getElementById("btcWallet")
+    .value =
+      data?.btc_address || "";
+
+  document
+    .getElementById("usdtWallet")
+    .value =
+      data?.usdt_address || "";
+}
+
+
+/* =========================
+   TASKS
+========================= */
+
+async function loadTasks(){
+
+  try{
+
+    const {data,error} =
+      await supabaseClient
+        .from("tasks")
+        .select("*")
+        .eq("active",true)
+        .order("sort_order",{ascending:true});
+
+    if(error) throw error;
+
+    tasks = data || [];
+
+    if(tasks.length === 0){
+
+      document
+        .getElementById("taskArea")
+        .innerHTML =
+          "<p>Momentálne nie sú dostupné žiadne úlohy.</p>";
+
+      return;
     }
-);
+
+    if(
+      currentTaskIndex < 0 ||
+      currentTaskIndex >= tasks.length
+    ){
+
+      currentTaskIndex = 0;
+
+      localStorage.setItem(
+        "tomo_task_index",
+        "0"
+      );
+    }
+
+    renderNextTask();
+
+  }catch(e){
+
+    console.error(e);
+
+    document
+      .getElementById("taskArea")
+      .innerHTML =
+        `<p class="error">⚠️ ${escapeHtml(e.message)}</p>`;
+  }
+}
 
 
-/* =====================================================
-START
-===================================================== */
+/* =========================
+   RENDER CURRENT TASK
+========================= */
 
-loadUser();
+function renderNextTask(){
+
+  if(!tasks.length) return;
+
+  const task =
+    tasks[currentTaskIndex];
+
+  const area =
+    document.getElementById("taskArea");
+
+  const duration =
+    Number(task.duration_seconds || 0);
+
+  const reward =
+    Number(task.reward || 0);
+
+  let videoHTML =
+    `<div class="video-placeholder">VIDEO</div>`;
+
+  if(task.video_url){
+
+    videoHTML = `
+      <video
+        id="taskVideo"
+        playsinline
+        controls
+        preload="metadata"
+      >
+        <source
+          src="${escapeAttribute(task.video_url)}"
+        >
+      </video>
+    `;
+  }
+
+  area.innerHTML = `
+
+    <div class="task-title">
+      ${escapeHtml(task.name || ("Video Task " + duration + "s"))}
+    </div>
+
+    <div class="video-box">
+      ${videoHTML}
+    </div>
+
+    <div
+      id="timer"
+      class="timer"
+    >
+      ${duration}s
+    </div>
+
+    <div class="progress">
+      <div
+        id="progressBar"
+        class="progress-bar"
+      ></div>
+    </div>
+
+    <button
+      id="launchButton"
+      class="launch"
+      onclick="launchTask()"
+    >
+      ▶ LAUNCH
+    </button>
+
+    <div
+      id="taskMessage"
+      class="message"
+    ></div>
+
+    <p class="small" style="text-align:center;">
+      Odmena: ${reward.toFixed(8)}
+    </p>
+  `;
+}
+
+
+/* =========================
+   LAUNCH
+========================= */
+
+async function launchTask(){
+
+  if(taskRunning) return;
+
+  if(!tasks.length) return;
+
+  const task =
+    tasks[currentTaskIndex];
+
+  taskRunning = true;
+
+  const button =
+    document.getElementById("launchButton");
+
+  const message =
+    document.getElementById("taskMessage");
+
+  button.disabled = true;
+
+  button.textContent =
+    "⏳ PREBIEHA...";
+
+  message.className =
+    "message";
+
+  message.textContent =
+    "Spúšťam úlohu...";
+
+  try{
+
+    const {data,error} =
+      await supabaseClient.rpc(
+        "start_task",
+        {
+          p_task_id: task.id
+        }
+      );
+
+    if(error) throw error;
+
+    const video =
+      document.getElementById("taskVideo");
+
+    if(video){
+
+      try{
+
+        await video.play();
+
+      }catch(_){
+
+        /* autoplay môže byť zablokovaný,
+           timer však pokračuje */
+      }
+    }
+
+    startTimer(task);
+
+  }catch(e){
+
+    taskRunning = false;
+
+    button.disabled = false;
+
+    button.textContent =
+      "▶ LAUNCH";
+
+    message.className =
+      "message error";
+
+    message.textContent =
+      "⚠️ " + e.message;
+  }
+}
+
+
+/* =========================
+   TIMER
+========================= */
+
+function startTimer(task){
+
+  const duration =
+    Number(task.duration_seconds || 0);
+
+  let remaining = duration;
+
+  const timer =
+    document.getElementById("timer");
+
+  const progress =
+    document.getElementById("progressBar");
+
+  timer.textContent =
+    remaining + "s";
+
+  progress.style.width =
+    "0%";
+
+  clearInterval(timerInterval);
+
+  timerInterval =
+    setInterval(async function(){
+
+      remaining--;
+
+      if(remaining < 0)
+        remaining = 0;
+
+      timer.textContent =
+        remaining + "s";
+
+      const completed =
+        ((duration - remaining) / duration) * 100;
+
+      progress.style.width =
+        Math.min(100,completed) + "%";
+
+      if(remaining <= 0){
+
+        clearInterval(timerInterval);
+
+        await finishTask(task);
+      }
+
+    },1000);
+}
+
+
+/* =========================
+   COMPLETE TASK
+========================= */
+
+async function finishTask(task){
+
+  const message =
+    document.getElementById("taskMessage");
+
+  try{
+
+    const {data,error} =
+      await supabaseClient.rpc(
+        "complete_task",
+        {
+          p_task_id: task.id
+        }
+      );
+
+    if(error) throw error;
+
+    message.className =
+      "message success";
+
+    message.textContent =
+      "✅ Dokončené! +" +
+      Number(task.reward || 0).toFixed(8);
+
+    await loadProfile();
+
+    await loadStatistics();
+
+    /*
+      TOTO JE DÔLEŽITÁ OPRAVA.
+
+      Po dokončení sa index zvýši
+      a ďalšia úloha sa automaticky
+      načíta.
+    */
+
+    currentTaskIndex++;
+
+    if(currentTaskIndex >= tasks.length){
+
+      currentTaskIndex = 0;
+    }
+
+    localStorage.setItem(
+      "tomo_task_index",
+      String(currentTaskIndex)
+    );
+
+    setTimeout(function(){
+
+      taskRunning = false;
+
+      renderNextTask();
+
+    },800);
+
+  }catch(e){
+
+    taskRunning = false;
+
+    const button =
+      document.getElementById("launchButton");
+
+    if(button){
+
+      button.disabled = false;
+
+      button.textContent =
+        "▶ LAUNCH";
+    }
+
+    message.className =
+      "message error";
+
+    message.textContent =
+      "⚠️ " + e.message;
+  }
+}
+
+
+/* =========================
+   STATISTICS
+========================= */
+
+async function loadStatistics(){
+
+  const {data,error} =
+    await supabaseClient
+      .from("task_completions")
+      .select("reward,status")
+      .eq("user_id",currentUser.id)
+      .eq("status","completed");
+
+  if(error){
+
+    console.error(error);
+    return;
+  }
+
+  const rows =
+    data || [];
+
+  let total = 0;
+
+  rows.forEach(function(row){
+
+    total +=
+      Number(row.reward || 0);
+  });
+
+  document
+    .getElementById("completedCount")
+    .textContent =
+      rows.length;
+
+  document
+    .getElementById("earnedTotal")
+    .textContent =
+      total.toFixed(8);
+}
+
+
+/* =========================
+   REFERRAL
+========================= */
+
+async function loadReferral(){
+
+  const {data,error} =
+    await supabaseClient
+      .from("profiles")
+      .select("referral_code")
+      .eq("id",currentUser.id)
+      .maybeSingle();
+
+  if(error){
+
+    console.error(error);
+    return;
+  }
+
+  let code =
+    data?.referral_code;
+
+  if(!code){
+
+    code =
+      "TOMO-" +
+      currentUser.id
+        .replaceAll("-","")
+        .substring(0,8)
+        .toUpperCase();
+  }
+
+  const link =
+    location.origin +
+    location.pathname +
+    "?ref=" +
+    encodeURIComponent(code);
+
+  document
+    .getElementById("refCode")
+    .value =
+      code;
+
+  document
+    .getElementById("refLink")
+    .value =
+      link;
+
+  /*
+    Referral údaje načítame iba ak ich
+    RLS dovolí. Samotné odmeňovanie
+    rieši serverová RPC funkcia.
+  */
+
+  try{
+
+    const {data:refs,error:refError} =
+      await supabaseClient
+        .from("referrals")
+        .select("earned")
+        .eq("referrer_code",code);
+
+    if(!refError){
+
+      const rows =
+        refs || [];
+
+      let earned = 0;
+
+      rows.forEach(function(row){
+
+        earned +=
+          Number(row.earned || 0);
+      });
+
+      document
+        .getElementById("refCount")
+        .textContent =
+          rows.length;
+
+      document
+        .getElementById("refEarned")
+        .textContent =
+          earned.toFixed(8);
+    }
+
+  }catch(e){
+
+    console.error(e);
+  }
+}
+
+
+async function copyReferral(){
+
+  const input =
+    document.getElementById("refLink");
+
+  try{
+
+    await navigator.clipboard.writeText(
+      input.value
+    );
+
+    document
+      .getElementById("refMessage")
+      .className =
+        "message success";
+
+    document
+      .getElementById("refMessage")
+      .textContent =
+        "✅ Referral link skopírovaný.";
+
+  }catch(e){
+
+    input.select();
+
+    document
+      .getElementById("refMessage")
+      .textContent =
+        "Skopíruj link ručne.";
+  }
+}
+
+
+/* =========================
+   WALLET
+========================= */
+
+async function saveWallet(currency){
+
+  let wallet = "";
+
+  if(currency === "BTC"){
+
+    wallet =
+      document
+        .getElementById("btcWallet")
+        .value
+        .trim();
+
+  }else{
+
+    wallet =
+      document
+        .getElementById("usdtWallet")
+        .value
+        .trim();
+  }
+
+  if(wallet.length < 10){
+
+    document
+      .getElementById("withdrawMessage")
+      .className =
+        "message error";
+
+    document
+      .getElementById("withdrawMessage")
+      .textContent =
+        "⚠️ Zadaj platnú wallet adresu.";
+
+    return;
+  }
+
+  try{
+
+    const {error} =
+      await supabaseClient.rpc(
+        "save_wallet",
+        {
+          p_currency:currency,
+          p_wallet:wallet
+        }
+      );
+
+    if(error) throw error;
+
+    document
+      .getElementById("withdrawMessage")
+      .className =
+        "message success";
+
+    document
+      .getElementById("withdrawMessage")
+      .textContent =
+        "✅ " + currency + " adresa uložená.";
+
+  }catch(e){
+
+    document
+      .getElementById("withdrawMessage")
+      .className =
+        "message error";
+
+    document
+      .getElementById("withdrawMessage")
+      .textContent =
+        "⚠️ " + e.message;
+  }
+}
+
+
+/* =========================
+   WITHDRAW
+========================= */
+
+async function withdraw(){
+
+  const currency =
+    document
+      .getElementById("withdrawCurrency")
+      .value;
+
+  const amount =
+    Number(
+      document
+        .getElementById("withdrawAmount")
+        .value
+    );
+
+  const wallet =
+    document
+      .getElementById("withdrawWallet")
+      .value
+      .trim();
+
+  const message =
+    document
+      .getElementById("withdrawMessage");
+
+  if(!amount || amount <= 0){
+
+    message.className =
+      "message error";
+
+    message.textContent =
+      "⚠️ Zadaj platnú sumu.";
+
+    return;
+  }
+
+  if(wallet.length < 10){
+
+    message.className =
+      "message error";
+
+    message.textContent =
+      "⚠️ Zadaj wallet adresu.";
+
+    return;
+  }
+
+  try{
+
+    const {data,error} =
+      await supabaseClient.rpc(
+        "create_withdrawal",
+        {
+          p_currency:currency,
+          p_amount:amount,
+          p_wallet:wallet
+        }
+      );
+
+    if(error) throw error;
+
+    message.className =
+      "message success";
+
+    message.textContent =
+      "✅ Žiadosť o výber bola vytvorená.";
+
+    document
+      .getElementById("withdrawAmount")
+      .value = "";
+
+    await loadProfile();
+
+  }catch(e){
+
+    message.className =
+      "message error";
+
+    message.textContent =
+      "⚠️ " + e.message;
+  }
+}
+
+
+/* =========================
+   HELPERS
+========================= */
+
+function escapeHtml(value){
+
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+
+function escapeAttribute(value){
+
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;");
+}
+
+
+/* =========================
+   AUTO LOGIN
+========================= */
+
+(async function(){
+
+  const {data} =
+    await supabaseClient.auth.getSession();
+
+  if(data?.session?.user){
+
+    currentUser =
+      data.session.user;
+
+    await showApp();
+  }
+
+})();
 
 </script>
 
