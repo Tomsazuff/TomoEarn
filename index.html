@@ -10,530 +10,264 @@
 
 <style>
 *{box-sizing:border-box}
-
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#0b0f14;
-    color:#fff;
-}
-
-header{
-    padding:18px;
-    text-align:center;
-    background:#111821;
-    border-bottom:1px solid #26313d;
-    position:sticky;
-    top:0;
-    z-index:10;
-}
-
-.logo{
-    font-size:30px;
-    font-weight:bold;
-}
-
-.logo span{
-    color:#35d07f;
-}
-
-.container{
-    max-width:620px;
-    margin:auto;
-    padding:18px;
-}
-
-.card{
-    background:#111821;
-    border:1px solid #26313d;
-    border-radius:18px;
-    padding:20px;
-    margin-bottom:18px;
-}
-
-.balance{
-    background:#14251c;
-    border:1px solid #24563b;
-    border-radius:18px;
-    padding:25px;
-    text-align:center;
-    margin-bottom:18px;
-}
-
-.balance-title{
-    color:#aab5bf;
-    font-size:13px;
-}
-
-.balance-value{
-    font-size:38px;
-    font-weight:bold;
-    margin-top:8px;
-}
-
-input,select{
-    width:100%;
-    padding:14px;
-    margin:7px 0;
-    border-radius:12px;
-    border:1px solid #354453;
-    background:#18212b;
-    color:#fff;
-    font-size:16px;
-}
-
-button{
-    width:100%;
-    padding:14px;
-    margin-top:8px;
-    border:0;
-    border-radius:12px;
-    font-weight:bold;
-    font-size:15px;
-    cursor:pointer;
-}
-
-.primary{
-    background:#35d07f;
-    color:#06100a;
-}
-
-.secondary{
-    background:#202b36;
-    color:#fff;
-    border:1px solid #354453;
-}
-
-.hidden{
-    display:none!important;
-}
-
-.message{
-    padding:12px;
-    border-radius:10px;
-    background:#18212b;
-    color:#aab5bf;
-    margin-bottom:12px;
-}
-
-.task{
-    background:#18212b;
-    border-radius:14px;
-    padding:18px;
-    text-align:center;
-}
-
-.task-title{
-    font-size:20px;
-    font-weight:bold;
-}
-
-.task-info{
-    color:#aab5bf;
-    font-size:14px;
-    margin:8px 0;
-}
-
-.task-video{
-    width:100%;
-    max-height:330px;
-    margin:15px 0;
-    border-radius:14px;
-    background:#000;
-}
-
-.video-placeholder{
-    width:100%;
-    height:240px;
-    margin:15px 0;
-    border-radius:14px;
-    background:#050708;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:#68747f;
-}
-
-.timer{
-    font-size:42px;
-    font-weight:bold;
-    color:#35d07f;
-    margin:15px;
-}
-
-.progress{
-    height:8px;
-    background:#26313d;
-    border-radius:20px;
-    overflow:hidden;
-}
-
-.progress-bar{
-    height:100%;
-    width:0;
-    background:#35d07f;
-    transition:width 1s linear;
-}
-
-.stats{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-}
-
-.stat{
-    background:#18212b;
-    padding:15px;
-    border-radius:12px;
-    text-align:center;
-}
-
-.stat-number{
-    font-size:20px;
-    font-weight:bold;
-}
-
-.stat-label{
-    color:#8e9aa5;
-    font-size:12px;
-    margin-top:5px;
-}
-
-.refbox{
-    background:#18212b;
-    padding:14px;
-    border-radius:12px;
-    word-break:break-all;
-    color:#35d07f;
-    font-size:13px;
-    margin-top:10px;
-}
-
-.wallet{
-    background:#18212b;
-    border-radius:14px;
-    padding:15px;
-    margin-top:12px;
-}
-
-.wallet-title{
-    font-weight:bold;
-    margin-bottom:5px;
-}
-
-.small{
-    color:#7f8b96;
-    font-size:12px;
-    line-height:1.5;
-}
+body{margin:0;font-family:Arial,sans-serif;background:#0b0f14;color:#fff}
+header{padding:18px;text-align:center;background:#111821;border-bottom:1px solid #26313d;position:sticky;top:0;z-index:10}
+.logo{font-size:30px;font-weight:bold}.logo span{color:#35d07f}
+.container{max-width:620px;margin:auto;padding:18px}
+.card{background:#111821;border:1px solid #26313d;border-radius:18px;padding:20px;margin-bottom:18px}
+.balance{background:#14251c;border:1px solid #24563b;border-radius:18px;padding:25px;text-align:center;margin-bottom:18px}
+.balance-title{color:#aab5bf;font-size:13px}
+.balance-value{font-size:38px;font-weight:bold;margin-top:8px}
+input,select{width:100%;padding:14px;margin:7px 0;border-radius:12px;border:1px solid #354453;background:#18212b;color:#fff;font-size:16px}
+button{width:100%;padding:14px;margin-top:8px;border:0;border-radius:12px;font-weight:bold;font-size:15px;cursor:pointer}
+.primary{background:#35d07f;color:#06100a}
+.secondary{background:#202b36;color:#fff;border:1px solid #354453}
+.hidden{display:none!important}
+.message{padding:12px;border-radius:10px;background:#18212b;color:#aab5bf;margin-bottom:12px}
+.task{background:#18212b;border-radius:14px;padding:18px;text-align:center}
+.task-title{font-size:20px;font-weight:bold}
+.task-info{color:#aab5bf;font-size:14px;margin:8px 0}
+.task-video{width:100%;max-height:330px;margin:15px 0;border-radius:14px;background:#000}
+.video-placeholder{width:100%;height:240px;margin:15px 0;border-radius:14px;background:#050708;display:flex;align-items:center;justify-content:center;color:#68747f}
+.timer{font-size:42px;font-weight:bold;color:#35d07f;margin:15px}
+.progress{height:8px;background:#26313d;border-radius:20px;overflow:hidden}
+.progress-bar{height:100%;width:0;background:#35d07f;transition:width 1s linear}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.stat{background:#18212b;padding:15px;border-radius:12px;text-align:center}
+.stat-number{font-size:20px;font-weight:bold}
+.stat-label{color:#8e9aa5;font-size:12px;margin-top:5px}
+.refbox{background:#18212b;padding:14px;border-radius:12px;word-break:break-all;color:#35d07f;font-size:13px;margin-top:10px}
+.wallet{background:#18212b;border-radius:14px;padding:15px;margin-top:12px}
+.wallet-title{font-weight:bold;margin-bottom:5px}
+.small{color:#7f8b96;font-size:12px;line-height:1.5}
 </style>
 </head>
 
 <body>
 
 <header>
-    <div class="logo">Tomo<span>Earn</span></div>
+<div class="logo">Tomo<span>Earn</span></div>
 </header>
 
 <div class="container">
 
-<!-- ================= LOGIN ================= -->
-
+<!-- LOGIN -->
 <div class="card" id="authBox">
 
-    <h2>Prihlásenie</h2>
+<h2>Prihlásenie</h2>
 
-    <div id="message" class="message">
-        Prihlás sa alebo vytvor nový účet.
-    </div>
+<div id="message" class="message">
+Prihlás sa alebo vytvor nový účet.
+</div>
 
-    <input
-        id="email"
-        type="email"
-        placeholder="Email"
-        autocomplete="email"
-    >
+<input id="email" type="email" placeholder="Email">
+<input id="password" type="password" placeholder="Heslo">
 
-    <input
-        id="password"
-        type="password"
-        placeholder="Heslo"
-        autocomplete="current-password"
-    >
+<button class="primary" onclick="login()">
+PRIHLÁSIŤ
+</button>
 
-    <button class="primary" onclick="login()">
-        PRIHLÁSIŤ
-    </button>
-
-    <button class="secondary" onclick="register()">
-        VYTVORIŤ ÚČET
-    </button>
+<button class="secondary" onclick="register()">
+VYTVORIŤ ÚČET
+</button>
 
 </div>
 
 
-<!-- ================= APP ================= -->
-
+<!-- APP -->
 <div id="app" class="hidden">
 
-
 <!-- BALANCE -->
-
 <div class="balance">
 
-    <div class="balance-title">
-        YOUR BALANCE
-    </div>
+<div class="balance-title">
+YOUR BALANCE
+</div>
 
-    <div class="balance-value" id="balance">
-        $0.0000
-    </div>
+<div class="balance-value" id="balance">
+$0.0000
+</div>
 
 </div>
 
 
-<!-- ================= WATCH ================= -->
-
+<!-- WATCH -->
 <div class="card">
 
-    <h2>Watch & Earn</h2>
+<h2>Watch & Earn</h2>
 
-    <div class="task-info">
-        Stlač LAUNCH iba raz. Ďalšie video sa spustí automaticky.
-    </div>
+<div class="task-info">
+Stlač LAUNCH iba raz. Ďalšie video sa spustí automaticky.
+</div>
 
-    <div id="taskList">
-        Načítavam...
-    </div>
+<div id="taskList">
+Načítavam...
+</div>
 
 </div>
 
 
-<!-- ================= STATISTICS ================= -->
-
+<!-- STATISTICS -->
 <div class="card">
 
-    <h2>Statistics</h2>
+<h2>Statistics</h2>
 
-    <div class="stats">
+<div class="stats">
 
-        <div class="stat">
+<div class="stat">
+<div class="stat-number" id="tasks">0</div>
+<div class="stat-label">COMPLETED TASKS</div>
+</div>
 
-            <div
-                class="stat-number"
-                id="tasks"
-            >
-                0
-            </div>
+<div class="stat">
+<div class="stat-number" id="earned">$0.0000</div>
+<div class="stat-label">TOTAL EARNED</div>
+</div>
 
-            <div class="stat-label">
-                COMPLETED TASKS
-            </div>
-
-        </div>
-
-
-        <div class="stat">
-
-            <div
-                class="stat-number"
-                id="earned"
-            >
-                $0.0000
-            </div>
-
-            <div class="stat-label">
-                TOTAL EARNED
-            </div>
-
-        </div>
-
-    </div>
+</div>
 
 </div>
 
 
-<!-- ================= REFERRAL ================= -->
-
+<!-- REFERRAL -->
 <div class="card">
 
-    <h2>Referral</h2>
+<h2>Referral</h2>
 
-    <div class="task-info">
-        Pozvi používateľov cez svoj osobný odkaz.
-    </div>
+<div class="task-info">
+Pozvi používateľov cez svoj osobný odkaz.
+</div>
 
-    <div
-        class="refbox"
-        id="refLink"
-    >
-        Načítavam referral link...
-    </div>
+<div class="refbox" id="refLink">
+Načítavam referral link...
+</div>
 
-    <button
-        class="primary"
-        onclick="copyReferral()"
-    >
-        KOPÍROVAŤ REFERRAL LINK
-    </button>
+<button class="primary" onclick="copyReferral()">
+KOPÍROVAŤ REFERRAL LINK
+</button>
 
+<div class="stats" style="margin-top:12px">
 
-    <div
-        class="stats"
-        style="margin-top:12px"
-    >
+<div class="stat">
+<div class="stat-number" id="refCount">0</div>
+<div class="stat-label">POZVANÍ</div>
+</div>
 
-        <div class="stat">
+<div class="stat">
+<div class="stat-number" id="refEarned">$0.0000</div>
+<div class="stat-label">REFERRAL ZÁROBOK</div>
+</div>
 
-            <div
-                class="stat-number"
-                id="refCount"
-            >
-                0
-            </div>
-
-            <div class="stat-label">
-                POZVANÍ
-            </div>
-
-        </div>
-
-
-        <div class="stat">
-
-            <div
-                class="stat-number"
-                id="refEarned"
-            >
-                $0.0000
-            </div>
-
-            <div class="stat-label">
-                REFERRAL ZÁROBOK
-            </div>
-
-        </div>
-
-    </div>
+</div>
 
 </div>
 
 
-<!-- ================= WITHDRAW ================= -->
-
+<!-- WITHDRAW -->
 <div class="card">
 
-    <h2>Withdraw</h2>
+<h2>Withdraw</h2>
 
-    <div class="task-info">
-        Dostupné meny: BTC / USDT
-    </div>
+<div class="task-info">
+Dostupné meny: BTC / USDT
+</div>
 
+<div class="wallet">
 
-    <div class="wallet">
+<div class="wallet-title">
+BTC adresa
+</div>
 
-        <div class="wallet-title">
-            BTC adresa
-        </div>
+<input
+id="btcAddress"
+placeholder="BTC wallet adresa"
+>
 
-        <input
-            id="btcAddress"
-            placeholder="BTC wallet adresa"
-        >
-
-        <button
-            class="secondary"
-            onclick="saveWallet('btc')"
-        >
-            ULOŽIŤ BTC ADRESU
-        </button>
-
-    </div>
-
-
-    <div class="wallet">
-
-        <div class="wallet-title">
-            USDT adresa
-        </div>
-
-        <input
-            id="usdtAddress"
-            placeholder="USDT wallet adresa"
-        >
-
-        <button
-            class="secondary"
-            onclick="saveWallet('usdt')"
-        >
-            ULOŽIŤ USDT ADRESU
-        </button>
-
-    </div>
-
-
-    <div class="wallet">
-
-        <select id="withdrawCurrency">
-
-            <option value="BTC">
-                BTC
-            </option>
-
-            <option value="USDT">
-                USDT
-            </option>
-
-        </select>
-
-
-        <input
-            id="withdrawAmount"
-            type="number"
-            min="0"
-            step="0.00000001"
-            placeholder="Suma"
-        >
-
-
-        <button
-            class="primary"
-            onclick="withdraw()"
-        >
-            POŽIADAŤ O VÝBER
-        </button>
-
-    </div>
+<button
+class="secondary"
+onclick="saveWallet('btc')"
+>
+ULOŽIŤ BTC ADRESU
+</button>
 
 </div>
 
 
-<!-- ================= ACCOUNT ================= -->
+<div class="wallet">
 
+<div class="wallet-title">
+USDT adresa
+</div>
+
+<input
+id="usdtAddress"
+placeholder="USDT wallet adresa"
+>
+
+<button
+class="secondary"
+onclick="saveWallet('usdt')"
+>
+ULOŽIŤ USDT ADRESU
+</button>
+
+</div>
+
+
+<div class="wallet">
+
+<select id="withdrawCurrency">
+
+<option value="BTC">BTC</option>
+<option value="USDT">USDT</option>
+
+</select>
+
+<input
+id="withdrawAmount"
+type="number"
+min="0"
+step="0.00000001"
+placeholder="Suma"
+>
+
+<button
+class="primary"
+onclick="withdraw()"
+>
+POŽIADAŤ O VÝBER
+</button>
+
+</div>
+
+</div>
+
+
+<!-- ACCOUNT -->
 <div class="card">
 
-    <h2>Account</h2>
+<h2>Account</h2>
 
-    <div
-        id="userEmail"
-        class="task-info"
-    >
-        -
-    </div>
+<div
+id="userEmail"
+class="task-info"
+>
+-
+</div>
 
-    <div
-        id="referralCode"
-        class="task-info"
-    >
-        Referral: -
-    </div>
+<div
+id="referralCode"
+class="task-info"
+>
+Referral: -
+</div>
 
-    <button
-        class="secondary"
-        onclick="logout()"
-    >
-        ODHLÁSIŤ
-    </button>
+<button
+class="secondary"
+onclick="logout()"
+>
+ODHLÁSIŤ
+</button>
 
 </div>
 
@@ -545,7 +279,7 @@ button{
 <script>
 
 /* =====================================================
-   SUPABASE
+SUPABASE
 ===================================================== */
 
 const SUPABASE_URL =
@@ -556,42 +290,40 @@ const SUPABASE_KEY =
 
 const client =
 supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
+SUPABASE_URL,
+SUPABASE_KEY
 );
 
 
 /* =====================================================
-   GLOBALS
+GLOBALS
 ===================================================== */
 
-let currentUser = null;
-
-let currentTask = null;
-
-let running = false;
+let currentUser=null;
+let currentTask=null;
+let running=false;
 
 
 /* =====================================================
-   MESSAGE
+MESSAGE
 ===================================================== */
 
 function message(text){
 
-    document
-        .getElementById("message")
-        .textContent = text;
+document
+.getElementById("message")
+.textContent=text;
 
 }
 
 
 /* =====================================================
-   REFERRAL FROM URL
+INCOMING REFERRAL
 ===================================================== */
 
 const urlParams =
 new URLSearchParams(
-    window.location.search
+window.location.search
 );
 
 const incomingReferral =
@@ -599,1341 +331,1248 @@ urlParams.get("ref");
 
 
 /* =====================================================
-   REGISTER
+REGISTER
 ===================================================== */
 
 async function register(){
 
-    const email =
-        document
-        .getElementById("email")
-        .value
-        .trim();
+const email =
+document
+.getElementById("email")
+.value
+.trim();
 
-    const password =
-        document
-        .getElementById("password")
-        .value;
+const password =
+document
+.getElementById("password")
+.value;
 
+if(!email || !password){
 
-    if(!email || !password){
+message("Vyplň email a heslo.");
+return;
 
-        message(
-            "Vyplň email a heslo."
-        );
+}
 
-        return;
-    }
+if(password.length<6){
 
+message("Heslo musí mať minimálne 6 znakov.");
+return;
 
-    if(password.length < 6){
+}
 
-        message(
-            "Heslo musí mať minimálne 6 znakov."
-        );
+const {data,error} =
+await client.auth.signUp({
 
-        return;
-    }
+email:email,
+password:password
 
+});
 
-    const {data,error} =
-        await client.auth.signUp({
+if(error){
 
-            email:email,
+message(error.message);
+return;
 
-            password:password
-
-        });
-
-
-    if(error){
-
-        message(error.message);
-
-        return;
-    }
+}
 
 
-    if(
-        data.user &&
-        incomingReferral
-    ){
+/*
+REFERRAL PRI REGISTRÁCII
+*/
 
-        await client
-        .from("referrals")
-        .insert({
+if(
+data.user &&
+incomingReferral
+){
 
-            referrer_code:
-                incomingReferral,
+const {error:refError} =
+await client
+.from("referrals")
+.insert({
 
-            referred_user_id:
-                data.user.id,
+referrer_code:
+incomingReferral,
 
-            earned:0
+referred_user_id:
+data.user.id,
 
-        });
+earned:0
 
-    }
+});
 
+if(refError){
+console.log("Referral:",refError);
+}
 
-    message(
-        "Účet bol vytvorený."
-    );
+}
+
+message("Účet bol vytvorený.");
 
 }
 
 
 /* =====================================================
-   LOGIN
+LOGIN
 ===================================================== */
 
 async function login(){
 
-    const email =
-        document
-        .getElementById("email")
-        .value
-        .trim();
+const email =
+document
+.getElementById("email")
+.value
+.trim();
 
-    const password =
-        document
-        .getElementById("password")
-        .value;
+const password =
+document
+.getElementById("password")
+.value;
 
+if(!email || !password){
 
-    if(!email || !password){
+message("Vyplň email a heslo.");
+return;
 
-        message(
-            "Vyplň email a heslo."
-        );
+}
 
-        return;
-    }
+const {data,error} =
+await client.auth.signInWithPassword({
 
+email:email,
+password:password
 
-    const {data,error} =
-        await client.auth.signInWithPassword({
+});
 
-            email:email,
+if(error){
 
-            password:password
+message(error.message);
+return;
 
-        });
+}
 
-
-    if(error){
-
-        message(error.message);
-
-        return;
-    }
-
-
-    await loadUser();
+await loadUser();
 
 }
 
 
 /* =====================================================
-   LOAD USER
+LOAD USER
 ===================================================== */
 
 async function loadUser(){
 
-    const {data} =
-        await client.auth.getUser();
+const {data} =
+await client.auth.getUser();
 
+currentUser =
+data.user;
 
-    currentUser =
-        data.user;
+if(!currentUser){
 
+document
+.getElementById("authBox")
+.classList.remove("hidden");
 
-    if(!currentUser){
+document
+.getElementById("app")
+.classList.add("hidden");
 
-        document
-        .getElementById("authBox")
-        .classList.remove("hidden");
+return;
 
-        document
-        .getElementById("app")
-        .classList.add("hidden");
+}
 
-        return;
-    }
+document
+.getElementById("authBox")
+.classList.add("hidden");
 
+document
+.getElementById("app")
+.classList.remove("hidden");
 
-    document
-    .getElementById("authBox")
-    .classList.add("hidden");
+document
+.getElementById("userEmail")
+.textContent =
+currentUser.email || "";
 
-
-    document
-    .getElementById("app")
-    .classList.remove("hidden");
-
-
-    document
-    .getElementById("userEmail")
-    .textContent =
-        currentUser.email || "";
-
-
-    await loadProfile();
-
-    await loadWallets();
-
-    await loadReferral();
-
-    await loadStats();
-
-    await loadTasks();
+await loadProfile();
+await loadWallets();
+await loadReferral();
+await loadStats();
+await loadTasks();
 
 }
 
 
 /* =====================================================
-   PROFILE
+PROFILE
 ===================================================== */
 
 async function loadProfile(){
 
-    const {data,error} =
-        await client
-        .from("profiles")
-        .select("*")
-        .eq("id",currentUser.id)
-        .maybeSingle();
+const {data,error} =
+await client
+.from("profiles")
+.select("*")
+.eq("id",currentUser.id)
+.maybeSingle();
 
+if(error){
 
-    if(error){
+console.log(error);
+return;
 
-        console.log(error);
+}
 
-        return;
-    }
+if(!data)return;
 
+const balance =
+Number(data.balance||0);
 
-    if(!data){
+document
+.getElementById("balance")
+.textContent =
+"$"+balance.toFixed(4);
 
-        return;
-    }
+document
+.getElementById("earned")
+.textContent =
+"$"+balance.toFixed(4);
 
-
-    const balance =
-        Number(
-            data.balance || 0
-        );
-
-
-    document
-    .getElementById("balance")
-    .textContent =
-        "$" +
-        balance.toFixed(4);
-
-
-    document
-    .getElementById("earned")
-    .textContent =
-        "$" +
-        balance.toFixed(4);
-
-
-    document
-    .getElementById("referralCode")
-    .textContent =
-        "Referral: " +
-        (
-            data.referral_code ||
-            "-"
-        );
+document
+.getElementById("referralCode")
+.textContent =
+"Referral: "+
+(data.referral_code||"-");
 
 }
 
 
 /* =====================================================
-   STATISTICS
+STATISTICS
 ===================================================== */
 
 async function loadStats(){
 
-    const {data} =
-        await client
-        .from("task_completions")
-        .select("id,reward")
-        .eq(
-            "user_id",
-            currentUser.id
-        )
-        .eq(
-            "status",
-            "completed"
-        );
+const {data,error} =
+await client
+.from("task_completions")
+.select("id,reward")
+.eq(
+"user_id",
+currentUser.id
+)
+.eq(
+"status",
+"completed"
+);
 
+if(error){
 
-    const rows =
-        data || [];
+console.log(error);
+return;
 
+}
 
-    document
-    .getElementById("tasks")
-    .textContent =
-        rows.length;
+const rows=data||[];
 
+document
+.getElementById("tasks")
+.textContent=
+rows.length;
 
-    let total = 0;
+let total=0;
 
+rows.forEach(row=>{
 
-    rows.forEach(row => {
+total+=Number(row.reward||0);
 
-        total +=
-            Number(
-                row.reward || 0
-            );
+});
 
-    });
-
-
-    document
-    .getElementById("earned")
-    .textContent =
-        "$" +
-        total.toFixed(4);
+document
+.getElementById("earned")
+.textContent=
+"$"+total.toFixed(4);
 
 }
 
 
 /* =====================================================
-   REFERRAL
+REFERRAL - OPRAVENÉ
 ===================================================== */
 
 async function loadReferral(){
 
-    const {data:profile,error} =
-        await client
-        .from("profiles")
-        .select("referral_code")
-        .eq("id",currentUser.id)
-        .maybeSingle();
+/*
+Najprv skúsime načítať referral_code.
+*/
+
+const {data:profile,error} =
+await client
+.from("profiles")
+.select("referral_code")
+.eq(
+"id",
+currentUser.id
+)
+.maybeSingle();
+
+if(error){
+
+console.log(
+"Referral profile error:",
+error
+);
+
+}
 
 
-    if(error || !profile){
+/*
+Ak starý účet nemá referral_code,
+vytvoríme rovnaký kód ako trigger:
+TOMO- + prvých 8 znakov UUID.
+*/
 
-        return;
-    }
-
-
-    if(!profile.referral_code){
-
-        return;
-    }
-
-
-    const link =
-        window.location.origin +
-        window.location.pathname +
-        "?ref=" +
-        encodeURIComponent(
-            profile.referral_code
-        );
+let code =
+profile &&
+profile.referral_code
+?
+profile.referral_code
+:
+null;
 
 
-    document
-    .getElementById("refLink")
-    .textContent =
-        link;
+if(!code && currentUser.id){
+
+code =
+"TOMO-" +
+currentUser.id
+.replaceAll("-","")
+.substring(0,8)
+.toUpperCase();
+
+}
 
 
-    const {data,error:refError} =
-        await client
-        .from("referrals")
-        .select("*")
-        .eq(
-            "referrer_code",
-            profile.referral_code
-        );
+/*
+Ak máme kód, zobrazíme link.
+*/
+
+if(code){
+
+const link =
+window.location.origin +
+window.location.pathname +
+"?ref="+
+encodeURIComponent(code);
+
+document
+.getElementById("refLink")
+.textContent=
+link;
+
+document
+.getElementById("referralCode")
+.textContent=
+"Referral: "+code;
+
+}else{
+
+document
+.getElementById("refLink")
+.textContent=
+"Referral link sa nepodarilo vytvoriť.";
+
+return;
+
+}
 
 
-    if(refError){
+/*
+Referral štatistiky.
+*/
 
-        console.log(refError);
+const {data:referrals,error:refError} =
+await client
+.from("referrals")
+.select("*")
+.eq(
+"referrer_code",
+code
+);
 
-        return;
-    }
+if(refError){
 
+console.log(
+"Referral stats error:",
+refError
+);
 
-    const referrals =
-        data || [];
+document
+.getElementById("refCount")
+.textContent="0";
 
+document
+.getElementById("refEarned")
+.textContent="$0.0000";
 
-    document
-    .getElementById("refCount")
-    .textContent =
-        referrals.length;
+return;
 
+}
 
-    let total = 0;
+const rows =
+referrals||[];
 
+document
+.getElementById("refCount")
+.textContent=
+rows.length;
 
-    referrals.forEach(item => {
+let total=0;
 
-        total +=
-            Number(
-                item.earned ||
-                item.reward ||
-                0
-            );
+rows.forEach(item=>{
 
-    });
+total+=
+Number(
+item.earned||
+item.reward||
+0
+);
 
+});
 
-    document
-    .getElementById("refEarned")
-    .textContent =
-        "$" +
-        total.toFixed(4);
+document
+.getElementById("refEarned")
+.textContent=
+"$"+total.toFixed(4);
 
 }
 
 
 /* =====================================================
-   COPY REFERRAL
+COPY REFERRAL
 ===================================================== */
 
 async function copyReferral(){
 
-    const link =
-        document
-        .getElementById("refLink")
-        .textContent;
+const link =
+document
+.getElementById("refLink")
+.textContent;
 
+if(
+!link ||
+link.includes("Načítavam") ||
+link.includes("nepodarilo")
+){
 
-    if(
-        !link ||
-        link.includes("Načítavam")
-    ){
+return;
 
-        return;
-    }
+}
 
+try{
 
-    try{
+await navigator
+.clipboard
+.writeText(link);
 
-        await navigator
-        .clipboard
-        .writeText(link);
+alert(
+"Referral link bol skopírovaný."
+);
 
-        alert(
-            "Referral link bol skopírovaný."
-        );
+}catch(e){
 
-    }catch(e){
+alert(link);
 
-        alert(link);
-
-    }
+}
 
 }
 
 
 /* =====================================================
-   LOAD TASKS
+LOAD TASKS
 ===================================================== */
 
 async function loadTasks(){
 
-    if(running){
+if(running)return;
 
-        return;
-    }
+const list =
+document
+.getElementById("taskList");
 
+const {data,error} =
+await client
+.from("tasks")
+.select("*")
+.eq("active",true)
+.order("sort_order");
 
-    const list =
-        document
-        .getElementById("taskList");
+if(error){
 
+console.log(error);
 
-    const {data,error} =
-        await client
-        .from("tasks")
-        .select("*")
-        .eq("active",true)
-        .order("sort_order");
+list.innerHTML=
+"<div class='task-info'>"+
+"Úlohy sa nepodarilo načítať."+
+"</div>";
 
+return;
 
-    if(error){
+}
 
-        console.log(error);
+if(!data || !data.length){
 
-        list.innerHTML =
-            "<div class='task-info'>" +
-            "Úlohy sa nepodarilo načítať." +
-            "</div>";
+list.innerHTML=
+"<div class='task'>"+
+"Momentálne nie sú dostupné videá."+
+"</div>";
 
-        return;
-    }
+return;
 
+}
 
-    if(!data || data.length === 0){
+let index =
+Number(
+localStorage.getItem(
+"tomo_task_index"
+)||0
+);
 
-        list.innerHTML =
-            "<div class='task'>" +
-            "Momentálne nie sú dostupné videá." +
-            "</div>";
+if(index>=data.length){
 
-        return;
-    }
+index=0;
 
+}
 
-    let index =
-        Number(
-            localStorage.getItem(
-                "tomo_task_index"
-            ) || 0
-        );
+currentTask =
+data[index];
 
-
-    if(index >= data.length){
-
-        index = 0;
-
-    }
-
-
-    currentTask =
-        data[index];
-
-
-    renderLaunch(
-        currentTask
-    );
+renderLaunch(
+currentTask
+);
 
 }
 
 
 /* =====================================================
-   RENDER LAUNCH
+LAUNCH
 ===================================================== */
 
 function renderLaunch(task){
 
-    const list =
-        document
-        .getElementById("taskList");
+const list =
+document
+.getElementById("taskList");
 
+list.innerHTML=
 
-    list.innerHTML =
+"<div class='task'>"+
 
-        "<div class='task'>" +
+"<div class='task-title'>"+
+escapeHtml(task.title)+
+"</div>"+
 
-        "<div class='task-title'>" +
-        escapeHtml(
-            task.title
-        ) +
-        "</div>" +
+"<div class='task-info'>"+
+"Čas: "+
+Number(task.duration_seconds)+
+" sekúnd"+
+"<br>"+
+"Odmena: $"+
+Number(task.reward||0).toFixed(4)+
+"</div>"+
 
-        "<div class='task-info'>" +
+"<button "+
+"class='primary' "+
+"onclick='startTask("+
+Number(task.id)+
+")'>"+
+"LAUNCH"+
+"</button>"+
 
-        "Čas: " +
-        Number(
-            task.duration_seconds
-        ) +
-        " sekúnd" +
-
-        "<br>" +
-
-        "Odmena: $" +
-        Number(
-            task.reward || 0
-        ).toFixed(4) +
-
-        "</div>" +
-
-        "<button " +
-        "class='primary' " +
-        "onclick='startTask(" +
-        Number(task.id) +
-        ")'>" +
-
-        "LAUNCH" +
-
-        "</button>" +
-
-        "</div>";
+"</div>";
 
 }
 
 
 /* =====================================================
-   START TASK
+START TASK
 ===================================================== */
 
 async function startTask(taskId){
 
-    if(running){
+if(running)return;
 
-        return;
-    }
+running=true;
 
+const {data:task,error} =
+await client
+.from("tasks")
+.select("*")
+.eq("id",taskId)
+.eq("active",true)
+.maybeSingle();
 
-    running = true;
+if(error || !task){
 
+running=false;
 
-    const {data:task,error} =
-        await client
-        .from("tasks")
-        .select("*")
-        .eq("id",taskId)
-        .eq("active",true)
-        .maybeSingle();
+alert(
+"Video už nie je dostupné."
+);
 
+return;
 
-    if(error || !task){
+}
 
-        running = false;
+currentTask=task;
 
-        alert(
-            "Video už nie je dostupné."
-        );
 
-        return;
-    }
+/*
+SERVER START
+*/
 
+const {
+data:startData,
+error:startError
+} =
+await client.rpc(
+"start_task",
+{
+p_task_id:Number(taskId)
+}
+);
 
-    currentTask =
-        task;
+if(startError){
 
+running=false;
 
-    /*
-       SERVER:
-       START TASK
-    */
+alert(
+startError.message
+);
 
-    const {
-        data:startData,
-        error:startError
-    } =
-        await client.rpc(
-            "start_task",
-            {
-                p_task_id:
-                    Number(taskId)
-            }
-        );
+return;
 
+}
 
-    if(startError){
+const seconds =
+Number(
+task.duration_seconds
+);
 
-        running = false;
+let remaining=seconds;
 
-        alert(
-            startError.message
-        );
+const list =
+document
+.getElementById("taskList");
 
-        return;
-    }
+let videoHtml="";
 
+if(task.video_url){
 
-    const seconds =
-        Number(
-            task.duration_seconds
-        );
+videoHtml=
 
+"<video "+
+"id='taskVideo' "+
+"class='task-video' "+
+"playsinline "+
+"autoplay muted>"+
 
-    let remaining =
-        seconds;
+"<source src='"+
+escapeHtml(
+task.video_url
+)+
+"'>"+
 
+"</video>";
 
-    const list =
-        document
-        .getElementById("taskList");
+}else{
 
+videoHtml=
 
-    let videoHtml = "";
+"<div class='video-placeholder'>"+
+"VIDEO"+
+"</div>";
 
+}
 
-    if(task.video_url){
+list.innerHTML=
 
-        videoHtml =
+"<div class='task'>"+
 
-            "<video " +
-            "id='taskVideo' " +
-            "class='task-video' " +
-            "playsinline " +
-            "autoplay muted>" +
+"<div class='task-title'>"+
+escapeHtml(task.title)+
+"</div>"+
 
-            "<source src='" +
-            escapeHtml(
-                task.video_url
-            ) +
-            "'>" +
+videoHtml+
 
-            "</video>";
+"<div class='timer' "+
+"id='taskTimer'>"+
+remaining+
+"</div>"+
 
-    }else{
+"<div class='progress'>"+
 
-        videoHtml =
+"<div class='progress-bar' "+
+"id='taskProgress'>"+
+"</div>"+
 
-            "<div class='video-placeholder'>" +
-            "VIDEO" +
-            "</div>";
+"</div>"+
 
-    }
+"<div class='task-info' "+
+"id='taskStatus'>"+
+"Video prebieha..."+
+"</div>"+
 
+"</div>";
 
-    list.innerHTML =
 
-        "<div class='task'>" +
+const video =
+document
+.getElementById(
+"taskVideo"
+);
 
-        "<div class='task-title'>" +
-        escapeHtml(
-            task.title
-        ) +
-        "</div>" +
+if(video){
 
-        videoHtml +
+video
+.play()
+.catch(()=>{});
 
-        "<div " +
-        "class='timer' " +
-        "id='taskTimer'>" +
+}
 
-        remaining +
 
-        "</div>" +
+/*
+TIMER
+*/
 
-        "<div class='progress'>" +
+const interval =
+setInterval(
+async()=>{
 
-        "<div " +
-        "class='progress-bar' " +
-        "id='taskProgress'>" +
+remaining--;
 
-        "</div>" +
+const timer =
+document
+.getElementById(
+"taskTimer"
+);
 
-        "</div>" +
+const progress =
+document
+.getElementById(
+"taskProgress"
+);
 
-        "<div " +
-        "class='task-info' " +
-        "id='taskStatus'>" +
+if(timer){
 
-        "Video prebieha..." +
+timer.textContent =
+Math.max(
+remaining,
+0
+);
 
-        "</div>" +
+}
 
-        "</div>";
+if(progress){
 
+const percent =
+(
+(seconds-remaining)/
+seconds
+)*100;
 
-    const video =
-        document
-        .getElementById(
-            "taskVideo"
-        );
+progress.style.width=
+Math.min(
+percent,
+100
+)+"%";
 
+}
 
-    if(video){
 
-        video
-        .play()
-        .catch(
-            () => {}
-        );
+if(remaining<=0){
 
-    }
+clearInterval(interval);
 
+if(timer)
+timer.textContent="✓";
 
-    const interval =
-        setInterval(
-            async () => {
+if(progress)
+progress.style.width="100%";
 
-                remaining--;
+const status =
+document
+.getElementById(
+"taskStatus"
+);
 
+if(status)
+status.textContent=
+"Kontrolujem dokončenie...";
 
-                const timer =
-                    document
-                    .getElementById(
-                        "taskTimer"
-                    );
 
+/*
+SERVER COMPLETE
+*/
 
-                const progress =
-                    document
-                    .getElementById(
-                        "taskProgress"
-                    );
+const {
+data:completeData,
+error:completeError
+} =
+await client.rpc(
+"complete_task",
+{
+p_task_id:
+Number(task.id)
+}
+);
 
+if(completeError){
 
-                if(timer){
+running=false;
 
-                    timer.textContent =
-                        Math.max(
-                            remaining,
-                            0
-                        );
+console.log(
+completeError
+);
 
-                }
+if(status)
+status.textContent=
+completeError.message;
 
+return;
 
-                if(progress){
+}
 
-                    const percent =
-                        (
-                            (
-                                seconds -
-                                remaining
-                            )
-                            /
-                            seconds
-                        ) * 100;
 
+if(
+completeData &&
+completeData.balance !== undefined
+){
 
-                    progress.style.width =
-                        Math.min(
-                            percent,
-                            100
-                        ) + "%";
+document
+.getElementById("balance")
+.textContent=
+"$"+
+Number(
+completeData.balance
+).toFixed(4);
 
-                }
+}
 
 
-                if(remaining <= 0){
+if(status){
 
-                    clearInterval(
-                        interval
-                    );
+status.textContent=
+"✓ Odmena pripísaná. Ďalšie video...";
 
+}
 
-                    if(timer){
 
-                        timer.textContent =
-                            "✓";
+/*
+NÁJDEME ĎALŠIE VIDEO
+*/
 
-                    }
+const {data:allTasks} =
+await client
+.from("tasks")
+.select(
+"id,sort_order"
+)
+.eq(
+"active",
+true
+)
+.order(
+"sort_order"
+);
 
+if(
+allTasks &&
+allTasks.length
+){
 
-                    if(progress){
+const currentIndex =
+allTasks.findIndex(
+x=>
+Number(x.id)===
+Number(task.id)
+);
 
-                        progress.style.width =
-                            "100%";
+let nextIndex =
+currentIndex+1;
 
-                    }
+if(
+nextIndex>=
+allTasks.length
+){
 
+nextIndex=0;
 
-                    const status =
-                        document
-                        .getElementById(
-                            "taskStatus"
-                        );
+}
 
+localStorage.setItem(
+"tomo_task_index",
+nextIndex
+);
 
-                    if(status){
+}
 
-                        status.textContent =
-                            "Kontrolujem dokončenie...";
+running=false;
 
-                    }
+setTimeout(
+()=>{
 
+loadTasks();
+loadProfile();
+loadStats();
+loadReferral();
 
-                    /*
-                       SERVER:
-                       COMPLETE TASK
-                    */
+},
+800
+);
 
-                    const {
-                        data:completeData,
-                        error:completeError
-                    } =
-                        await client.rpc(
-                            "complete_task",
-                            {
-                                p_task_id:
-                                    Number(task.id)
-                            }
-                        );
+}
 
-
-                    if(completeError){
-
-                        running = false;
-
-                        console.log(
-                            completeError
-                        );
-
-
-                        if(status){
-
-                            status.textContent =
-                                completeError.message;
-
-                        }
-
-                        return;
-                    }
-
-
-                    if(
-                        completeData &&
-                        completeData.balance !== undefined
-                    ){
-
-                        document
-                        .getElementById(
-                            "balance"
-                        )
-                        .textContent =
-                            "$" +
-                            Number(
-                                completeData.balance
-                            ).toFixed(4);
-
-                    }
-
-
-                    if(status){
-
-                        status.textContent =
-                            "✓ Odmena pripísaná. Ďalšie video...";
-
-                    }
-
-
-                    /*
-                       ĎALŠIE VIDEO
-                    */
-
-                    const {
-                        data:allTasks
-                    } =
-                        await client
-                        .from("tasks")
-                        .select(
-                            "id,sort_order"
-                        )
-                        .eq(
-                            "active",
-                            true
-                        )
-                        .order(
-                            "sort_order"
-                        );
-
-
-                    if(
-                        allTasks &&
-                        allTasks.length
-                    ){
-
-                        const currentIndex =
-                            allTasks.findIndex(
-                                x =>
-                                    Number(x.id) ===
-                                    Number(task.id)
-                            );
-
-
-                        let nextIndex =
-                            currentIndex + 1;
-
-
-                        if(
-                            nextIndex >=
-                            allTasks.length
-                        ){
-
-                            nextIndex = 0;
-
-                        }
-
-
-                        localStorage.setItem(
-                            "tomo_task_index",
-                            nextIndex
-                        );
-
-                    }
-
-
-                    running = false;
-
-
-                    setTimeout(
-                        () => {
-
-                            loadTasks();
-
-                            loadProfile();
-
-                            loadStats();
-
-                        },
-                        800
-                    );
-
-                }
-
-            },
-            1000
-        );
+},
+1000
+);
 
 }
 
 
 /* =====================================================
-   LOAD WALLETS
+LOAD WALLETS
 ===================================================== */
 
 async function loadWallets(){
 
-    const {data,error} =
-        await client
-        .from("profiles")
-        .select(
-            "btc_address,usdt_address"
-        )
-        .eq(
-            "id",
-            currentUser.id
-        )
-        .maybeSingle();
+const {data,error} =
+await client
+.from("profiles")
+.select(
+"btc_address,usdt_address"
+)
+.eq(
+"id",
+currentUser.id
+)
+.maybeSingle();
 
+if(error){
 
-    if(error){
+console.log(error);
+return;
 
-        console.log(error);
+}
 
-        return;
-    }
+if(!data)return;
 
+document
+.getElementById(
+"btcAddress"
+)
+.value=
+data.btc_address||"";
 
-    if(!data){
-
-        return;
-    }
-
-
-    document
-    .getElementById(
-        "btcAddress"
-    )
-    .value =
-        data.btc_address || "";
-
-
-    document
-    .getElementById(
-        "usdtAddress"
-    )
-    .value =
-        data.usdt_address || "";
+document
+.getElementById(
+"usdtAddress"
+)
+.value=
+data.usdt_address||"";
 
 }
 
 
 /* =====================================================
-   SAVE WALLET
+SAVE WALLET
 ===================================================== */
 
 async function saveWallet(type){
 
-    let address = "";
+let address="";
 
+if(type==="btc"){
 
-    if(type === "btc"){
+address=
+document
+.getElementById(
+"btcAddress"
+)
+.value
+.trim();
 
-        address =
-            document
-            .getElementById(
-                "btcAddress"
-            )
-            .value
-            .trim();
+}else{
 
-    }else{
+address=
+document
+.getElementById(
+"usdtAddress"
+)
+.value
+.trim();
 
-        address =
-            document
-            .getElementById(
-                "usdtAddress"
-            )
-            .value
-            .trim();
+}
 
-    }
+if(!address){
 
+alert(
+"Zadaj wallet adresu."
+);
 
-    if(!address){
+return;
 
-        alert(
-            "Zadaj wallet adresu."
-        );
+}
 
-        return;
-    }
+const {
+data,
+error
+} =
+await client.rpc(
+"save_wallet",
+{
 
+p_currency:
+type==="btc"
+?
+"BTC"
+:
+"USDT",
 
-    /*
-       POZOR:
-       Profile UPDATE máme zámerne
-       vypnutý kvôli bezpečnosti balance.
+p_wallet:
+address
 
-       Preto wallet uložíme cez
-       samostatnú RPC funkciu.
-    */
+}
+);
 
-    const {error} =
-        await client.rpc(
-            "save_wallet",
-            {
-                p_currency:
-                    type === "btc"
-                    ? "BTC"
-                    : "USDT",
+if(error){
 
-                p_wallet:
-                    address
-            }
-        );
+console.log(error);
 
+alert(
+error.message
+);
 
-    if(error){
+return;
 
-        console.log(error);
+}
 
-        alert(
-            error.message
-        );
-
-        return;
-    }
-
-
-    alert(
-        "Wallet adresa bola uložená."
-    );
+alert(
+"Wallet adresa bola uložená."
+);
 
 }
 
 
 /* =====================================================
-   WITHDRAW
+WITHDRAW
 ===================================================== */
 
 async function withdraw(){
 
-    const currency =
-        document
-        .getElementById(
-            "withdrawCurrency"
-        )
-        .value;
+const currency =
+document
+.getElementById(
+"withdrawCurrency"
+)
+.value;
+
+const amount =
+Number(
+document
+.getElementById(
+"withdrawAmount"
+)
+.value
+);
+
+if(!amount || amount<=0){
+
+alert(
+"Zadaj platnú sumu."
+);
+
+return;
+
+}
+
+let wallet="";
+
+if(currency==="BTC"){
+
+wallet=
+document
+.getElementById(
+"btcAddress"
+)
+.value
+.trim();
+
+}else{
+
+wallet=
+document
+.getElementById(
+"usdtAddress"
+)
+.value
+.trim();
+
+}
+
+if(!wallet){
+
+alert(
+"Zadaj wallet adresu."
+);
+
+return;
+
+}
 
 
-    const amount =
-        Number(
-            document
-            .getElementById(
-                "withdrawAmount"
-            )
-            .value
-        );
+/*
+SERVEROVÝ VÝBER
+*/
+
+const {
+data,
+error
+} =
+await client.rpc(
+"create_withdrawal",
+{
+
+p_currency:
+currency,
+
+p_amount:
+amount,
+
+p_wallet:
+wallet
+
+}
+);
+
+if(error){
+
+console.log(error);
+
+alert(
+error.message
+);
+
+return;
+
+}
+
+document
+.getElementById(
+"withdrawAmount"
+)
+.value="";
 
 
-    if(!amount || amount <= 0){
+if(
+data &&
+data.remaining_balance !== undefined
+){
 
-        alert(
-            "Zadaj platnú sumu."
-        );
+document
+.getElementById(
+"balance"
+)
+.textContent=
+"$"+
+Number(
+data.remaining_balance
+).toFixed(4);
 
-        return;
-    }
+}
 
-
-    let wallet = "";
-
-
-    if(currency === "BTC"){
-
-        wallet =
-            document
-            .getElementById(
-                "btcAddress"
-            )
-            .value
-            .trim();
-
-    }else{
-
-        wallet =
-            document
-            .getElementById(
-                "usdtAddress"
-            )
-            .value
-            .trim();
-
-    }
-
-
-    if(!wallet){
-
-        alert(
-            "Zadaj wallet adresu."
-        );
-
-        return;
-    }
-
-
-    /*
-       SERVEROVÝ VÝBER.
-
-       Server skontroluje:
-       - prihlásenie
-       - menu
-       - sumu
-       - balance
-       - vytvorenie withdrawal
-    */
-
-    const {
-        data,
-        error
-    } =
-        await client.rpc(
-            "create_withdrawal",
-            {
-
-                p_currency:
-                    currency,
-
-                p_amount:
-                    amount,
-
-                p_wallet:
-                    wallet
-
-            }
-        );
-
-
-    if(error){
-
-        console.log(error);
-
-        alert(
-            error.message
-        );
-
-        return;
-    }
-
-
-    document
-    .getElementById(
-        "withdrawAmount"
-    )
-    .value = "";
-
-
-    if(
-        data &&
-        data.remaining_balance !== undefined
-    ){
-
-        document
-        .getElementById(
-            "balance"
-        )
-        .textContent =
-            "$" +
-            Number(
-                data.remaining_balance
-            ).toFixed(4);
-
-    }
-
-
-    alert(
-        "Žiadosť o výber bola vytvorená."
-    );
+alert(
+"Žiadosť o výber bola vytvorená."
+);
 
 }
 
 
 /* =====================================================
-   LOGOUT
+LOGOUT
 ===================================================== */
 
 async function logout(){
 
-    await client.auth.signOut();
+await client.auth.signOut();
 
-    currentUser = null;
+currentUser=null;
+running=false;
 
-    running = false;
-
-    location.reload();
+location.reload();
 
 }
 
 
 /* =====================================================
-   ESCAPE HTML
+ESCAPE
 ===================================================== */
 
 function escapeHtml(value){
 
-    return String(value)
+return String(value)
 
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
+.replaceAll(
+"&",
+"&amp;"
+)
 
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
+.replaceAll(
+"<",
+"&lt;"
+)
 
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
+.replaceAll(
+">",
+"&gt;"
+)
 
-        .replaceAll(
-            '"',
-            "&quot;"
-        )
+.replaceAll(
+'"',
+"&quot;"
+)
 
-        .replaceAll(
-            "'",
-            "&#039;"
-        );
+.replaceAll(
+"'",
+"&#039;"
+);
 
 }
 
 
 /* =====================================================
-   AUTH STATE
+AUTH STATE
 ===================================================== */
 
 client.auth.onAuthStateChange(
-    async (
-        event,
-        session
-    ) => {
+async(
+event,
+session
+)=>{
 
-        if(session){
+if(session){
 
-            await loadUser();
+await loadUser();
 
-        }
+}
 
-    }
+}
 );
 
 
 /* =====================================================
-   START
+START
 ===================================================== */
 
 loadUser();
