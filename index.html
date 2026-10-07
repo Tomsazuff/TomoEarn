@@ -15,7 +15,7 @@ body{
     margin:0;
     font-family:Arial,sans-serif;
     background:#0b0f14;
-    color:#fff
+    color:#fff;
 }
 
 header{
@@ -25,22 +25,22 @@ header{
     border-bottom:1px solid #26313d;
     position:sticky;
     top:0;
-    z-index:10
+    z-index:10;
 }
 
 .logo{
     font-size:30px;
-    font-weight:bold
+    font-weight:bold;
 }
 
 .logo span{
-    color:#35d07f
+    color:#35d07f;
 }
 
 .container{
     max-width:620px;
     margin:auto;
-    padding:18px
+    padding:18px;
 }
 
 .card{
@@ -48,7 +48,7 @@ header{
     border:1px solid #26313d;
     border-radius:18px;
     padding:20px;
-    margin-bottom:18px
+    margin-bottom:18px;
 }
 
 .balance{
@@ -57,21 +57,22 @@ header{
     border-radius:18px;
     padding:25px;
     text-align:center;
-    margin-bottom:18px
+    margin-bottom:18px;
 }
 
 .balance-title{
     color:#aab5bf;
-    font-size:13px
+    font-size:13px;
 }
 
 .balance-value{
     font-size:38px;
     font-weight:bold;
-    margin-top:8px
+    margin-top:8px;
 }
 
-input,select{
+input,
+select{
     width:100%;
     padding:14px;
     margin:7px 0;
@@ -79,7 +80,7 @@ input,select{
     border:1px solid #354453;
     background:#18212b;
     color:#fff;
-    font-size:16px
+    font-size:16px;
 }
 
 button{
@@ -90,27 +91,27 @@ button{
     border-radius:12px;
     font-weight:bold;
     font-size:15px;
-    cursor:pointer
+    cursor:pointer;
 }
 
 button:disabled{
     opacity:.5;
-    cursor:not-allowed
+    cursor:not-allowed;
 }
 
 .primary{
     background:#35d07f;
-    color:#06100a
+    color:#06100a;
 }
 
 .secondary{
     background:#202b36;
     color:#fff;
-    border:1px solid #354453
+    border:1px solid #354453;
 }
 
 .hidden{
-    display:none!important
+    display:none!important;
 }
 
 .message{
@@ -118,25 +119,25 @@ button:disabled{
     border-radius:10px;
     background:#18212b;
     color:#aab5bf;
-    margin-bottom:12px
+    margin-bottom:12px;
 }
 
 .task{
     background:#18212b;
     border-radius:14px;
     padding:18px;
-    text-align:center
+    text-align:center;
 }
 
 .task-title{
     font-size:20px;
-    font-weight:bold
+    font-weight:bold;
 }
 
 .task-info{
     color:#aab5bf;
     font-size:14px;
-    margin:8px 0
+    margin:8px 0;
 }
 
 .task-video{
@@ -144,7 +145,7 @@ button:disabled{
     max-height:330px;
     margin:15px 0;
     border-radius:14px;
-    background:#000
+    background:#000;
 }
 
 .video-placeholder{
@@ -157,52 +158,52 @@ button:disabled{
     align-items:center;
     justify-content:center;
     color:#68747f;
-    font-size:28px
+    font-size:28px;
 }
 
 .timer{
     font-size:42px;
     font-weight:bold;
     color:#35d07f;
-    margin:15px
+    margin:15px;
 }
 
 .progress{
     height:8px;
     background:#26313d;
     border-radius:20px;
-    overflow:hidden
+    overflow:hidden;
 }
 
 .progress-bar{
     height:100%;
     width:0;
     background:#35d07f;
-    transition:width .3s linear
+    transition:width .3s linear;
 }
 
 .stats{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:12px
+    gap:12px;
 }
 
 .stat{
     background:#18212b;
     padding:15px;
     border-radius:12px;
-    text-align:center
+    text-align:center;
 }
 
 .stat-number{
     font-size:20px;
-    font-weight:bold
+    font-weight:bold;
 }
 
 .stat-label{
     color:#8e9aa5;
     font-size:12px;
-    margin-top:5px
+    margin-top:5px;
 }
 
 .refbox{
@@ -212,26 +213,26 @@ button:disabled{
     word-break:break-all;
     color:#35d07f;
     font-size:13px;
-    margin-top:10px
+    margin-top:10px;
 }
 
 .wallet{
     background:#18212b;
     border-radius:14px;
     padding:15px;
-    margin-top:12px
+    margin-top:12px;
 }
 
 .wallet-title{
     font-weight:bold;
-    margin-bottom:5px
+    margin-bottom:5px;
 }
 
 footer{
     text-align:center;
     color:#68747f;
     padding:30px;
-    font-size:13px
+    font-size:13px;
 }
 </style>
 </head>
@@ -290,7 +291,6 @@ footer{
 <!-- APP -->
 
 <div id="app" class="hidden">
-
 
 <!-- BALANCE -->
 
@@ -489,10 +489,8 @@ footer{
     <div class="wallet">
 
         <select id="withdrawCurrency">
-
             <option value="BTC">BTC</option>
             <option value="USDT">USDT</option>
-
         </select>
 
         <input
@@ -573,7 +571,7 @@ const client =
 
 
 /* =====================================================
-GLOBAL
+STATE
 ===================================================== */
 
 let currentUser = null;
@@ -623,7 +621,7 @@ function showMessage(text){
 
 
 /* =====================================================
-REFERRAL URL
+REFERRAL
 ===================================================== */
 
 const urlParams =
@@ -686,6 +684,11 @@ async function register(){
 
         return;
     }
+
+    /*
+    Referral sa uloží iba ak je
+    povolený databázou.
+    */
 
     if(
         data &&
@@ -1148,12 +1151,36 @@ async function loadTasks(){
         return;
     }
 
+    /*
+    Zoradenie ešte raz priamo
+    v JavaScripte ako poistka.
+    */
+
+    tomoTasks.sort(
+        function(a,b){
+
+            return Number(
+                a.sort_order ?? a.id
+            )
+            -
+            Number(
+                b.sort_order ?? b.id
+            );
+        }
+    );
+
+
+    /*
+    Uložený index.
+    */
+
     tomoTaskIndex =
         Number(
             localStorage.getItem(
                 "tomo_task_index"
             ) || 0
         );
+
 
     if(
         tomoTaskIndex < 0 ||
@@ -1210,6 +1237,7 @@ function renderTask(){
             seconds +
             "s"
         );
+
 
     list.innerHTML =
 
@@ -1270,7 +1298,9 @@ async function startTask(){
         );
 
 
-    /* SERVER START */
+    /*
+    START NA SERVERI
+    */
 
     const {
         error:startError
@@ -1283,21 +1313,54 @@ async function startTask(){
             }
         );
 
+
     if(startError){
 
         running = false;
 
-        alert(
-            startError.message
+        console.error(
+            "START ERROR:",
+            startError
         );
+
+        const list =
+            document.getElementById(
+                "taskList"
+            );
+
+        list.innerHTML =
+
+            "<div class='task'>" +
+
+            "<div class='task-info'>" +
+
+            "⚠️ " +
+            escapeHtml(
+                startError.message
+            ) +
+
+            "</div>" +
+
+            "<button " +
+            "class='primary' " +
+            "onclick='startTask()'>" +
+
+            "SKÚSIŤ ZNOVA" +
+
+            "</button>" +
+
+            "</div>";
 
         return;
     }
 
 
-    /* VIDEO */
+    /*
+    VIDEO
+    */
 
     let videoHTML = "";
+
 
     if(task.video_url){
 
@@ -1331,6 +1394,7 @@ async function startTask(){
         document.getElementById(
             "taskList"
         );
+
 
     list.innerHTML =
 
@@ -1379,6 +1443,10 @@ async function startTask(){
         "</div>";
 
 
+    /*
+    Spustenie videa.
+    */
+
     const video =
         document.getElementById(
             "taskVideo"
@@ -1386,20 +1454,26 @@ async function startTask(){
 
     if(video){
 
-        video.play().catch(
+        video
+        .play()
+        .catch(
             function(){}
         );
     }
 
 
-    /* TIMER */
+    /*
+    TIMER
+    */
 
     let remaining =
         seconds;
 
+
     clearInterval(
         taskTimerInterval
     );
+
 
     taskTimerInterval =
         setInterval(
@@ -1412,6 +1486,7 @@ async function startTask(){
                     document.getElementById(
                         "taskTimer"
                     );
+
 
                 const progress =
                     document.getElementById(
@@ -1444,13 +1519,19 @@ async function startTask(){
                             seconds
                         ) * 100;
 
+
                     progress.style.width =
                         Math.min(
                             percent,
                             100
-                        ) + "%";
+                        ) +
+                        "%";
                 }
 
+
+                /*
+                KONIEC VIDEA
+                */
 
                 if(remaining <= 0){
 
@@ -1470,7 +1551,7 @@ async function startTask(){
 
 
 /* =====================================================
-COMPLETE TASK + AUTO NEXT
+COMPLETE TASK + AUTOMATIC NEXT
 ===================================================== */
 
 async function completeCurrentTask(
@@ -1516,6 +1597,7 @@ async function completeCurrentTask(
             error
         );
 
+
         if(status){
 
             status.textContent =
@@ -1523,23 +1605,13 @@ async function completeCurrentTask(
                 error.message;
         }
 
+
         return;
     }
 
 
     /*
-    ODMENA
-    */
-
-    if(status){
-
-        status.textContent =
-            "✓ Odmena pripísaná.";
-    }
-
-
-    /*
-    BALANCE
+    AKTUALIZUJ BALANCE OKAMŽITE
     */
 
     if(
@@ -1547,25 +1619,25 @@ async function completeCurrentTask(
         data.balance !== undefined
     ){
 
-        document
-        .getElementById(
-            "balance"
-        )
-        .textContent =
-            "$" +
-            Number(
-                data.balance
-            ).toFixed(4);
+        const balanceEl =
+            document.getElementById(
+                "balance"
+            );
 
-    }else{
+        if(balanceEl){
 
-        await loadProfile();
+            balanceEl.textContent =
+                "$" +
+                Number(
+                    data.balance
+                ).toFixed(4);
+        }
     }
 
 
     /*
     =================================================
-    POSUN NA ĎALŠIE VIDEO
+    POSUN INDEXU
     =================================================
     */
 
@@ -1590,50 +1662,71 @@ async function completeCurrentTask(
 
 
     /*
-    AKTUÁLNE VIDEO JE HOTOVÉ
+    =================================================
+    DÔLEŽITÉ
+    =================================================
+
+    Najprv nastavíme running=false.
+    Potom okamžite vykreslíme ďalšiu úlohu.
+    Potom ju automaticky spustíme.
     */
 
     running = false;
 
 
     /*
-    =================================================
-    AUTOMATICKÉ POKRAČOVANIE
-    =================================================
+    ĎALŠIE VIDEO
+    */
 
-    Najprv sa zobrazí ďalšie video.
+    renderTask();
 
-    Potom sa po 300 ms automaticky
-    spustí jeho timer.
 
-    Používateľ už nič nestláča.
+    /*
+    AUTOMATICKÝ START
+    */
+
+    setTimeout(
+        function(){
+
+            if(
+                !running &&
+                currentTask
+            ){
+
+                startTask();
+            }
+
+        },
+        500
+    );
+
+
+    /*
+    ŠTATISTIKY A REFERRAL
+    SA OBNOVIA AŽ POTOM.
     */
 
     setTimeout(
         async function(){
 
-            renderTask();
+            try{
 
-            await loadProfile();
-            await loadStats();
-            await loadReferral();
+                await loadProfile();
 
+                await loadStats();
 
-            /*
-            AUTOMATICKÝ START ĎALŠEJ ÚLOHY
-            */
+                await loadReferral();
 
-            setTimeout(
-                function(){
+            }catch(e){
 
-                    startTask();
-
-                },
-                300
-            );
+                console.log(
+                    "Background refresh:",
+                    e
+                );
+            }
 
         },
-        800
+        1500
     );
 }
 
@@ -1659,6 +1752,7 @@ async function loadWallets(){
         )
         .maybeSingle();
 
+
     if(error){
 
         console.log(
@@ -1669,9 +1763,11 @@ async function loadWallets(){
         return;
     }
 
+
     if(!data){
         return;
     }
+
 
     document
     .getElementById(
@@ -1679,6 +1775,7 @@ async function loadWallets(){
     )
     .value =
         data.btc_address || "";
+
 
     document
     .getElementById(
@@ -1708,8 +1805,10 @@ async function saveWallet(
             "usdtAddress"
         );
 
+
     const wallet =
         input.value.trim();
+
 
     if(!wallet){
 
@@ -1720,19 +1819,23 @@ async function saveWallet(
         return;
     }
 
+
     const {
         error
     } =
         await client.rpc(
             "save_wallet",
             {
+
                 p_currency:
                     currency,
 
                 p_wallet:
                     wallet
+
             }
         );
+
 
     if(error){
 
@@ -1742,6 +1845,7 @@ async function saveWallet(
 
         return;
     }
+
 
     alert(
         currency +
@@ -1763,6 +1867,7 @@ async function withdraw(){
         )
         .value;
 
+
     const amount =
         Number(
             document
@@ -1771,6 +1876,7 @@ async function withdraw(){
             )
             .value
         );
+
 
     if(
         !amount ||
@@ -1783,6 +1889,7 @@ async function withdraw(){
 
         return;
     }
+
 
     const wallet =
         currency === "BTC"
@@ -1801,6 +1908,7 @@ async function withdraw(){
         .value
         .trim();
 
+
     if(!wallet){
 
         alert(
@@ -1809,6 +1917,7 @@ async function withdraw(){
 
         return;
     }
+
 
     const {
         data,
@@ -1830,6 +1939,7 @@ async function withdraw(){
             }
         );
 
+
     if(error){
 
         alert(
@@ -1839,11 +1949,13 @@ async function withdraw(){
         return;
     }
 
+
     document
     .getElementById(
         "withdrawAmount"
     )
     .value = "";
+
 
     if(
         data &&
@@ -1860,6 +1972,7 @@ async function withdraw(){
                 data.remaining_balance
             ).toFixed(4);
     }
+
 
     alert(
         "Žiadosť o výber bola vytvorená."
@@ -1913,7 +2026,7 @@ client.auth.onAuthStateChange(
 
 
 /* =====================================================
-START APPLICATION
+START
 ===================================================== */
 
 (async function(){
@@ -1922,6 +2035,7 @@ START APPLICATION
         data
     } =
         await client.auth.getSession();
+
 
     if(
         data &&
