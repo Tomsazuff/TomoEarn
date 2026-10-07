@@ -271,6 +271,12 @@ button:disabled{
     text-align:center;
 }
 
+.source{
+    color:#68747f;
+    font-size:11px;
+    margin-top:8px;
+}
+
 footer{
     text-align:center;
     color:#68747f;
@@ -296,9 +302,7 @@ footer{
 <div class="container">
 
 
-<!-- =====================================================
-LOGIN
-===================================================== -->
+<!-- LOGIN -->
 
 <div
     class="card"
@@ -345,9 +349,7 @@ LOGIN
 </div>
 
 
-<!-- =====================================================
-APP
-===================================================== -->
+<!-- APP -->
 
 <div
     id="app"
@@ -355,9 +357,7 @@ APP
 >
 
 
-<!-- =====================================================
-BALANCE
-===================================================== -->
+<!-- BALANCE -->
 
 <div class="balance">
 
@@ -375,9 +375,7 @@ BALANCE
 </div>
 
 
-<!-- =====================================================
-WATCH & EARN
-===================================================== -->
+<!-- WATCH EARN -->
 
 <div class="card">
 
@@ -385,7 +383,8 @@ WATCH & EARN
 
     <div class="task-info">
         Stlač LAUNCH iba raz.
-        Potom sa dostupné videá spúšťajú automaticky.
+        Potom TomoEarn automaticky vyberá
+        dostupné videá a pokračuje ďalej.
     </div>
 
     <div id="taskList">
@@ -395,9 +394,7 @@ WATCH & EARN
 </div>
 
 
-<!-- =====================================================
-STATISTICS
-===================================================== -->
+<!-- STATISTICS -->
 
 <div class="card">
 
@@ -441,9 +438,7 @@ STATISTICS
 </div>
 
 
-<!-- =====================================================
-REFERRAL
-===================================================== -->
+<!-- REFERRAL -->
 
 <div class="card">
 
@@ -466,7 +461,6 @@ REFERRAL
     >
         KOPÍROVAŤ REFERRAL LINK
     </button>
-
 
     <div
         class="stats"
@@ -509,9 +503,7 @@ REFERRAL
 </div>
 
 
-<!-- =====================================================
-WITHDRAW
-===================================================== -->
+<!-- WITHDRAW -->
 
 <div class="card">
 
@@ -602,9 +594,7 @@ WITHDRAW
 </div>
 
 
-<!-- =====================================================
-ACCOUNT
-===================================================== -->
+<!-- ACCOUNT -->
 
 <div class="card">
 
@@ -669,36 +659,32 @@ GLOBAL STATE
 
 let currentUser = null;
 
-/*
-    Toto je zoznam úloh načítaný zo servera.
-*/
 let tomoTasks = [];
 
-/*
-    Aktuálna úloha.
-*/
 let currentTask = null;
 
-/*
-    TRUE = automatický režim beží.
-*/
 let running = false;
 
-/*
-    Zabráni dvojitému spusteniu automatu.
-*/
 let loopPromise = null;
 
-/*
-    Posledná úloha.
-    Používa sa iba preto, aby sa pri viacerých
-    dostupných videách zbytočne neopakovalo to isté.
-*/
 let lastTaskId = null;
 
-/*
-    Referral pri registrácii.
-*/
+
+/* =====================================================
+PIXABAY STATE
+===================================================== */
+
+let pixabayVideos = [];
+
+let pixabayLoadedAt = 0;
+
+let lastPixabayVideoId = null;
+
+
+/* =====================================================
+REFERRAL
+===================================================== */
+
 const urlParams =
     new URLSearchParams(
         window.location.search
@@ -711,17 +697,6 @@ const incomingReferral =
 /* =====================================================
 HELPERS
 ===================================================== */
-
-function escapeHtml(value){
-
-    return String(value ?? "")
-        .replaceAll("&","&amp;")
-        .replaceAll("<","&lt;")
-        .replaceAll(">","&gt;")
-        .replaceAll('"',"&quot;")
-        .replaceAll("'","&#039;");
-}
-
 
 function sleep(ms){
 
@@ -738,6 +713,17 @@ function sleep(ms){
 }
 
 
+function escapeHtml(value){
+
+    return String(value ?? "")
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+}
+
+
 function showMessage(text){
 
     const el =
@@ -751,6 +737,18 @@ function showMessage(text){
             text;
 
     }
+}
+
+
+function setBalance(value){
+
+    document
+    .getElementById("balance")
+    .textContent =
+        "$" +
+        Number(value || 0)
+        .toFixed(4);
+
 }
 
 
@@ -799,6 +797,7 @@ async function register(){
         await client.auth.signUp({
 
             email:email,
+
             password:password
 
         });
@@ -815,7 +814,8 @@ async function register(){
 
 
     /*
-        Referral sa pokúsime uložiť.
+        Referral sa uloží iba vtedy,
+        keď registrácia vráti používateľa.
     */
 
     if(
@@ -855,7 +855,7 @@ async function register(){
 
 
     showMessage(
-        "Účet bol vytvorený."
+        "Účet bol vytvorený. Teraz sa prihlás."
     );
 
 }
@@ -896,6 +896,7 @@ async function login(){
         await client.auth.signInWithPassword({
 
             email:email,
+
             password:password
 
         });
@@ -974,12 +975,6 @@ async function loadUser(){
 
     await loadStats();
 
-    /*
-        Načítame iba stav.
-        LAUNCH sa zobrazí iba ak ešte automat
-        nebeží.
-    */
-
     await loadTasks();
 
 }
@@ -1017,21 +1012,14 @@ async function loadProfile(){
 
 
     if(!data){
+
         return;
     }
 
 
-    const balance =
-        Number(
-            data.balance || 0
-        );
-
-
-    document
-    .getElementById("balance")
-    .textContent =
-        "$" +
-        balance.toFixed(4);
+    setBalance(
+        data.balance
+    );
 
 }
 
@@ -1192,40 +1180,47 @@ async function loadReferral(){
         );
 
 
-    if(!refError){
+    if(refError){
 
-        const rows =
-            referrals || [];
-
-
-        document
-        .getElementById("refCount")
-        .textContent =
-            rows.length;
-
-
-        let total = 0;
-
-
-        rows.forEach(
-            function(row){
-
-                total +=
-                    Number(
-                        row.earned || 0
-                    );
-
-            }
+        console.log(
+            "Referral rows:",
+            refError
         );
 
-
-        document
-        .getElementById("refEarned")
-        .textContent =
-            "$" +
-            total.toFixed(4);
-
+        return;
     }
+
+
+    const rows =
+        referrals || [];
+
+
+    document
+    .getElementById("refCount")
+    .textContent =
+        rows.length;
+
+
+    let total = 0;
+
+
+    rows.forEach(
+        function(row){
+
+            total +=
+                Number(
+                    row.earned || 0
+                );
+
+        }
+    );
+
+
+    document
+    .getElementById("refEarned")
+    .textContent =
+        "$" +
+        total.toFixed(4);
 
 }
 
@@ -1243,6 +1238,7 @@ async function copyReferral(){
 
 
     if(!link){
+
         return;
     }
 
@@ -1253,11 +1249,9 @@ async function copyReferral(){
             link
         );
 
-
         alert(
             "Referral link skopírovaný."
         );
-
 
     }catch(error){
 
@@ -1271,22 +1265,227 @@ async function copyReferral(){
 
 
 /* =====================================================
-LOAD ACTIVE TASKS
+PIXABAY
+===================================================== */
+
+async function fetchPixabayVideos(){
+
+    /*
+        API key NIE JE v tomto index.html.
+
+        Kľúč zostáva v Supabase Secret:
+        PIXABAY_API_KEY
+
+        GitHub Pages teda nevidí Pixabay API key.
+    */
+
+    const {
+        data,
+        error
+    } =
+        await client.functions.invoke(
+            "pixabay-videos",
+            {
+                body:{
+                    limit:20
+                }
+            }
+        );
+
+
+    if(error){
+
+        throw error;
+    }
+
+
+    if(
+        !data ||
+        data.success !== true ||
+        !Array.isArray(data.videos)
+    ){
+
+        throw new Error(
+            "Pixabay funkcia nevrátila videá."
+        );
+
+    }
+
+
+    const videos =
+        data.videos.filter(
+            function(video){
+
+                return (
+                    video &&
+                    video.video_url
+                );
+
+            }
+        );
+
+
+    if(!videos.length){
+
+        throw new Error(
+            "Pixabay momentálne nevrátil žiadne video."
+        );
+
+    }
+
+
+    return videos;
+
+}
+
+
+async function ensurePixabayVideos(){
+
+    const now =
+        Date.now();
+
+
+    /*
+        Cache 10 minút.
+
+        Nebudeme volať Pixabay pri
+        každom jednom videu.
+    */
+
+    if(
+        pixabayVideos.length &&
+        now - pixabayLoadedAt <
+            10 * 60 * 1000
+    ){
+
+        return pixabayVideos;
+
+    }
+
+
+    pixabayVideos =
+        await fetchPixabayVideos();
+
+
+    pixabayLoadedAt =
+        now;
+
+
+    return pixabayVideos;
+
+}
+
+
+function choosePixabayVideo(){
+
+    if(!pixabayVideos.length){
+
+        return null;
+    }
+
+
+    let candidates =
+        pixabayVideos.filter(
+            function(video){
+
+                return String(video.id) !==
+                    String(lastPixabayVideoId);
+
+            }
+        );
+
+
+    /*
+        Ak je iba jedno video,
+        použijeme ho znova.
+    */
+
+    if(!candidates.length){
+
+        candidates =
+            pixabayVideos;
+
+    }
+
+
+    const index =
+        Math.floor(
+            Math.random() *
+            candidates.length
+        );
+
+
+    const selected =
+        candidates[index];
+
+
+    lastPixabayVideoId =
+        selected.id;
+
+
+    return selected;
+
+}
+
+
+async function attachPixabayVideo(task){
+
+    await ensurePixabayVideos();
+
+
+    const video =
+        choosePixabayVideo();
+
+
+    if(!video){
+
+        throw new Error(
+            "Nepodarilo sa vybrať Pixabay video."
+        );
+
+    }
+
+
+    /*
+        Databázovú úlohu nemeníme.
+
+        Iba jej dočasne priradíme
+        konkrétne video.
+    */
+
+    return {
+
+        ...task,
+
+        video_url:
+            video.video_url,
+
+        pixabay_id:
+            video.id,
+
+        pixabay_source:
+            video.source ||
+            "Pixabay",
+
+        pixabay_source_url:
+            video.source_url ||
+            "",
+
+        pixabay_title:
+            video.title ||
+            video.tags ||
+            ""
+
+    };
+
+}
+
+
+/* =====================================================
+LOAD AVAILABLE TASKS
 ===================================================== */
 
 async function fetchAvailableTasks(){
-
-    /*
-        VŽDY sa pýtame Supabase znova.
-
-        Preto už nepoužívame:
-        5 -> 15 -> 30 -> 90 -> 300
-
-        ale:
-
-        "Čo je práve aktívne?"
-    */
-
 
     let result =
         await client
@@ -1301,13 +1500,13 @@ async function fetchAvailableTasks(){
     if(result.error){
 
         console.log(
-            "Task query 1:",
+            "Tasks:",
             result.error
         );
 
 
         /*
-            Záložný dotaz bez orderu.
+            Druhý pokus.
         */
 
         result =
@@ -1325,34 +1524,16 @@ async function fetchAvailableTasks(){
     if(result.error){
 
         throw result.error;
+
     }
 
 
-    let tasks =
+    const tasks =
         result.data || [];
 
 
-    /*
-        Zoradíme podľa sort_order iba kvôli
-        zobrazeniu. Výber už NIE JE sekvenčný.
-    */
-
-    tasks.sort(
-        function(a,b){
-
-            return Number(
-                a.sort_order ?? a.id
-            )
-            -
-            Number(
-                b.sort_order ?? b.id
-            );
-
-        }
-    );
-
-
     return tasks;
+
 }
 
 
@@ -1361,12 +1542,6 @@ LOAD TASKS
 ===================================================== */
 
 async function loadTasks(){
-
-    /*
-        Ak už automat beží,
-        nikdy mu neprepíšeme obrazovku
-        tlačidlom LAUNCH.
-    */
 
     if(running){
 
@@ -1391,7 +1566,6 @@ async function loadTasks(){
         tomoTasks =
             await fetchAvailableTasks();
 
-
     }catch(error){
 
         console.error(
@@ -1404,7 +1578,9 @@ async function loadTasks(){
 
             "<div class='error-status'>" +
 
-            "⚠️ Úlohy sa nepodarilo načítať.<br>" +
+            "⚠️ Úlohy sa nepodarilo načítať." +
+
+            "<br>" +
 
             escapeHtml(
                 error.message
@@ -1420,7 +1596,9 @@ async function loadTasks(){
 
             "</button>";
 
+
         return;
+
     }
 
 
@@ -1435,6 +1613,7 @@ async function loadTasks(){
             "</div>";
 
         return;
+
     }
 
 
@@ -1449,16 +1628,16 @@ LAUNCH SCREEN
 
 function renderLaunchScreen(){
 
-    const list =
-        document.getElementById(
-            "taskList"
-        );
-
-
     if(running){
 
         return;
     }
+
+
+    const list =
+        document.getElementById(
+            "taskList"
+        );
 
 
     list.innerHTML =
@@ -1471,7 +1650,6 @@ function renderLaunchScreen(){
 
         "</div>" +
 
-
         "<div class='task-info'>" +
 
         "Dostupných úloh: " +
@@ -1480,10 +1658,13 @@ function renderLaunchScreen(){
 
         "<br>" +
 
-        "Po spustení sa vyberie vždy dostupná úloha." +
+        "Po spustení sa úloha vyberá automaticky." +
+
+        "<br>" +
+
+        "Po dokončení sa spustí ďalšia." +
 
         "</div>" +
-
 
         "<button " +
 
@@ -1503,20 +1684,23 @@ function renderLaunchScreen(){
 
 
 /* =====================================================
-CHOOSE RANDOM AVAILABLE TASK
+CHOOSE RANDOM TASK
 ===================================================== */
 
 function chooseAvailableTask(tasks){
 
-    if(!tasks || !tasks.length){
+    if(
+        !tasks ||
+        !tasks.length
+    ){
 
         return null;
     }
 
 
     /*
-        Ak je viac úloh, skúsime sa vyhnúť
-        okamžitému zopakovaniu tej istej.
+        Nechceme ihneď rovnakú úlohu,
+        ak existuje viac možností.
     */
 
     let candidates =
@@ -1530,15 +1714,11 @@ function chooseAvailableTask(tasks){
         );
 
 
-    /*
-        Ak ostala iba jedna,
-        použijeme aj tú.
-    */
-
     if(!candidates.length){
 
         candidates =
             tasks;
+
     }
 
 
@@ -1550,16 +1730,15 @@ function chooseAvailableTask(tasks){
 
 
     return candidates[index];
+
 }
 
 
 /* =====================================================
-RENDER CURRENT TASK
+RENDER RUNNING TASK
 ===================================================== */
 
-function renderRunningTask(
-    task
-){
+function renderRunningTask(task){
 
     const list =
         document.getElementById(
@@ -1611,6 +1790,8 @@ function renderRunningTask(
 
             "muted " +
 
+            "loop " +
+
             "controlsList='nodownload'>" +
 
             "<source src='" +
@@ -1636,6 +1817,16 @@ function renderRunningTask(
     }
 
 
+    const sourceHTML =
+        task.pixabay_title
+        ?
+        "<div class='source'>" +
+        "Zdroj: Pixabay" +
+        "</div>"
+        :
+        "";
+
+
     list.innerHTML =
 
         "<div class='task'>" +
@@ -1645,7 +1836,6 @@ function renderRunningTask(
         escapeHtml(title) +
 
         "</div>" +
-
 
         "<div class='task-info'>" +
 
@@ -1663,9 +1853,7 @@ function renderRunningTask(
 
         "</div>" +
 
-
         videoHTML +
-
 
         "<div " +
 
@@ -1676,7 +1864,6 @@ function renderRunningTask(
         seconds +
 
         "</div>" +
-
 
         "<div class='progress'>" +
 
@@ -1690,7 +1877,6 @@ function renderRunningTask(
 
         "</div>" +
 
-
         "<div " +
 
         "class='task-info' " +
@@ -1701,6 +1887,7 @@ function renderRunningTask(
 
         "</div>" +
 
+        sourceHTML +
 
         "<div class='auto-status'>" +
 
@@ -1714,12 +1901,10 @@ function renderRunningTask(
 
 
 /* =====================================================
-START ONE TASK ON SERVER
+START SERVER TASK
 ===================================================== */
 
-async function startServerTask(
-    task
-){
+async function startServerTask(task){
 
     const {
         error
@@ -1736,18 +1921,17 @@ async function startServerTask(
     if(error){
 
         throw error;
+
     }
 
 }
 
 
 /* =====================================================
-COMPLETE ONE TASK ON SERVER
+COMPLETE SERVER TASK
 ===================================================== */
 
-async function completeServerTask(
-    task
-){
+async function completeServerTask(task){
 
     const {
         data,
@@ -1765,6 +1949,7 @@ async function completeServerTask(
     if(error){
 
         throw error;
+
     }
 
 
@@ -1777,9 +1962,7 @@ async function completeServerTask(
 RUN ONE TASK
 ===================================================== */
 
-async function runOneTask(
-    task
-){
+async function runOneTask(task){
 
     currentTask =
         task;
@@ -1799,7 +1982,7 @@ async function runOneTask(
 
 
     /*
-        1. Server zaznamená START.
+        START v databáze.
     */
 
     await startServerTask(
@@ -1808,7 +1991,7 @@ async function runOneTask(
 
 
     /*
-        2. Zobrazíme video.
+        Zobrazíme video.
     */
 
     renderRunningTask(
@@ -1817,7 +2000,7 @@ async function runOneTask(
 
 
     /*
-        3. Skúsime spustiť skutočné video.
+        Autoplay.
     */
 
     const video =
@@ -1828,29 +2011,24 @@ async function runOneTask(
 
     if(video){
 
-        video
-        .play()
-        .catch(
-            function(error){
+        try{
 
-                console.log(
-                    "Video autoplay:",
-                    error
-                );
+            await video.play();
 
-            }
-        );
+        }catch(error){
+
+            console.log(
+                "Video autoplay:",
+                error
+            );
+
+        }
 
     }
 
 
     /*
-        4. Odpočítavanie.
-
-        Používame await namiesto
-        setInterval(async ...),
-        aby nikdy nebežali dva
-        completion procesy naraz.
+        TIMER
     */
 
     let remaining =
@@ -1926,12 +2104,13 @@ async function runOneTask(
 
     /*
         Ak používateľ odhlásil účet,
-        automat sa ukončí.
+        nepokračujeme.
     */
 
     if(!running){
 
         return null;
+
     }
 
 
@@ -1978,8 +2157,7 @@ async function runOneTask(
 
 
     /*
-        Malá rezerva, aby databázový čas
-        určite vyhodnotil úlohu ako dokončenú.
+        Rezerva kvôli databázovému času.
     */
 
     await sleep(
@@ -1988,7 +2166,7 @@ async function runOneTask(
 
 
     /*
-        5. SERVER COMPLETE.
+        COMPLETE v databáze.
     */
 
     const result =
@@ -1998,7 +2176,7 @@ async function runOneTask(
 
 
     /*
-        6. Aktualizácia balance.
+        Balance.
     */
 
     if(
@@ -2006,21 +2184,15 @@ async function runOneTask(
         result.balance !== undefined
     ){
 
-        document
-        .getElementById(
-            "balance"
-        )
-        .textContent =
-            "$" +
-            Number(
-                result.balance
-            ).toFixed(4);
+        setBalance(
+            result.balance
+        );
 
     }
 
 
     /*
-        7. Aktualizácia štatistík.
+        Obnovíme údaje.
     */
 
     await loadProfile();
@@ -2036,28 +2208,18 @@ async function runOneTask(
 
 
 /* =====================================================
-CONTINUOUS EARN LOOP
+CONTINUOUS LOOP
 ===================================================== */
 
 async function continuousEarnLoop(){
-
-    /*
-        Toto je hlavný automat.
-
-        Nikde tu nie je:
-
-        5 -> 15 -> 30 -> 90 -> 300
-
-        Každé kolo sa znova opýta Supabase,
-        čo je práve aktívne.
-    */
 
     while(running){
 
         try{
 
             /*
-                1. Znovu načítame dostupné úlohy.
+                Zakaždým sa znovu pozrieme,
+                čo je aktuálne dostupné.
             */
 
             const availableTasks =
@@ -2069,8 +2231,8 @@ async function continuousEarnLoop(){
 
 
             /*
-                2. Ak nič nie je dostupné,
-                počkáme a skúsime znova.
+                Žiadna úloha?
+                Počkáme a skúšame ďalej.
             */
 
             if(!availableTasks.length){
@@ -2100,14 +2262,15 @@ async function continuousEarnLoop(){
 
 
                 continue;
+
             }
 
 
             /*
-                3. Vyberieme náhodnú dostupnú úlohu.
+                Náhodná dostupná úloha.
             */
 
-            const task =
+            let task =
                 chooseAvailableTask(
                     availableTasks
                 );
@@ -2120,11 +2283,22 @@ async function continuousEarnLoop(){
                 );
 
                 continue;
+
             }
 
 
             /*
-                4. Spustíme ju.
+                Vyberieme aktuálne Pixabay video.
+            */
+
+            task =
+                await attachPixabayVideo(
+                    task
+                );
+
+
+            /*
+                Spustíme úlohu.
             */
 
             await runOneTask(
@@ -2133,11 +2307,8 @@ async function continuousEarnLoop(){
 
 
             /*
-                5. ŽIADNE LAUNCH.
-
                 Po dokončení sa loop automaticky
-                vráti na začiatok a znova načíta
-                aktuálne dostupné videá.
+                vráti na začiatok.
             */
 
             if(running){
@@ -2151,13 +2322,6 @@ async function continuousEarnLoop(){
 
         }catch(error){
 
-            /*
-                DÔLEŽITÉ:
-
-                Chyba jednej úlohy NEUKONČÍ
-                celý automat.
-            */
-
             console.error(
                 "AUTO TASK ERROR:",
                 error
@@ -2170,7 +2334,10 @@ async function continuousEarnLoop(){
                 );
 
 
-            if(list && running){
+            if(
+                list &&
+                running
+            ){
 
                 list.innerHTML =
 
@@ -2188,8 +2355,8 @@ async function continuousEarnLoop(){
 
 
             /*
-                Po chybe počkáme a znova načítame
-                aktuálnu dostupnosť.
+                Chyba jedného videa
+                nezastaví celý automat.
             */
 
             await sleep(
@@ -2200,10 +2367,6 @@ async function continuousEarnLoop(){
 
     }
 
-
-    /*
-        Automat bol vypnutý.
-    */
 
     currentTask =
         null;
@@ -2220,10 +2383,6 @@ LAUNCH
 ===================================================== */
 
 async function startContinuousEarn(){
-
-    /*
-        Ochrana proti dvojitému kliknutiu.
-    */
 
     if(running){
 
@@ -2245,11 +2404,6 @@ async function startContinuousEarn(){
         true;
 
 
-    /*
-        Hneď odstránime možnosť
-        druhého LAUNCH.
-    */
-
     const list =
         document.getElementById(
             "taskList"
@@ -2266,7 +2420,7 @@ async function startContinuousEarn(){
 
 
     /*
-        Spustíme JEDEN loop.
+        IBA JEDEN loop.
     */
 
     loopPromise =
@@ -2312,6 +2466,7 @@ async function loadWallets(){
 
 
     if(!data){
+
         return;
     }
 
@@ -2338,9 +2493,7 @@ async function loadWallets(){
 SAVE WALLET
 ===================================================== */
 
-async function saveWallet(
-    currency
-){
+async function saveWallet(currency){
 
     const input =
         currency === "BTC"
@@ -2374,13 +2527,11 @@ async function saveWallet(
         await client.rpc(
             "save_wallet",
             {
-
                 p_currency:
                     currency,
 
                 p_wallet:
                     wallet
-
             }
         );
 
@@ -2475,7 +2626,6 @@ async function withdraw(){
         await client.rpc(
             "create_withdrawal",
             {
-
                 p_currency:
                     currency,
 
@@ -2484,7 +2634,6 @@ async function withdraw(){
 
                 p_wallet:
                     wallet
-
             }
         );
 
@@ -2511,15 +2660,9 @@ async function withdraw(){
         data.remaining_balance !== undefined
     ){
 
-        document
-        .getElementById(
-            "balance"
-        )
-        .textContent =
-            "$" +
-            Number(
-                data.remaining_balance
-            ).toFixed(4);
+        setBalance(
+            data.remaining_balance
+        );
 
     }
 
@@ -2538,7 +2681,7 @@ LOGOUT
 async function logout(){
 
     /*
-        Zastavíme automat.
+        Zastavenie automatu.
     */
 
     running =
@@ -2583,12 +2726,6 @@ client.auth.onAuthStateChange(
             currentUser =
                 session.user;
 
-
-            /*
-                Pri auth evente načítame používateľa,
-                ale iba ak aplikácia ešte nie je
-                v automatickom režime.
-            */
 
             if(!running){
 
