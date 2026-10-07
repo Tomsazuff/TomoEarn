@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TomoEarn</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0f14;
+  color: #ffffff;
+}
+
+header {
+  padding: 20px;
+  background: #111821;
+  border-bottom: 1px solid #26313d;
+  text-align: center;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.logo span {
+  color: #35d07f;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+
+.balance {
+  background: linear-gradient(135deg, #15241d, #102018);
+  border: 1px solid #24563b;
+  border-radius: 18px;
+  padding: 25px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.balance-title {
+  color: #aab5bf;
+  font-size: 14px;
+}
+
+.balance-value {
+  font-size: 38px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.card {
+  background: #111821;
+  border: 1px solid #26313d;
+  border-radius: 18px;
+  padding: 20px;
+  margin-bottom: 18px;
+}
+
+.card h2 {
+  margin-top: 0;
+  font-size: 20px;
+}
+
+.task {
+  background: #18212b;
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+}
+
+.task-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.task-info {
+  color: #aab5bf;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+button {
+  width: 100%;
+  border: 0;
+  border-radius: 12px;
+  padding: 15px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.launch {
+  background: #35d07f;
+  color: #06100a;
+}
+
+.launch:disabled {
+  background: #3b5145;
+  color: #9aa79f;
+}
+
+.withdraw {
+  background: #202b36;
+  color: white;
+  border: 1px solid #354453;
+}
+
+.timer {
+  font-size: 34px;
+  font-weight: bold;
+  margin: 15px 0;
+  color: #35d07f;
+}
+
+.video-box {
+  display: none;
+  background: #05070a;
+  border-radius: 14px;
+  padding: 25px 15px;
+  margin-top: 15px;
+  text-align: center;
+}
+
+.progress {
+  width: 100%;
+  height: 8px;
+  background: #26313d;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: #35d07f;
+  transition: width 1s linear;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.stat {
+  background: #18212b;
+  padding: 15px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.stat-label {
+  color: #8e9aa5;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.note {
+  color: #7f8b96;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+  margin-top: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">Tomo<span>Earn</span></div>
+</header>
+
+<div class="container">
+
+  <div class="balance">
+    <div class="balance-title">YOUR BALANCE</div>
+    <div class="balance-value" id="balance">$0.0000</div>
+  </div>
+
+  <div class="card">
+    <h2>Watch & Earn</h2>
+
+    <div class="task">
+
+      <div class="task-title">Available Task</div>
+
+      <div class="task-info">
+        Watch the task until the timer finishes.
+      </div>
+
+      <button class="launch" id="launchBtn" onclick="startTask()">
+        LAUNCH
+      </button>
+
+      <div class="video-box" id="videoBox">
+
+        <div>Task in progress</div>
+
+        <div class="timer" id="timer">15</div>
+
+        <div class="progress">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="task-info" id="taskStatus">
+          Please wait until the task is completed.
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="card">
+
+    <h2>Statistics</h2>
+
+    <div class="stats">
+
+      <div class="stat">
+        <div class="stat-number" id="tasks">0</div>
+        <div class="stat-label">COMPLETED TASKS</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-number" id="earned">$0.0000</div>
+        <div class="stat-label">TOTAL EARNED</div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="card">
+
+    <h2>Withdraw</h2>
+
+    <p style="color:#9aa5af;font-size:14px;">
+      Available payout methods:
+    </p>
+
+    <button class="withdraw" onclick="withdraw()">
+      WITHDRAW
+    </button>
+
+  </div>
+
+  <div class="note">
+    TomoEarn — test version.<br>
+    Real video tasks and cryptocurrency payouts will be connected later.
+  </div>
+
+</div>
+
+<script>
+
+let balance = parseFloat(localStorage.getItem("tomo_balance")) || 0;
+let tasks = parseInt(localStorage.getItem("tomo_tasks")) || 0;
+
+const reward = 0.0008;
+
+function updateDisplay() {
+
+  document.getElementById("balance").textContent =
+    "$" + balance.toFixed(4);
+
+  document.getElementById("earned").textContent =
+    "$" + balance.toFixed(4);
+
+  document.getElementById("tasks").textContent = tasks;
+
+  localStorage.setItem("tomo_balance", balance);
+  localStorage.setItem("tomo_tasks", tasks);
+}
+
+function startTask() {
+
+  const button = document.getElementById("launchBtn");
+  const videoBox = document.getElementById("videoBox");
+  const timer = document.getElementById("timer");
+  const progressBar = document.getElementById("progressBar");
+  const status = document.getElementById("taskStatus");
+
+  button.disabled = true;
+  videoBox.style.display = "block";
+
+  let seconds = 15;
+  timer.textContent = seconds;
+  progressBar.style.width = "0%";
+  status.textContent = "Please wait until the task is completed.";
+
+  const interval = setInterval(() => {
+
+    seconds--;
+
+    timer.textContent = seconds;
+
+    const progress = ((15 - seconds) / 15) * 100;
+    progressBar.style.width = progress + "%";
+
+    if (seconds <= 0) {
+
+      clearInterval(interval);
+
+      balance += reward;
+      tasks++;
+
+      updateDisplay();
+
+      timer.textContent = "✓";
+      progressBar.style.width = "100%";
+      status.textContent =
+        "Task completed. Reward added to your balance.";
+
+      button.disabled = false;
+
+    }
+
+  }, 1000);
+}
+
+function withdraw() {
+
+  alert(
+    "Withdrawals will be connected after the real payout system is added."
+  );
+
+}
+
+updateDisplay();
+
+</script>
+
+</body>
+</html>
