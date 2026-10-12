@@ -2,163 +2,93 @@
 <html lang="sk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="theme-color" content="#0b0f14">
-<title>TomoEarn - 3 Level Referral</title>
+<title>TomoEarn - Touch Fix</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#0b0f14;color:#fff}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}body{margin:0;font-family:Arial,sans-serif;background:#0b0f14;color:#fff;touch-action:manipulation}
 header{padding:18px;text-align:center;background:#111821;border-bottom:1px solid #26313d;position:sticky;top:0;z-index:10}
 .logo{font-size:30px;font-weight:bold}.logo span{color:#35d07f}
 .container{max-width:620px;margin:auto;padding:18px}
 .card{background:#111821;border:1px solid #26313d;border-radius:18px;padding:20px;margin-bottom:18px}
 .balance{background:#14251c;border:1px solid #24563b;border-radius:18px;padding:25px;text-align:center;margin-bottom:18px}
 .balance-title{color:#aab5bf;font-size:13px}.balance-value{font-size:38px;font-weight:bold;margin-top:8px}
-input,select{width:100%;padding:14px;margin:7px 0;border-radius:12px;border:1px solid #354453;background:#18212b;color:#fff;font-size:16px}
-button{width:100%;padding:14px;margin-top:8px;border:0;border-radius:12px;font-weight:bold;font-size:15px;cursor:pointer}
+input,select{width:100%;padding:18px 16px;margin:8px 0;border-radius:14px;border:1px solid #354453;background:#18212b;color:#fff;font-size:18px;-webkit-appearance:none;appearance:none}
+input:focus{border-color:#35d07f;outline:none;background:#1c2a38}
+button{width:100%;padding:18px;margin-top:10px;border:0;border-radius:14px;font-weight:bold;font-size:18px;cursor:pointer;touch-action:manipulation;min-height:56px}
 .primary{background:#35d07f;color:#06100a}.secondary{background:#202b36;color:#fff;border:1px solid #354453}
-.hidden{display:none!important}.message{padding:12px;border-radius:10px;background:#18212b;color:#aab5bf;margin-bottom:12px}
+.hidden{display:none!important}.message{padding:12px;border-radius:10px;background:#18212b;color:#aab5bf;margin-bottom:12px;font-size:14px}
 .task{background:#18212b;border-radius:14px;padding:18px;text-align:center}.task-title{font-size:20px;font-weight:bold}.task-info{color:#aab5bf;font-size:14px;margin:8px 0}
 .task-video{width:100%;max-height:330px;margin:15px 0;border-radius:14px;background:#000}
 .timer{font-size:42px;font-weight:bold;color:#35d07f;margin:15px}.progress{height:8px;background:#26313d;border-radius:20px;overflow:hidden}.progress-bar{height:100%;width:0;background:#35d07f;transition:width .3s linear}
 .stats{display:grid;grid-template-columns:1fr 1fr;gap:12px}.stat{background:#18212b;padding:15px;border-radius:12px;text-align:center}.stat-number{font-size:20px;font-weight:bold}.stat-label{color:#8e9aa5;font-size:12px;margin-top:5px}
 .refbox{background:#18212b;padding:14px;border-radius:12px;word-break:break-all;color:#35d07f;font-size:13px;margin-top:10px}
-.wallet{background:#18212b;border-radius:14px;padding:15px;margin-top:12px}.wallet-title{font-weight:bold;margin-bottom:5px}
-.auto-status{background:#14251c;border:1px solid #24563b;color:#35d07f;padding:13px;border-radius:12px;margin-top:12px;font-weight:bold;text-align:center}
 .ref-level{display:flex;justify-content:space-between;align-items:center;background:#18212b;padding:12px 15px;border-radius:12px;margin-top:8px;border-left:4px solid #35d07f}
 .ref-level.l2{border-left-color:#ffcc33}.ref-level.l3{border-left-color:#8e9aa5}
 .badge{display:inline-block;background:#1a2e23;color:#35d07f;border:1px solid #24563b;padding:4px 10px;border-radius:20px;font-size:11px;margin:4px}
 .source{color:#68747f;font-size:11px;margin-top:8px}footer{text-align:center;color:#68747f;padding:30px;font-size:13px}
+.show-pass{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:#202b36;border:1px solid #354453;color:#fff;padding:6px 10px;border-radius:8px;font-size:12px}
+.input-wrap{position:relative}
 </style>
 </head>
 <body>
-<header><div class="logo">Tomo<span>Earn</span> <span style="font-size:11px;background:#1a2e23;color:#35d07f;padding:4px 8px;border-radius:10px;margin-left:6px">L1 50% | L2 25% | L3 10%</span></div></header>
+<header><div class="logo">Tomo<span>Earn</span> <span style="font-size:11px;background:#1a2e23;color:#35d07f;padding:4px 8px;border-radius:10px">TOUCH FIX</span></div></header>
 <div class="container">
 <div class="card" id="authBox">
-<h2>Prihlásenie</h2>
-<div id="message" class="message">Prihlás sa alebo vytvor nový účet.</div>
-<input id="email" type="email" placeholder="Email"><input id="password" type="password" placeholder="Heslo">
-<button class="primary" onclick="login()">PRIHLÁSIŤ</button>
+<h2>Prihlásenie - DOTYK</h2>
+<div id="message" class="message">Dotyková verzia - veľké tlačidlá. Zadaj email a heslo.</div>
+<div class="input-wrap">
+<input id="email" type="email" inputmode="email" autocomplete="email" placeholder="Email (napr. meno@gmail.com)" autocapitalize="off" spellcheck="false">
+</div>
+<div class="input-wrap">
+<input id="password" type="password" inputmode="text" autocomplete="current-password" placeholder="Heslo (min 6 znakov)" style="padding-right:70px">
+<button type="button" class="show-pass" onclick="togglePass()">UKÁŽ</button>
+</div>
+<button class="primary" onclick="login()">PRIHLÁSIŤ - KLIKNI SEM</button>
 <button class="secondary" onclick="register()">VYTVORIŤ ÚČET</button>
+<div style="margin-top:12px;text-align:center"><button class="secondary" onclick="quickTest()" style="font-size:14px">⚡ RÝCHLY TEST ÚČET - KLIKNI AK NEJDE KLÁVESNICA</button></div>
 </div>
 <div id="app" class="hidden">
-<div class="balance">
-<div class="balance-title">YOUR BALANCE</div>
-<div class="balance-value" id="balance">$0.0000</div>
-<div id="videoCountBadge" style="margin-top:10px"></div>
-</div>
-<div class="card">
-<h2>Watch & Earn - 1000/deň</h2>
-<div id="taskList">Načítavam...</div>
-<div style="margin-top:12px;display:flex;gap:8px">
-<button class="secondary" style="flex:1" onclick="refreshVideoPool()">OBNOVIŤ 1000</button>
-<button class="secondary" style="flex:1" onclick="clearPool()">VYMAZAŤ CACHE</button>
-</div>
-<div id="poolInfo" class="source"></div>
-</div>
-<div class="card">
-<h2>Referral System - 3 Levels</h2>
-<div class="task-info">Zarábaj z 3 úrovní:<br><b style="color:#35d07f">L1 = 50%</b> | <b style="color:#ffcc33">L2 = 25%</b> | <b style="color:#8e9aa5">L3 = 10%</b></div>
-<div class="refbox" id="refLink">Načítavam...</div>
-<button class="primary" onclick="copyReferral()">KOPÍROVAŤ LINK</button>
-<div style="margin-top:14px">
-<div class="ref-level"><div><b>LEVEL 1 - 50%</b><div class="source">Priami</div></div><div style="text-align:right"><div class="stat-number" id="refL1Count">0</div><div class="stat-number" style="font-size:14px;color:#35d07f" id="refL1Earned">$0.0000</div></div></div>
-<div class="ref-level l2"><div><b>LEVEL 2 - 25%</b><div class="source">Ich pozvaní</div></div><div style="text-align:right"><div class="stat-number" id="refL2Count">0</div><div class="stat-number" style="font-size:14px;color:#ffcc33" id="refL2Earned">$0.0000</div></div></div>
-<div class="ref-level l3"><div><b>LEVEL 3 - 10%</b><div class="source">Tretia úroveň</div></div><div style="text-align:right"><div class="stat-number" id="refL3Count">0</div><div class="stat-number" style="font-size:14px;color:#8e9aa5" id="refL3Earned">$0.0000</div></div></div>
-</div>
-<div class="stats" style="margin-top:12px">
-<div class="stat"><div class="stat-number" id="refCount">0</div><div class="stat-label">CELKOM</div></div>
-<div class="stat"><div class="stat-number" id="refEarned">$0.0000</div><div class="stat-label">REF ZÁROBOK</div></div>
+<div class="balance"><div class="balance-title">YOUR BALANCE</div><div class="balance-value" id="balance">$0.0000</div><div id="videoCountBadge" style="margin-top:10px"></div></div>
+<div class="card"><h2>Watch & Earn</h2><div id="taskList">Načítavam...</div><div style="margin-top:12px;display:flex;gap:8px"><button class="secondary" style="flex:1" onclick="refreshVideoPool()">OBNOVIŤ 1000</button><button class="secondary" style="flex:1" onclick="clearPool()">VYMAZAŤ</button></div><div id="poolInfo" class="source"></div></div>
+<div class="card"><h2>Referral 50/25/10</h2><div class="refbox" id="refLink">Načítavam...</div><button class="primary" onclick="copyReferral()">KOPÍROVAŤ LINK</button><div style="margin-top:14px"><div class="ref-level"><div><b>L1 50%</b></div><div id="refL1Count">0</div></div><div class="ref-level l2"><div><b>L2 25%</b></div><div id="refL2Count">0</div></div><div class="ref-level l3"><div><b>L3 10%</b></div><div id="refL3Count">0</div></div></div></div>
+<div class="card"><h2>Account</h2><div id="userEmail" class="task-info">-</div><button class="secondary" onclick="logout()">ODHLÁSIŤ</button></div>
 </div>
 </div>
-<div class="card"><h2>Statistics</h2><div class="stats"><div class="stat"><div class="stat-number" id="tasks">0</div><div class="stat-label">COMPLETED TASKS</div></div><div class="stat"><div class="stat-number" id="earned">$0.0000</div><div class="stat-label">TOTAL EARNED</div></div></div></div>
-<div class="card"><h2>Withdraw</h2>
-<div class="wallet"><div class="wallet-title">BTC wallet</div><input id="btcAddress" type="text" placeholder="BTC adresa"><button class="secondary" onclick="saveWallet('BTC')">ULOŽIŤ BTC</button></div>
-<div class="wallet"><div class="wallet-title">USDT wallet</div><input id="usdtAddress" type="text" placeholder="USDT adresa"><button class="secondary" onclick="saveWallet('USDT')">ULOŽIŤ USDT</button></div>
-<div class="wallet"><select id="withdrawCurrency"><option value="BTC">BTC</option><option value="USDT">USDT</option></select><input id="withdrawAmount" type="number" min="0" step="0.00000001" placeholder="Suma"><button class="primary" onclick="withdraw()">POŽIADAŤ O VÝBER</button></div>
-</div>
-<div class="card"><h2>Account</h2><div id="userEmail" class="task-info">-</div><div id="referralCode" class="task-info">Referral: -</div><button class="secondary" onclick="logout()">ODHLÁSIŤ</button></div>
-</div>
-</div>
-<footer>TomoEarn © 2026 - 50/25/10</footer>
+<footer>TomoEarn Touch Fix</footer>
 <script>
 const SUPABASE_URL="https://irfrtnzetkejbdaihmmo.supabase.co";
 const SUPABASE_KEY="sb_publishable_j95JBEVTQIsqp10TiGymSQ_wZVI4ADB";
 const client=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-let currentUser=null,tomoTasks=[],running=false,loopPromise=null,lastTaskId=null,freeVideoPool=[],poolLoadedAt=0,lastVideoId=null;
-const urlParams=new URLSearchParams(window.location.search);
-const incomingReferral=urlParams.get("ref");
+let currentUser=null,tomoTasks=[],running=false,lastTaskId=null,freeVideoPool=[],poolLoadedAt=0,lastVideoId=null;
+const urlParams=new URLSearchParams(window.location.search); const incomingReferral=urlParams.get("ref");
 function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
-function escapeHtml(v){return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;")}
-function showMessage(t){const el=document.getElementById("message"); if(el) el.textContent=t}
+function showMessage(t){document.getElementById("message").textContent=t}
 function setBalance(v){document.getElementById("balance").textContent="$"+Number(v||0).toFixed(4)}
+function togglePass(){const i=document.getElementById("password"); i.type=i.type==="password"?"text":"password";}
+async function quickTest(){document.getElementById("email").value="test"+Date.now()+"@test.com"; document.getElementById("password").value="12345678"; showMessage("Vyplnil som test účet, teraz klikni VYTVORIŤ ÚČET"); }
 async function fetch1000FreeVideos(force=false){
-  const cached=localStorage.getItem('tomo_1000_pool');
-  const cachedAt=Number(localStorage.getItem('tomo_1000_pool_at')||0);
-  const oneDay=86400000;
-  if(!force && cached && (Date.now()-cachedAt)<oneDay){
-    try{ const parsed=JSON.parse(cached); if(parsed.length>=200){ freeVideoPool=parsed; poolLoadedAt=cachedAt; updatePoolInfo(); return parsed; } }catch(e){}
-  }
-  document.getElementById("poolInfo").textContent="Sťahujem 1000 videí...";
-  let allVideos=[];
-  try{
-    const {data,error}=await client.functions.invoke("pixabay-videos",{body:{count:1000,pages:5}});
-    if(!error && data && Array.isArray(data.videos)) allVideos=allVideos.concat(data.videos);
-  }catch(e){}
-  if(allVideos.length<500){ allVideos=allVideos.concat(generateFallbackPool(1000-allVideos.length)); }
-  const seen=new Set(); const deduped=[];
-  for(const v of allVideos){ const id=v.id||v.video_url; if(!seen.has(id)){ seen.add(id); deduped.push(v); } }
-  for(let i=deduped.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [deduped[i],deduped[j]]=[deduped[j],deduped[i]] }
-  freeVideoPool=deduped.slice(0,1000); poolLoadedAt=Date.now();
-  localStorage.setItem('tomo_1000_pool',JSON.stringify(freeVideoPool));
-  localStorage.setItem('tomo_1000_pool_at',String(poolLoadedAt));
-  updatePoolInfo(); return freeVideoPool;
+  const cached=localStorage.getItem('tomo_1000_pool'); const cachedAt=Number(localStorage.getItem('tomo_1000_pool_at')||0);
+  if(!force && cached && (Date.now()-cachedAt)<86400000){ try{ const p=JSON.parse(cached); if(p.length>=50){ freeVideoPool=p; poolLoadedAt=cachedAt; updatePoolInfo(); return p; } }catch(e){} }
+  let all=[]; try{ const {data,error}=await client.functions.invoke("pixabay-videos",{body:{count:200}}); if(!error&&data&&data.videos) all=data.videos; }catch(e){}
+  if(all.length<20){ for(let i=0;i<50;i++) all.push({id:"fb"+i,video_url:"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",title:"Test video "+i,duration:15,reward:0.0005}); }
+  freeVideoPool=all.slice(0,200); poolLoadedAt=Date.now(); localStorage.setItem('tomo_1000_pool',JSON.stringify(freeVideoPool)); localStorage.setItem('tomo_1000_pool_at',String(poolLoadedAt)); updatePoolInfo(); return freeVideoPool;
 }
-function generateFallbackPool(n){
-  const baseIds=[3209840,1806902,1409899,3048520,5310859,3191575,4369034,1806920,1484556,3191256];
-  const pool=[];
-  for(let i=0;i<n;i++){
-    const id=baseIds[i%baseIds.length];
-    pool.push({id:"pexels-"+Date.now()+"-"+i,video_url:`https://videos.pexels.com/video-files/${id}/${id}-hd_720_720_25fps.mp4`,source_url:`https://www.pexels.com/video/${id}/`,title:`Free viral ${i}`,tags:"viral",duration:15+(i%20),reward:0.0005,video_source:"Free-Pool"});
-  }
-  return pool;
-}
-function updatePoolInfo(){
-  const el=document.getElementById("poolInfo"); const badge=document.getElementById("videoCountBadge");
-  const count=freeVideoPool.length; const ageH=poolLoadedAt?Math.floor((Date.now()-poolLoadedAt)/3600000):0;
-  if(el) el.innerHTML=`V poole: <b>${count}</b> | Pred ${ageH}h | 3-Level aktívny`;
-  if(badge) badge.innerHTML=`<span class="badge">${count} VIDEÍ</span> <span class="badge">L1 50%</span> <span class="badge">L2 25%</span> <span class="badge">L3 10%</span>`;
-}
-async function getNextFreeVideo(){
-  if(!freeVideoPool.length || (Date.now()-poolLoadedAt)>86400000) await fetch1000FreeVideos();
-  let candidates=freeVideoPool.filter(v=>String(v.id)!==String(lastVideoId));
-  if(!candidates.length) candidates=freeVideoPool;
-  const video=candidates[Math.floor(Math.random()*candidates.length)];
-  lastVideoId=video.id; return video;
-}
-async function attachFreeVideo(task){
-  const video=await getNextFreeVideo(); if(!video) return task;
-  return {...task, video_url:video.video_url, video_source:video.video_source||"Free", pixabay_title:video.title||"", duration_seconds:task.duration_seconds||video.duration||20, reward:task.reward||0.0005};
-}
+function updatePoolInfo(){ const el=document.getElementById("poolInfo"); if(el) el.textContent="Pool: "+freeVideoPool.length+" videí"; document.getElementById("videoCountBadge").innerHTML="<span class='badge'>"+freeVideoPool.length+" VIDEÍ</span> <span class='badge'>TOUCH OK</span>"; }
 async function register(){
-  const email=document.getElementById("email").value.trim();
-  const password=document.getElementById("password").value;
-  if(!email||!password){showMessage("Vyplň email a heslo.");return}
-  if(password.length<6){showMessage("Heslo min 6");return}
-  const {data,error}=await client.auth.signUp({email,password});
-  if(error){showMessage(error.message);return}
-  if(data && data.user && incomingReferral){
-    try{ await client.rpc("register_with_referral_chain",{p_new_user_id:data.user.id,p_referral_code:incomingReferral}); }
-    catch(e){ await client.from("referrals").insert({referrer_code:incomingReferral,referred_user_id:data.user.id,earned:0}); }
-  }
-  showMessage("Účet vytvorený. Prihlás sa.");
+  const email=document.getElementById("email").value.trim(); const password=document.getElementById("password").value;
+  if(!email||!password){showMessage("Vyplň email a heslo na klávesnici"); return}
+  showMessage("Vytváram účet..."); const {data,error}=await client.auth.signUp({email,password});
+  if(error){showMessage("CHYBA: "+error.message); return}
+  if(data&&data.user&&incomingReferral){ try{ await client.rpc("register_with_referral_chain",{p_new_user_id:data.user.id,p_referral_code:incomingReferral}); }catch(e){} }
+  showMessage("✅ Účet vytvorený! Teraz klikni PRIHLÁSIŤ");
 }
 async function login(){
-  const email=document.getElementById("email").value.trim();
-  const password=document.getElementById("password").value;
-  if(!email||!password){showMessage("Vyplň email a heslo.");return}
-  const {data,error}=await client.auth.signInWithPassword({email,password});
-  if(error){showMessage(error.message);return}
+  const email=document.getElementById("email").value.trim(); const password=document.getElementById("password").value;
+  if(!email||!password){showMessage("Najprv napíš email a heslo"); return}
+  showMessage("Prihlasujem..."); const {data,error}=await client.auth.signInWithPassword({email,password});
+  if(error){showMessage("CHYBA PRIHLÁSENIA: "+error.message+" | Skús VYTVORIŤ ÚČET"); return}
   currentUser=data.user; await loadUser();
 }
 async function loadUser(){
@@ -166,24 +96,19 @@ async function loadUser(){
   if(!currentUser){ document.getElementById("authBox").classList.remove("hidden"); document.getElementById("app").classList.add("hidden"); return; }
   document.getElementById("authBox").classList.add("hidden"); document.getElementById("app").classList.remove("hidden");
   document.getElementById("userEmail").textContent=currentUser.email||"";
-  await loadProfile(); await loadWallets(); await loadReferral(); await loadStats(); await loadTasks(); await fetch1000FreeVideos();
+  try{ const {data:p}=await client.from("profiles").select("*").eq("id",currentUser.id).maybeSingle(); if(p) setBalance(p.balance); }catch(e){ setBalance(0); }
+  try{ const {data:profile}=await client.from("profiles").select("referral_code").eq("id",currentUser.id).maybeSingle(); let code=profile&&profile.referral_code?profile.referral_code:"TOMO-"+currentUser.id.replaceAll("-","").substring(0,8).toUpperCase(); const link=location.origin+location.pathname+"?ref="+encodeURIComponent(code); document.getElementById("refLink").textContent=link; }catch(e){}
+  await fetch1000FreeVideos(); loadTasks();
 }
-async function loadProfile(){ const {data}=await client.from("profiles").select("*").eq("id",currentUser.id).maybeSingle(); if(data) setBalance(data.balance); }
-async function loadStats(){
-  const {data}=await client.from("task_completions").select("id,reward").eq("user_id",currentUser.id).eq("status","completed");
-  const rows=data||[]; document.getElementById("tasks").textContent=rows.length;
-  let total=0; rows.forEach(r=>total+=Number(r.reward||0)); document.getElementById("earned").textContent="$"+total.toFixed(4);
+async function loadTasks(){
+  const list=document.getElementById("taskList"); list.innerHTML="<div style='padding:20px;text-align:center'>Načítavam videá pre dotyk...<br><br><button class='primary' onclick='startTest()'>SPUSTIŤ TEST VIDEO</button></div>";
 }
-async function loadReferral(){
-  const {data:profile}=await client.from("profiles").select("referral_code").eq("id",currentUser.id).maybeSingle();
-  let code=profile&&profile.referral_code?profile.referral_code:"TOMO-"+currentUser.id.replaceAll("-","").substring(0,8).toUpperCase();
-  const link=window.location.origin+window.location.pathname+"?ref="+encodeURIComponent(code);
-  document.getElementById("refLink").textContent=link;
-  document.getElementById("referralCode").textContent="Referral: "+code;
-  try{
-    const {data:chain}=await client.from("referral_chain").select("level").eq("referrer_id",currentUser.id);
-    const l1=(chain||[]).filter(c=>c.level===1).length; const l2=(chain||[]).filter(c=>c.level===2).length; const l3=(chain||[]).filter(c=>c.level===3).length;
-    document.getElementById("refL1Count").textContent=l1; document.getElementById("refL2Count").textContent=l2; document.getElementById("refL3Count").textContent=l3;
-    document.getElementById("refCount").textContent=(chain||[]).length;
-  }catch(e){
-    const {data:referrals}=await client.from("referrals").select("earned").eq("referrer_code",
+function startTest(){ const list=document.getElementById("taskList"); list.innerHTML="<video class='task-video' autoplay muted loop controls style='width:100%;border-radius:14px'><source src='https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'></video><div class='auto-status'>✅ DOTYK FUNGUJE! Video beží</div>"; }
+async function copyReferral(){ const l=document.getElementById("refLink").textContent; try{await navigator.clipboard.writeText(l); alert("Skopírované");}catch{ alert(l)} }
+function refreshVideoPool(){ fetch1000FreeVideos(true).then(()=>alert("Obnovené "+freeVideoPool.length)); }
+function clearPool(){ localStorage.clear(); alert("Vymazané, obnov stránku"); }
+async function logout(){ await client.auth.signOut(); location.reload(); }
+(async function(){ const {data}=await client.auth.getSession(); if(data&&data.session&&data.session.user){ currentUser=data.session.user; await loadUser(); } })();
+</script>
+</body>
+</html>
