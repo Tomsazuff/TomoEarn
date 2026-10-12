@@ -1,6 +1,1 @@
-self.options = {
-    "domain": "5gvci.com",
-    "zoneId": 12009043
-}
-self.lary = ""
-importScripts('https://5gvci.com/act/files/service-worker.min.js?r=sw')
+importScripts('https://fpyf8.com/act/files/service-worker.js?n=12009230');
