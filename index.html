@@ -1,37 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="sk">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="monetag" content="3528087">
 <title>TomoEarn</title>
+<!-- Monetag 12009230 -->
+<script src="https://fpyf8.com/act/files/tag.js?n=12009230" data-cfasync="false" async></script>
 <style>
-body{background:#111;color:#fff;text-align:center;font-family:Arial;padding:20px}
-.box{max-width:400px;margin:50px auto;background:#222;padding:25px;border-radius:15px}
-h1{color:#00ff88}
-button{background:#00ff88;color:#000;border:0;padding:15px;width:100%;border-radius:10px;font-size:18px;font-weight:bold}
+body{background:#0f1115;color:#fff;font-family:Arial;text-align:center;margin:0;padding:15px}
+.top{font-size:32px;font-weight:bold;margin:20px 0}
+.top span{color:#00e68a}
+.card{background:#1a1e29;border-radius:20px;padding:20px;margin:15px auto;max-width:500px;border:1px solid #2a2f40}
+.badge{display:inline-block;background:#163a2b;color:#00e68a;padding:6px 14px;border-radius:20px;margin:5px;font-size:14px;border:1px solid #00e68a55}
+.btn{background:#ffcc00;color:#000;border:0;padding:18px;width:100%;border-radius:14px;font-size:20px;font-weight:bold;margin-top:15px}
+.btn:active{transform:scale(0.98)}
+.small{color:#8a90a8;font-size:14px;margin-top:10px}
+.btn2{background:#252a3a;color:#fff;border:0;padding:15px;width:100%;border-radius:12px;font-size:18px;margin-top:10px}
+#player{width:100%;height:260px;background:#000;border-radius:12px;margin-top:15px;display:none}
 </style>
 </head>
 <body>
-<div class="box">
-<h1>TomoEarn</h1>
-<p>Claim 0.0005 TOMO kazdych 5 minut</p>
-<div id="timer" style="font-size:22px;color:#00ff88;margin:15px">Ready!</div>
-<button id="btn" onclick="claim()">CLAIM NOW</button>
-<p>Balance: <span id="bal">0.00000000</span></p>
+
+<div class="top">Tomo<span>Earn</span></div>
+
+<div class="card">
+<div style="color:#8a90a8;font-size:14px">ÚČET</div>
+<div style="font-size:20px;font-weight:bold;margin:8px 0">horstezuffa@gmail.com</div>
+<div><span class="badge">20 VIDEÍ</span> <span class="badge">Monetag 12009230 ACTIVE</span></div>
 </div>
+
+<div class="card">
+<h2 style="text-align:left;margin:0">Playlist - 1 KLIK</h2>
+<p style="font-size:20px;font-weight:bold">20 videí</p>
+<button class="btn" onclick="start()">▶️ ŠTART - 1 KLIK A IDE SAMO</button>
+<div class="small">Klikneš 1x a ide to samé. Zárobok uvidíš v Monetag dashboard.</div>
+<div id="player"></div>
+<div id="info" class="small" style="margin-top:15px"></div>
+</div>
+
+<div class="card">
+<button class="btn2" onclick="location.reload()">ODHLÁSIŤ</button>
+</div>
+
 <script>
-let bal=parseFloat(localStorage.getItem('bal')||0);
-let last=parseInt(localStorage.getItem('last')||0);
-document.getElementById('bal').innerText=bal.toFixed(8);
-function upd(){
- let now=Date.now();
- let diff=300000-(now-last);
- if(diff<=0){document.getElementById('timer').innerText='Ready!';document.getElementById('btn').disabled=false}
- else{let s=Math.floor(diff/1000);document.getElementById('timer').innerText=Math.floor(s/60)+':'+String(s%60).padStart(2,'0');document.getElementById('btn').disabled=true}
+let vids=["dQw4w9WgXcQ","jNQXAC9IVRw","M7lc1UVf-VE","kJQP7kiw5Fk","RgKAFK5djSk","OPf0YbXqDm0","9bZkp7q19f0","CevxZvSJLk8","fRh_vgS2dFE","YQHsXMglC9A","hT_nvWreIhg","60ItHLz5WEA","ktvTqknDobU","pRpeEdMmmQ0","uelHwf8o7_U","09R8_2nJtjg","NUsoVlDFqZg","2Vv-BfVoq4g","Zi_XLOBDo_Y","k85mRPqvMbE"];
+let idx=0;
+function start(){
+ document.getElementById('player').style.display='block';
+ play();
+ // Spusti Monetag tag
+ if(window.startA){startA()}
 }
-function claim(){bal+=0.0005;last=Date.now();localStorage.setItem('bal',bal);localStorage.setItem('last',last);document.getElementById('bal').innerText=bal.toFixed(8);upd()}
-setInterval(upd,1000);upd();
+function play(){
+ if(idx>=vids.length){document.getElementById('info').innerText="Hotovo! 20 videí pozretých.";return;}
+ let id=vids[idx];
+ document.getElementById('player').innerHTML='<iframe width="100%" height="260" src="https://www.youtube.com/embed/'+id+'?autoplay=1&mute=1" frameborder="0" allow="autoplay" allowfullscreen></iframe>';
+ document.getElementById('info').innerText="Hrá video "+(idx+1)+"/20 - nechaj bežať, zárobok ide automaticky";
+ idx++;
+ setTimeout(play, 30000); // každé 30s ďalšie
+}
 </script>
+
+<script>
+// Registruj service worker pre Monetag Push 12009230
+if('serviceWorker' in navigator){
+ navigator.serviceWorker.register('/sw.js');
+}
+</script>
+
 </body>
 </html>
