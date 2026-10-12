@@ -3,55 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#0b0f14">
-<title>TomoEarn - 1000 Videos</title>
+<title>TomoEarn - $2/DAY</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;font-family:Arial,sans-serif;background:#0b0f14;color:#fff;touch-action:manipulation}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#0b0f14;color:#fff}
 header{padding:18px;text-align:center;background:#111821;border-bottom:1px solid #26313d;position:sticky;top:0;z-index:10}
 .logo{font-size:30px;font-weight:bold}.logo span{color:#35d07f}
 .container{max-width:620px;margin:auto;padding:18px}
 .card{background:#111821;border:1px solid #26313d;border-radius:18px;padding:20px;margin-bottom:18px}
 .balance{background:linear-gradient(135deg,#14251c,#1a3d2a);border:1px solid #24563b;border-radius:18px;padding:25px;text-align:center;margin-bottom:18px}
-.balance-title{color:#aab5bf;font-size:13px}.balance-value{font-size:38px;font-weight:bold;margin-top:8px}
-input{width:100%;padding:18px 16px;margin:8px 0;border-radius:14px;border:1px solid #354453;background:#18212b;color:#fff;font-size:18px;-webkit-appearance:none}
-input:focus{border-color:#35d07f;outline:none;background:#1c2a38}
+.balance-value{font-size:38px;font-weight:bold;margin-top:8px}
+input{width:100%;padding:18px 16px;margin:8px 0;border-radius:14px;border:1px solid #354453;background:#18212b;color:#fff;font-size:18px}
 button{width:100%;padding:18px;margin-top:10px;border:0;border-radius:14px;font-weight:bold;font-size:18px;cursor:pointer;min-height:56px}
 .primary{background:#35d07f;color:#06100a}.secondary{background:#202b36;color:#fff;border:1px solid #354453}
-.hidden{display:none!important}.message{padding:12px;border-radius:10px;background:#18212b;color:#aab5bf;margin-bottom:12px;font-size:14px}
-.task{background:#18212b;border-radius:14px;padding:18px;text-align:center}.task-title{font-size:20px;font-weight:bold}.task-info{color:#aab5bf;font-size:14px;margin:8px 0}
-.task-video{width:100%;max-height:330px;margin:15px 0;border-radius:14px;background:#000}
+.hidden{display:none!important}.message{padding:12px;border-radius:10px;background:#18212b;color:#aab5bf;margin-bottom:12px}
+.task{background:#18212b;border-radius:14px;padding:18px;text-align:center}.task-video{width:100%;max-height:330px;margin:15px 0;border-radius:14px;background:#000}
 .timer{font-size:42px;font-weight:bold;color:#35d07f;margin:15px}.progress{height:8px;background:#26313d;border-radius:20px;overflow:hidden}.progress-bar{height:100%;width:0;background:#35d07f;transition:width .3s linear}
 .refbox{background:#18212b;padding:14px;border-radius:12px;word-break:break-all;color:#35d07f;font-size:13px;margin-top:10px}
 .ref-level{display:flex;justify-content:space-between;align-items:center;background:#18212b;padding:12px 15px;border-radius:12px;margin-top:8px;border-left:4px solid #35d07f}
-.ref-level.l2{border-left-color:#ffcc33}.ref-level.l3{border-left-color:#8e9aa5}
 .badge{display:inline-block;background:#1a2e23;color:#35d07f;border:1px solid #24563b;padding:4px 10px;border-radius:20px;font-size:11px;margin:4px}
-.source{color:#68747f;font-size:11px;margin-top:8px}footer{text-align:center;color:#68747f;padding:30px;font-size:13px}
+.source{color:#68747f;font-size:11px;margin-top:8px}
 .input-wrap{position:relative}.show-pass{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:#202b36;border:1px solid #354453;color:#fff;padding:6px 10px;border-radius:8px;font-size:12px}
 </style>
 </head>
 <body>
-<header><div class="logo">Tomo<span>Earn</span> <span style="font-size:11px;background:#1a2e23;color:#35d07f;padding:4px 8px;border-radius:10px;margin-left:6px">1000 VIDEOS</span></div></header>
+<header><div class="logo">Tomo<span>Earn</span> <span style="font-size:11px;background:#1a2e23;color:#35d07f;padding:4px 8px;border-radius:10px;margin-left:6px">$2/DAY</span></div></header>
 <div class="container">
 <div class="card" id="authBox">
-<h2>Prihlásenie</h2>
-<div id="message" class="message">1000 videí v poole + Referral 50/25/10</div>
-<div class="input-wrap"><input id="email" type="email" inputmode="email" placeholder="Email" autocapitalize="off"></div>
+<h2>Prihlásenie - $2/Deň</h2>
+<div id="message" class="message">$0.002 x 1000 = $2/deň + referral 50/25/10 = $3/deň</div>
+<div class="input-wrap"><input id="email" type="email" inputmode="email" placeholder="Email"></div>
 <div class="input-wrap"><input id="password" type="password" placeholder="Heslo" style="padding-right:70px"><button type="button" class="show-pass" onclick="togglePass()">UKÁŽ</button></div>
 <button class="primary" onclick="login()">PRIHLÁSIŤ</button>
 <button class="secondary" onclick="register()">VYTVORIŤ ÚČET</button>
-<button class="secondary" onclick="quickTest()" style="font-size:13px">⚡ RÝCHLY TEST ÚČET</button>
+<button class="secondary" onclick="quickTest()" style="font-size:13px">⚡ RÝCHLY TEST</button>
 </div>
 <div id="app" class="hidden">
-<div class="balance"><div class="balance-title">YOUR BALANCE</div><div class="balance-value" id="balance">$0.0000</div><div style="margin-top:10px"><span class="badge" id="videoCountBadge">0 VIDEÍ</span> <span class="badge">L1 50% | L2 25% | L3 10%</span></div></div>
-<div class="card"><h2>Watch & Earn - 1000 VIDEÍ</h2><div id="taskList">Načítavam...</div><div style="margin-top:12px;display:flex;gap:8px"><button class="secondary" style="flex:1" onclick="fetch1000(true)">OBNOVIŤ 1000</button><button class="secondary" style="flex:1" onclick="localStorage.clear();location.reload()">VYMAZAŤ</button></div><div id="poolInfo" class="source"></div></div>
-<div class="card"><h2>Referral 50/25/10</h2><div class="refbox" id="refLink">Načítavam...</div><button class="primary" onclick="copyRef()">KOPÍROVAŤ LINK</button><div style="margin-top:14px"><div class="ref-level"><div><b>L1 50%</b></div><div id="refL1">0</div></div><div class="ref-level l2"><div><b>L2 25%</b></div><div id="refL2">0</div></div><div class="ref-level l3"><div><b>L3 10%</b></div><div id="refL3">0</div></div></div></div>
-<div class="card"><h2>Account</h2><div id="userEmail" class="task-info">-</div><button class="secondary" onclick="logout()">ODHLÁSIŤ</button></div>
+<div class="balance"><div class="balance-value" id="balance">$0.0000</div><div style="margin-top:10px"><span class="badge" id="videoCountBadge">0 VIDEÍ</span> <span class="badge">$0.002 / VIDEO</span> <span class="badge">L1 50% L2 25% L3 10%</span></div></div>
+<div class="card"><h2>Watch & Earn - $0.002</h2><div id="taskList">Načítavam...</div><div style="margin-top:12px;display:flex;gap:8px"><button class="secondary" style="flex:1" onclick="fetch1000(true)">OBNOVIŤ 1000</button><button class="secondary" style="flex:1" onclick="localStorage.clear();location.reload()">VYMAZAŤ</button></div><div id="poolInfo" class="source"></div></div>
+<div class="card"><h2>Referral 50/25/10</h2><div class="refbox" id="refLink"></div><button class="primary" onclick="copyRef()">KOPÍROVAŤ LINK</button><div style="margin-top:14px"><div class="ref-level"><div><b>L1 50%</b></div><div id="refL1">0</div></div><div class="ref-level" style="border-left-color:#ffcc33"><div><b>L2 25%</b></div><div id="refL2">0</div></div><div class="ref-level" style="border-left-color:#8e9aa5"><div><b>L3 10%</b></div><div id="refL3">0</div></div></div></div>
+<div class="card"><h2>Account</h2><div id="userEmail"></div><button class="secondary" onclick="logout()">ODHLÁSIŤ</button></div>
 </div>
 </div>
-<footer>TomoEarn 1000</footer>
 <script>
+const REWARD = 0.002;
 const SUPABASE_URL="https://irfrtnzetkejbdaihmmo.supabase.co";
 const SUPABASE_KEY="sb_publishable_j95JBEVTQIsqp10TiGymSQ_wZVI4ADB";
 const client=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
@@ -61,39 +56,38 @@ function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
 function showMessage(t){document.getElementById("message").textContent=t}
 function setBalance(v){document.getElementById("balance").textContent="$"+Number(v||0).toFixed(4)}
 function togglePass(){const i=document.getElementById("password"); i.type=i.type==="password"?"text":"password";}
-function quickTest(){document.getElementById("email").value="test"+Date.now()+"@test.com"; document.getElementById("password").value="12345678"; showMessage("Vyplnené - klikni VYTVORIŤ ÚČET");}
+function quickTest(){document.getElementById("email").value="test"+Date.now()+"@test.com"; document.getElementById("password").value="12345678";}
 async function fetch1000(force=false){
  const cached=localStorage.getItem('tomo_1000_pool'); const cachedAt=Number(localStorage.getItem('tomo_1000_pool_at')||0);
  if(!force && cached && (Date.now()-cachedAt)<86400000){ try{ const p=JSON.parse(cached); if(p.length>=20){ freeVideoPool=p; updatePoolInfo(); return p; } }catch(e){} }
  let all=[]; try{ const {data,error}=await client.functions.invoke("pixabay-videos",{body:{count:200}}); if(!error&&data&&data.videos) all=data.videos; }catch(e){}
- if(all.length<20){ for(let i=0;i<1000;i++) all.push({id:"fb"+i,video_url:"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",title:"Viral Video #"+(i+1),duration:15,reward:0.0005}); }
- freeVideoPool=all.slice(0,1000); localStorage.setItem('tomo_1000_pool',JSON.stringify(freeVideoPool)); localStorage.setItem('tomo_1000_pool_at',String(Date.now())); updatePoolInfo(); return freeVideoPool;
+ if(all.length<20){ for(let i=0;i<1000;i++) all.push({id:"fb"+i,video_url:"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",title:"Viral #"+(i+1),reward:REWARD}); }
+ all = all.map(v=>({...v,reward:REWARD})).slice(0,1000);
+ freeVideoPool=all; localStorage.setItem('tomo_1000_pool',JSON.stringify(freeVideoPool)); localStorage.setItem('tomo_1000_pool_at',String(Date.now())); updatePoolInfo(); return freeVideoPool;
 }
-function updatePoolInfo(){ document.getElementById("poolInfo").textContent="Pool: "+freeVideoPool.length+" videí zadarmo | Auto refresh 24h"; document.getElementById("videoCountBadge").textContent=freeVideoPool.length+" VIDEÍ V POOL"; }
-async function register(){ const email=document.getElementById("email").value.trim(); const password=document.getElementById("password").value; if(!email||!password){showMessage("Vyplň email a heslo"); return} showMessage("Vytváram..."); const {data,error}=await client.auth.signUp({email,password}); if(error){showMessage("CHYBA: "+error.message); return} if(data&&data.user&&incomingReferral){ try{ await client.rpc("register_with_referral_chain",{p_new_user_id:data.user.id,p_referral_code:incomingReferral}); }catch(e){} } showMessage("✅ Vytvorený! Teraz PRIHLÁSIŤ"); }
-async function login(){ const email=document.getElementById("email").value.trim(); const password=document.getElementById("password").value; if(!email||!password){showMessage("Vyplň údaje"); return} showMessage("Prihlasujem..."); const {data,error}=await client.auth.signInWithPassword({email,password}); if(error){showMessage("CHYBA: "+error.message); return} currentUser=data.user; await loadUser(); }
+function updatePoolInfo(){ document.getElementById("poolInfo").textContent="Pool: "+freeVideoPool.length+" x $"+REWARD+" = $"+(freeVideoPool.length*REWARD).toFixed(2); document.getElementById("videoCountBadge").textContent=freeVideoPool.length+" VIDEÍ"; }
+async function register(){ const email=document.getElementById("email").value.trim(); const password=document.getElementById("password").value; if(!email||!password){showMessage("Vyplň email"); return} const {data,error}=await client.auth.signUp({email,password}); if(error){showMessage(error.message); return} if(data.user&&incomingReferral){ try{ await client.rpc("register_with_referral_chain",{p_new_user_id:data.user.id,p_referral_code:incomingReferral}); }catch(e){} } showMessage("✅ Vytvorený - prihlás sa"); }
+async function login(){ const email=document.getElementById("email").value.trim(); const password=document.getElementById("password").value; const {data,error}=await client.auth.signInWithPassword({email,password}); if(error){showMessage(error.message); return} currentUser=data.user; await loadUser(); }
 async function loadUser(){
  const {data}=await client.auth.getUser(); currentUser=data.user; if(!currentUser){ document.getElementById("authBox").classList.remove("hidden"); document.getElementById("app").classList.add("hidden"); return; }
- document.getElementById("authBox").classList.add("hidden"); document.getElementById("app").classList.remove("hidden"); document.getElementById("userEmail").textContent=currentUser.email||"";
- try{ const {data:p}=await client.from("profiles").select("*").eq("id",currentUser.id).maybeSingle(); if(p) setBalance(p.balance); }catch(e){ setBalance(0); }
- try{ const {data:profile}=await client.from("profiles").select("referral_code").eq("id",currentUser.id).maybeSingle(); let code=profile&&profile.referral_code?profile.referral_code:"TOMO-"+currentUser.id.replaceAll("-","").substring(0,8).toUpperCase(); const link=location.origin+location.pathname+"?ref="+encodeURIComponent(code); document.getElementById("refLink").textContent=link; }catch(e){}
- await fetch1000(); 
- document.getElementById("taskList").innerHTML=`<div class="task"><div class="task-title">1000 VIDEÍ READY</div><div class="task-info">V poole ${freeVideoPool.length} videí<br>50/25/10 Referral aktívny<br>+0.0005$ za video</div><button class="primary" onclick="startEarn()">🚀 SPUSTIŤ EARN</button><button class="secondary" onclick="startAuto()">▶️ AUTO PLAY (nekonečno)</button></div>`;
- try{ const {data:chain}=await client.from("referral_chain").select("level").eq("referrer_id",currentUser.id); if(chain){ document.getElementById("refL1").textContent=chain.filter(c=>c.level==1).length; document.getElementById("refL2").textContent=chain.filter(c=>c.level==2).length; document.getElementById("refL3").textContent=chain.filter(c=>c.level==3).length; } }catch(e){}
+ document.getElementById("authBox").classList.add("hidden"); document.getElementById("app").classList.remove("hidden"); document.getElementById("userEmail").textContent=currentUser.email;
+ try{ const {data:p}=await client.from("profiles").select("*").eq("id",currentUser.id).maybeSingle(); if(p) setBalance(p.balance); }catch(e){}
+ try{ const {data:profile}=await client.from("profiles").select("referral_code").eq("id",currentUser.id).maybeSingle(); let code=profile?.referral_code||"TOMO-"+currentUser.id.replaceAll("-","").substring(0,8).toUpperCase(); document.getElementById("refLink").textContent=location.origin+location.pathname+"?ref="+code; }catch(e){}
+ await fetch1000(); document.getElementById("taskList").innerHTML=`<div class="task"><div class="task-title">${freeVideoPool.length} VIDEÍ = $${(freeVideoPool.length*REWARD).toFixed(2)}</div><button class="primary" onclick="startEarn()">🚀 SPUSTIŤ EARN $${REWARD}</button><button class="secondary" onclick="startAuto()">▶️ AUTO PLAY</button></div>`;
 }
 async function startEarn(){ running=true; runNext(); }
 async function startAuto(){ running=true; while(running){ await runNext(); await sleep(1000); } }
 async function runNext(){
- if(!running) return; const video=freeVideoPool[Math.floor(Math.random()*freeVideoPool.length)]; const list=document.getElementById("taskList"); if(!video) return;
- list.innerHTML=`<div class="task"><div class="task-title">${video.title}</div><video class="task-video" autoplay muted loop><source src="${video.video_url}"></video><div class="timer" id="vTimer">15</div><div class="progress"><div class="progress-bar" id="vProg" style="width:0%"></div></div><div class="task-info">Zarábaš +$0.0005</div></div>`;
+ if(!running) return; const video=freeVideoPool[Math.floor(Math.random()*freeVideoPool.length)]; const list=document.getElementById("taskList");
+ list.innerHTML=`<div class="task"><div class="task-title">${video.title}</div><video class="task-video" autoplay muted loop><source src="${video.video_url}"></video><div class="timer" id="vTimer">15</div><div class="progress"><div class="progress-bar" id="vProg"></div></div><div>+$${REWARD}</div></div>`;
  let t=15; while(t>0 && running){ const el=document.getElementById("vTimer"); const pr=document.getElementById("vProg"); if(el) el.textContent=t; if(pr) pr.style.width=((15-t)/15*100)+"%"; await sleep(1000); t--; }
  if(!running) return;
- if(currentUser){ try{ const {data:profile}=await client.from("profiles").select("balance").eq("id",currentUser.id).maybeSingle(); const newBal=(Number(profile?.balance||0)+0.0005); await client.from("profiles").update({balance:newBal}).eq("id",currentUser.id); setBalance(newBal); await client.rpc("distribute_referral_3level",{p_user_id:currentUser.id,p_amount:0.0005}).catch(()=>{}); }catch(e){} }
- if(running) list.innerHTML+=`<div style="margin-top:10px;color:#35d07f"><b>✅ +$0.0005</b> - ďalšie video za 2s...</div>`; await sleep(2000); if(running) runNext();
+ if(currentUser){ try{ const {data:profile}=await client.from("profiles").select("balance").eq("id",currentUser.id).maybeSingle(); const newBal=(Number(profile?.balance||0)+REWARD); await client.from("profiles").update({balance:newBal}).eq("id",currentUser.id); setBalance(newBal); }catch(e){} }
+ if(running) { await sleep(2000); runNext(); }
 }
-async function copyRef(){ const l=document.getElementById("refLink").textContent; try{await navigator.clipboard.writeText(l); alert("Skopírované: "+l);}catch{ alert(l)} }
+async function copyRef(){ const l=document.getElementById("refLink").textContent; try{await navigator.clipboard.writeText(l); alert("Skopírované");}catch{ alert(l)} }
 async function logout(){ running=false; await client.auth.signOut(); location.reload(); }
-(async function(){ const {data}=await client.auth.getSession(); if(data&&data.session&&data.session.user){ currentUser=data.session.user; await loadUser(); } })();
+(async function(){ const {data}=await client.auth.getSession(); if(data?.session?.user){ currentUser=data.session.user; await loadUser(); } })();
 </script>
 </body>
 </html>
