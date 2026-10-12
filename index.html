@@ -1,12 +1,55 @@
 <!DOCTYPE html>
-<html lang="sk"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TomoEarn V2</title>
-<style>body{background:#0f0f0f;color:#fff;font-family:Arial;text-align:center;padding:20px}.box{background:#1e1e1e;border-radius:15px;padding:20px;max-width:400px;margin:20px auto;border:1px solid #333}.timer{font-size:48px;color:#00ff88}.btn{background:#00ff88;color:#000;border:none;padding:18px 30px;border-radius:10px;font-size:20px;font-weight:bold;width:100%}.btn:disabled{background:#555}.earn{font-size:24px;color:#ffd700}</style></head>
-<body><h1>🔥 TomoEarn V2 - 1$ Denne</h1><div class="box"><div>ZÁROBOK:</div><div class="earn" id="earn">$0.00</div><div id="clicks">Klikov: 0/50</div></div><div class="box"><div id="status">Pripravený</div><div class="timer" id="timer">15:00</div><button class="btn" id="btn" onclick="openAd()">OTVOR REKLAMU +$0.02</button></div>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>TomoEarn</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#000;color:#fff;font-family:system-ui;overflow:hidden;height:100vh;width:100vw}
+.feed{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch}
+.item{height:100vh;position:relative;scroll-snap-align:start;overflow:hidden;background:#000}
+video{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
+.overlay{position:absolute;inset:0;background:linear-gradient(transparent 60%,rgba(0,0,0,.8));pointer-events:none}
+.top{position:absolute;top:0;left:0;right:0;padding:12px 14px;display:flex;justify-content:space-between;z-index:10;background:linear-gradient(rgba(0,0,0,.6),transparent)}
+.earn{font-weight:800;color:#00ff88}
+.side{position:absolute;right:8px;bottom:120px;z-index:10;display:flex;flex-direction:column;gap:22px;align-items:center}
+.icon{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:24px;backdrop-filter:blur(10px)}
+.info{position:absolute;left:12px;bottom:28px;z-index:10;max-width:70%}
+.info b{font-size:15px;display:block;margin-bottom:4px}
+.info span{font-size:13px;opacity:.8}
+.playbtn{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:10;width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;color:#000;font-size:30px}
+</style>
+</head>
+<body>
+<div class="feed" id="feed"></div>
 <script>
-const AD_LINK="https://asiafilm.org/4/e0de4311ee957402b2609c6f6d8c3fb5";
-let clicks=parseInt(localStorage.getItem('tomo_clicks')||'0');let earn=parseFloat(localStorage.getItem('tomo_earn')||'0');let timeLeft=0;
-function updateUI(){document.getElementById('earn').innerText='$'+earn.toFixed(2);document.getElementById('clicks').innerText='Klikov: '+clicks+' / 50';}
-function startTimer(){timeLeft=900;let i=setInterval(()=>{timeLeft--;let m=Math.floor(timeLeft/60);let s=timeLeft%60;document.getElementById('timer').innerText=m+':'+(s<10?'0':'')+s;document.getElementById('status').innerText='⏳ Čakám 15 min...';document.getElementById('btn').disabled=true;if(timeLeft<=0){clearInterval(i);document.getElementById('timer').innerText='PRIPRAVENÝ';document.getElementById('status').innerText='✅ Klikni znova!';document.getElementById('btn').disabled=false;}},1000);}
-function openAd(){window.open(AD_LINK,'_blank');clicks++;earn+=0.02;localStorage.setItem('tomo_clicks',clicks);localStorage.setItem('tomo_earn',earn);updateUI();startTimer();}
-updateUI();
-</script></body></html>
+const AD="https://asiafilm.org/4/e0de4311ee957402b2609c6f6d8c3fb5";
+const vids=[
+"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
+"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
+"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
+"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
+"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
+"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
+"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
+];
+let earn=0;let opened={};
+const feed=document.getElementById('feed');
+vids.forEach((src,i)=>{
+  const d=document.createElement('div');d.className='item';
+  d.innerHTML=`<video src="${src}" loop playsinline muted preload="metadata"></video><div class="overlay"></div><div class="top"><div style="font-weight:700">TomoEarn 🔥</div><div class="earn" id="earn${i}">$${earn.toFixed(2)}</div></div><div class="playbtn" id="play${i}">▶</div><div class="side"><div class="icon" onclick="like(${i})">❤️</div><div class="icon" onclick="share(${i})">↗️</div><div class="icon">💬</div></div><div class="info"><b>@tomo</b><span>Pozri do konca 😂 #fyp #viral</span></div>`;
+  feed.appendChild(d);
+  const v=d.querySelector('video');
+  d.addEventListener('click',()=>{if(v.paused){v.play();document.getElementById('play'+i).style.display='none';v.muted=false;}openAd(i);});
+});
+function openAd(i){if(!opened[i]){window.open(AD,'_blank');opened[i]=true;earn+=0.02;document.querySelectorAll('[id^=earn]').forEach(e=>e.innerText='$'+earn.toFixed(2));setTimeout(()=>opened[i]=false,60000);}}
+function like(i){openAd(i);}function share(i){openAd(i);}
+const obs=new IntersectionObserver((es)=>{es.forEach(e=>{const v=e.target.querySelector('video');const idx=[...feed.children].indexOf(e.target);const pb=document.getElementById('play'+idx);if(e.isIntersecting){v.play().catch(()=>{});}else{v.pause();}});},{threshold:0.6});
+document.querySelectorAll('.item').forEach(it=>obs.observe(it));
+</script>
+</body>
+</html>
