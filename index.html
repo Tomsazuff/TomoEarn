@@ -1,46 +1,33 @@
-<!-- ADSTERRA - Popunder TOP -->
+<video id="video" controls autoplay muted loop playsinline style="width:100%;height:100vh;object-fit:cover">
+  <source src="https://www.w3schools.com/html/mov_bbb.mp4">
+</video>
+<div id="timer" style="position:fixed;top:10px;right:10px;background:black;color:white;padding:10px;border-radius:20px;z-index:99">Reklama o: 10s</div>
+
+<div id="ad" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:black;color:white;z-index:100;justify-content:center;align-items:center;flex-direction:column">
+  <h1>REKLAMA <span id="count">5</span>s</h1>
+  <p>Tvoja Adsterra</p>
+</div>
+
+<script data-cfasync="false" src="https://dcengg.org/14/02cf388361c74f70e93f783141145e41"></script>
 <script data-cfasync="false" src="https://4xfreedom.com/1/6737b60ec7b55d7069e555ef42e4e4b3"></script>
 
-<!-- ADSTERRA - Social Bar TOP -->
-<script data-cfasync="false" src="https://dcengg.org/14/02cf388361c74f70e93f783141145e41"></script>
-
 <script>
-// REEL REKLAMA LOGIKA - 10s potom 5s reklama
-let timeWatched = 0;
-let adShown = false;
-
-setInterval(() => {
-  if (!adShown) {
-    timeWatched++;
-    console.log("Pozerá: " + timeWatched + "s");
-    
-    if (timeWatched == 10) {
-      // PAUZA VIDEO + UKÁŽ REKLAMU NA 5s
-      document.getElementById('video').pause();
-      document.getElementById('ad-overlay').style.display = 'flex';
-      
-      let adTime = 5;
-      let adTimer = setInterval(() => {
-        document.getElementById('ad-count').innerText = adTime;
-        adTime--;
-        if (adTime < 0) {
-          clearInterval(adTimer);
-          document.getElementById('ad-overlay').style.display = 'none';
-          document.getElementById('video').play();
-        }
-      }, 1000);
-      
-      adShown = true;
-    }
+let t=0;
+setInterval(()=>{
+  t++;
+  document.getElementById('timer').innerText='Reklama o: '+(10-t)+'s';
+  if(t==10){
+    document.getElementById('video').pause();
+    document.getElementById('ad').style.display='flex';
+    let c=5;
+    setInterval(()=>{
+      c--;
+      document.getElementById('count').innerText=c;
+      if(c==0){
+        document.getElementById('ad').style.display='none';
+        document.getElementById('video').play();
+      }
+    },1000);
   }
-}, 1000);
+},1000);
 </script>
-
-<!-- REKLAMA OVERLAY - 5 sekund -->
-<div id="ad-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; justify-content:center; align-items:center; flex-direction:column;">
-  <p style="color:white; font-size:20px;">REKLAMA <span id="ad-count">5</span>s</p>
-  <div id="ad-container" style="background:white; padding:20px; border-radius:10px; width:90%; max-width:300px; text-align:center;">
-    🔥 TOP ponuka - čakaj 5 sekúnd
-    <!-- tu sa načíta Social Bar reklama -->
-  </div>
-</div>
