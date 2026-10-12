@@ -2,69 +2,18 @@
 <html lang="sk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="monetag" content="3528087">
-<title>TomoEarn - $5/Day + REAL 12009043</title>
+<title>TomoEarn REAL 12009043</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<!-- MONETAG TVOJE ID 12009043 -->
 <script src="https://5gvci.com/act/files/tag.min.js?z=12009043" data-cfasync="false" async></script>
-<script>(function(s){s.dataset.zone='12009043',s.src='https://alwingo.com/tag.min.js'})([document.documentElement.appendChild(document.createElement('script'))])</script>
 <style>
-*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#0b0f14;color:#fff}
-header{padding:18px;text-align:center;background:#111821;border-bottom:1px solid #26313d;position:sticky;top:0;z-index:10}
+body{margin:0;font-family:Arial;background:#0b0f14;color:#fff}
+header{padding:18px;text-align:center;background:#111821;border-bottom:1px solid #26313d}
 .logo{font-size:30px;font-weight:bold}.logo span{color:#35d07f}
 .container{max-width:620px;margin:auto;padding:18px}
 .card{background:#111821;border:1px solid #26313d;border-radius:18px;padding:20px;margin-bottom:18px}
-.balance{background:linear-gradient(135deg,#14251c,#1a3d2a);border:1px solid #24563b;border-radius:18px;padding:25px;text-align:center;margin-bottom:18px}
-.balance-value{font-size:38px;font-weight:bold;margin-top:8px}
-.real-earn{background:linear-gradient(135deg,#1a251c,#2a3d1a);border:1px solid #35d07f;border-radius:14px;padding:15px;margin:10px 0;text-align:center}
-input{width:100%;padding:18px 16px;margin:8px 0;border-radius:14px;border:1px solid #354453;background:#18212b;color:#fff;font-size:18px}
-button{width:100%;padding:18px;margin-top:10px;border:0;border-radius:14px;font-weight:bold;font-size:18px;cursor:pointer;min-height:56px}
-.primary{background:#35d07f;color:#06100a}.secondary{background:#202b36;color:#fff;border:1px solid #354453}
-.hidden{display:none!important}.message{padding:12px;border-radius:10px;background:#18212b;color:#aab5bf;margin-bottom:12px}
-.task{background:#18212b;border-radius:14px;padding:18px;text-align:center}.task-video{width:100%;max-height:330px;margin:15px 0;border-radius:14px;background:#000}
-.timer{font-size:42px;font-weight:bold;color:#35d07f;margin:15px}.progress{height:8px;background:#26313d;border-radius:20px;overflow:hidden}.progress-bar{height:100%;width:0;background:#35d07f;transition:width .3s linear}
-.badge{display:inline-block;background:#1a2e23;color:#35d07f;border:1px solid #24563b;padding:4px 10px;border-radius:20px;font-size:11px;margin:4px}
-.source{color:#68747f;font-size:11px;margin-top:8px}
-</style>
-</head>
-<body>
-<header><div class="logo">Tomo<span>Earn</span> <span style="font-size:11px;background:#35d07f;color:#000;padding:4px 8px;border-radius:10px;margin-left:6px">12009043 REAL</span></div></header>
-<div class="container">
-<div class="card" id="authBox">
-<h2>Login - $5/Day REAL</h2>
-<div id="message" class="message">$0.005 x 1000 = $5 + REAL (ID 12009043)</div>
-<input id="email" type="email" placeholder="Email"><input id="password" type="password" placeholder="Heslo">
-<button class="primary" onclick="login()">PRIHLÁSIŤ</button>
-<button class="secondary" onclick="register()">VYTVORIŤ ÚČET</button>
-</div>
-<div id="app" class="hidden">
-<div class="balance"><div style="font-size:13px;color:#aab5bf">VIRTUAL BALANCE</div><div class="balance-value" id="balance">$0.0000</div><div><span class="badge" id="videoCountBadge">0 VIDEÍ</span> <span class="badge">$0.005 / VIDEO</span> <span class="badge" style="background:#2a3d1a">MONETAG 12009043 ON</span></div>
-<div class="real-earn"><b>💵 REÁLNE Z MONETAG: <span id="realEarn">$0.00</span></b><br><span class="source">Zone 12009043 aktivna - za kazdych 5 videi = reklama = REAL peniaze</span></div>
-</div>
-<div class="card"><h2>Watch & Earn REAL - 1 KLIK AUTO</h2><div id="taskList">Načítavam...</div><div style="margin-top:12px;display:flex;gap:8px"><button class="secondary" style="flex:1" onclick="fetch1000(true)">OBNOVIŤ</button><button class="secondary" style="flex:1" onclick="localStorage.clear();location.reload()">VYMAZAŤ</button></div><div id="poolInfo" class="source"></div></div>
-<div class="card"><h2>Account</h2><div id="userEmail"></div><button class="secondary" onclick="logout()">ODHLÁSIŤ</button></div>
-</div>
-</div>
-<script>
-const REWARD=0.005;let realEarnTotal=Number(localStorage.getItem('real_earn')||0);
-const SUPABASE_URL="https://irfrtnzetkejbdaihmmo.supabase.co";const SUPABASE_KEY="sb_publishable_j95JBEVTQIsqp10TiGymSQ_wZVI4ADB";
-const client=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-let currentUser=null,running=false,freeVideoPool=[],videosWatched=0;
-function sleep(ms){return new Promise(r=>setTimeout(r,ms))}
-function showMessage(t){document.getElementById("message").textContent=t}
-function setBalance(v){document.getElementById("balance").textContent="$"+Number(v||0).toFixed(4)}
-function updateRealEarn(){document.getElementById("realEarn").textContent="$"+realEarnTotal.toFixed(3);localStorage.setItem('real_earn',realEarnTotal);}
-async function fetch1000(force=false){const cached=localStorage.getItem('tomo_1000_pool');const cachedAt=Number(localStorage.getItem('tomo_1000_pool_at')||0);if(!force&&cached&&(Date.now()-cachedAt)<86400000){try{const p=JSON.parse(cached);if(p.length>=20){freeVideoPool=p.map(v=>({...v,reward:REWARD}));updatePoolInfo();return freeVideoPool;}}catch(e){}}let all=[];try{const{data,error}=await client.functions.invoke("pixabay-videos",{body:{count:200}});if(!error&&data&&data.videos)all=data.videos;}catch(e){}if(all.length<20){for(let i=0;i<1000;i++)all.push({id:"fb"+i,video_url:"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",title:"Viral #"+(i+1)});}freeVideoPool=all.map(v=>({...v,reward:REWARD})).slice(0,1000);localStorage.setItem('tomo_1000_pool',JSON.stringify(freeVideoPool));localStorage.setItem('tomo_1000_pool_at',String(Date.now()));updatePoolInfo();return freeVideoPool;}
-function updatePoolInfo(){const el=document.getElementById("poolInfo");if(el)el.textContent="Pool: "+freeVideoPool.length+" x $"+REWARD+" = $"+(freeVideoPool.length*REWARD).toFixed(2)+" + REAL 12009043";const b=document.getElementById("videoCountBadge");if(b)b.textContent=freeVideoPool.length+" VIDEÍ";}
-async function register(){const email=document.getElementById("email").value.trim();const password=document.getElementById("password").value;if(!email||!password){showMessage("Vyplň email");return}const{data,error}=await client.auth.signUp({email,password});if(error){showMessage(error.message);return}showMessage("Vytvorený - prihlás sa");}
-async function login(){const email=document.getElementById("email").value.trim();const password=document.getElementById("password").value;const{data,error}=await client.auth.signInWithPassword({email,password});if(error){showMessage(error.message);return}currentUser=data.user;await loadUser();}
-async function loadUser(){const{data}=await client.auth.getUser();currentUser=data.user;if(!currentUser){document.getElementById("authBox").classList.remove("hidden");document.getElementById("app").classList.add("hidden");return;}document.getElementById("authBox").classList.add("hidden");document.getElementById("app").classList.remove("hidden");document.getElementById("userEmail").textContent=currentUser.email;updateRealEarn();try{const{data:p}=await client.from("profiles").select("*").eq("id",currentUser.id).maybeSingle();if(p)setBalance(p.balance);}catch(e){}await fetch1000();document.getElementById("taskList").innerHTML=`<div class="task"><div class="task-title">${freeVideoPool.length} VIDEÍ = $${(freeVideoPool.length*REWARD).toFixed(2)} + REAL</div><button class="primary" style="background:#ffcc33;color:#000" onclick="startAuto()">▶️ AUTO PLAY - 1 KLIK IDE SAMO</button><div class="source">Tvoje Monetag ID 12009043 aktivne</div></div>`;}
-async function triggerMonetagAd(){try{const earn=0.002+Math.random()*0.003;realEarnTotal+=earn;updateRealEarn();}catch(e){}}
-async function startAuto(){running=true;while(running){await runNext();await sleep(800);}}
-async function runNext(){if(!running)return;const video=freeVideoPool[Math.floor(Math.random()*freeVideoPool.length)];const list=document.getElementById("taskList");list.innerHTML=`<div class="task"><div class="task-title">${video.title}</div><video class="task-video" autoplay muted loop playsinline><source src="${video.video_url}"></video><div class="timer" id="vTimer">15</div><div class="progress"><div class="progress-bar" id="vProg"></div></div><div>+$${REWARD} virtuálne</div><div class="source" id="adInfo">${videosWatched>0&&videosWatched%5==0?'🎯 Monetag 12009043 reklama = +$0.003 REAL!':'Video '+(videosWatched+1)+' / Reklama za '+(5-videosWatched%5)+' videí'}</div><button class="secondary" onclick="running=false;loadUser()">⏹️ STOP</button></div>`;let t=15;while(t>0&&running){const el=document.getElementById("vTimer");const pr=document.getElementById("vProg");if(el)el.textContent=t;if(pr)pr.style.width=((15-t)/15*100)+"%";await sleep(1000);t--;}if(!running)return;videosWatched++;if(videosWatched%5==0){await triggerMonetagAd();}if(currentUser){try{const{data:profile}=await client.from("profiles").select("balance").eq("id",currentUser.id).maybeSingle();const newBal=(Number(profile?.balance||0)+REWARD);await client.from("profiles").update({balance:newBal}).eq("id",currentUser.id);setBalance(newBal);}catch(e){}}if(running)runNext();}
-async function logout(){running=false;await client.auth.signOut();location.reload();}
-(async function(){const{data}=await client.auth.getSession();if(data?.session?.user){currentUser=data.session.user;await loadUser();}updateRealEarn();})();
-</script>
-</body>
-</html>
+.balance{background:#14251c;border:1px solid #24563b;border-radius:18px;padding:25px;text-align:center}
+.balance-value{font-size:38px;font-weight:bold}
+.real-earn{background:#1a2e23;border:1px solid #35d07f;border-radius:14px;padding:15px;margin:10px 0;text-align:center}
+input{width:100%;padding:16px;margin:8px 0;border-radius:14px;border:1px solid #354453;background:#18212b
