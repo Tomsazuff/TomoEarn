@@ -2,72 +2,109 @@
 <html lang="sk">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="monetag" content="3528087">
-<title>TomoEarn</title>
-<!-- Monetag 12009230 -->
-<script src="https://fpyf8.com/act/files/tag.js?n=12009230" data-cfasync="false" async></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TomoEarn V2 - 24H</title>
 <style>
-body{background:#0f1115;color:#fff;font-family:Arial;text-align:center;margin:0;padding:15px}
-.top{font-size:32px;font-weight:bold;margin:20px 0}
-.top span{color:#00e68a}
-.card{background:#1a1e29;border-radius:20px;padding:20px;margin:15px auto;max-width:500px;border:1px solid #2a2f40}
-.badge{display:inline-block;background:#163a2b;color:#00e68a;padding:6px 14px;border-radius:20px;margin:5px;font-size:14px;border:1px solid #00e68a55}
-.btn{background:#ffcc00;color:#000;border:0;padding:18px;width:100%;border-radius:14px;font-size:20px;font-weight:bold;margin-top:15px}
-.btn:active{transform:scale(0.98)}
-.small{color:#8a90a8;font-size:14px;margin-top:10px}
-.btn2{background:#252a3a;color:#fff;border:0;padding:15px;width:100%;border-radius:12px;font-size:18px;margin-top:10px}
-#player{width:100%;height:260px;background:#000;border-radius:12px;margin-top:15px;display:none}
+body{background:#0a0a0a;color:#fff;font-family:Arial;text-align:center;margin:0;padding:20px}
+button{background:#D6FF57;color:#000;border:0;padding:18px 28px;border-radius:30px;font-weight:bold;font-size:18px;cursor:pointer;width:100%;max-width:350px}
+#player{width:100%;max-width:600px;aspect-ratio:16/9;margin:20px auto;background:#111;border-radius:16px}
+#stats{display:flex;gap:10px;justify-content:center;margin:20px 0}
+.stat{background:#1a1a1a;padding:12px;border-radius:12px;min-width:90px}
+.stat b{color:#D6FF57;font-size:20px}
+#adBox{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.9);z-index:999;align-items:center;justify-content:center}
+#adBox.show{display:flex}
+.adCard{background:#1a1a1a;padding:30px;border-radius:20px;max-width:320px}
+.adCard a{display:block;background:#D6FF57;color:#000;padding:15px;border-radius:12px;text-decoration:none;font-weight:bold;margin-top:15px}
 </style>
 </head>
 <body>
 
-<div class="top">Tomo<span>Earn</span></div>
+<h1>TomoEarn V2</h1>
+<p>24H režim - 1$ denne</p>
 
-<div class="card">
-<div style="color:#8a90a8;font-size:14px">ÚČET</div>
-<div style="font-size:20px;font-weight:bold;margin:8px 0">horstezuffa@gmail.com</div>
-<div><span class="badge">20 VIDEÍ</span> <span class="badge">Monetag 12009230 ACTIVE</span></div>
-</div>
-
-<div class="card">
-<h2 style="text-align:left;margin:0">Playlist - 1 KLIK</h2>
-<p style="font-size:20px;font-weight:bold">20 videí</p>
-<button class="btn" onclick="start()">▶️ ŠTART - 1 KLIK A IDE SAMO</button>
-<div class="small">Klikneš 1x a ide to samé. Zárobok uvidíš v Monetag dashboard.</div>
 <div id="player"></div>
-<div id="info" class="small" style="margin-top:15px"></div>
+
+<div id="stats">
+  <div class="stat"><div>ČAS</div><b id="time">00:00:00</b></div>
+  <div class="stat"><div>VIDEÁ</div><b id="videos">0</b></div>
+  <div class="stat"><div>ZÁROBOK</div><b id="earn">$0.00</b></div>
 </div>
 
-<div class="card">
-<button class="btn2" onclick="location.reload()">ODHLÁSIŤ</button>
+<button id="startBtn">▶ SPUSTIŤ 24H REŽIM</button>
+<p style="color:#666;font-size:12px;margin-top:10px">Nechaj na nabíjačke + WiFi • Ďalšia reklama o <span id="nextAd">15:00</span></p>
+
+<!-- REKLAMA POPUP -->
+<div id="adBox">
+  <div class="adCard">
+    <h2>🔥 Podpora TomoEarn</h2>
+    <p>Klikni pre podporu, trvá 2 sekundy</p>
+    <a id="adLink" href="https://www.highperformanceformat.com/" target="_blank">KLIKNI A PODPOR (0.02$)</a>
+    <p style="margin-top:15px"><a href="#" onclick="closeAd();return false" style="background:none;color:#666;font-size:12px">Preskočiť</a></p>
+  </div>
 </div>
 
 <script>
-let vids=["dQw4w9WgXcQ","jNQXAC9IVRw","M7lc1UVf-VE","kJQP7kiw5Fk","RgKAFK5djSk","OPf0YbXqDm0","9bZkp7q19f0","CevxZvSJLk8","fRh_vgS2dFE","YQHsXMglC9A","hT_nvWreIhg","60ItHLz5WEA","ktvTqknDobU","pRpeEdMmmQ0","uelHwf8o7_U","09R8_2nJtjg","NUsoVlDFqZg","2Vv-BfVoq4g","Zi_XLOBDo_Y","k85mRPqvMbE"];
-let idx=0;
-function start(){
- document.getElementById('player').style.display='block';
- play();
- // Spusti Monetag tag
- if(window.startA){startA()}
+// === NASTAVENIA - TU SI ZMEŇ ===
+const PLAYLIST = ["jNQXAC9IVRw","dQw4w9WgXcQ","5qap5aO4i9A","DWcJFNfaw9c","hT_nvWreIhg","lTRiuFIWV54","jfKfPfyJRdk","2Vv-BfVoq4g","OPf0YbXqDm0","09R8_2nJtjg"];
+const AD_LINK = "https://www.highperformanceformat.com/"; // SEM VLOŽ SVOJ ADSTERRA DIRECT LINK
+const SLOT_SECONDS = 900; // 15 minut = reklama
+const EARN_PER_SLOT = 0.02;
+
+let current = 0, elapsed = 0, videos = 0, timer = null, player = null;
+
+// YouTube API
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+document.head.appendChild(tag);
+
+function onYouTubeIframeAPIReady(){
+  player = new YT.Player('player', {
+    videoId: PLAYLIST[0],
+    playerVars:{autoplay:0, modestbranding:1, rel:0},
+    events:{onStateChange: onState}
+  });
 }
-function play(){
- if(idx>=vids.length){document.getElementById('info').innerText="Hotovo! 20 videí pozretých.";return;}
- let id=vids[idx];
- document.getElementById('player').innerHTML='<iframe width="100%" height="260" src="https://www.youtube.com/embed/'+id+'?autoplay=1&mute=1" frameborder="0" allow="autoplay" allowfullscreen></iframe>';
- document.getElementById('info').innerText="Hrá video "+(idx+1)+"/20 - nechaj bežať, zárobok ide automaticky";
- idx++;
- setTimeout(play, 30000); // každé 30s ďalšie
+function onState(e){
+  if(e.data==0){ // skončilo
+    videos++; document.getElementById('videos').innerText = videos;
+    current = (current+1)%PLAYLIST.length;
+    player.loadVideoById(PLAYLIST[current]);
+  }
+}
+
+document.getElementById('adLink').href = AD_LINK;
+
+document.getElementById('startBtn').onclick = async () => {
+  player.playVideo();
+  document.getElementById('startBtn').innerText = "⏳ BEŽÍ 24H...";
+
+  // Wake lock - nezhasne displej
+  try{ if(navigator.wakeLock) await navigator.wakeLock.request('screen'); }catch{}
+
+  timer = setInterval(()=>{
+    elapsed++;
+    let h = String(Math.floor(elapsed/3600)).padStart(2,'0');
+    let m = String(Math.floor(elapsed%3600/60)).padStart(2,'0');
+    let s = String(elapsed%60).padStart(2,'0');
+    document.getElementById('time').innerText = h+':'+m+':'+s;
+
+    let slots = Math.floor(elapsed/SLOT_SECONDS);
+    document.getElementById('earn').innerText = '$'+(slots*EARN_PER_SLOT).toFixed(2);
+
+    let next = SLOT_SECONDS - (elapsed%SLOT_SECONDS);
+    let nm = String(Math.floor(next/60)).padStart(2,'0');
+    let ns = String(next%60).padStart(2,'0');
+    document.getElementById('nextAd').innerText = nm+':'+ns;
+
+    if(elapsed%SLOT_SECONDS==0 && elapsed>0){
+      document.getElementById('adBox').classList.add('show');
+    }
+  },1000);
+}
+
+function closeAd(){
+  document.getElementById('adBox').classList.remove('show');
 }
 </script>
-
-<script>
-// Registruj service worker pre Monetag Push 12009230
-if('serviceWorker' in navigator){
- navigator.serviceWorker.register('/sw.js');
-}
-</script>
-
 </body>
 </html>
