@@ -1,105 +1,12 @@
 <!DOCTYPE html>
-<html lang="sk">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TomoEarn V2 - 1$ denne</title>
-<style>
-*{box-sizing:border-box}
-body{background:#070707;color:#fff;font-family:system-ui,Arial;margin:0;padding:0;text-align:center}
-.wrap{max-width:520px;margin:0 auto;padding:18px}
-h1{margin:14px 0 4px;font-size:28px;letter-spacing:-1px}
-.sub{color:#888;font-size:13px;margin-bottom:14px}
-#player{width:100%;aspect-ratio:16/9;background:#111;border-radius:18px;overflow:hidden;border:1px solid #222}
-#stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:14px 0}
-.stat{background:#151515;border:1px solid #222;padding:10px;border-radius:14px}
-.stat div{font-size:9px;color:#666;letter-spacing:1px}
-.stat b{color:#D6FF57;font-size:18px;display:block;margin-top:2px}
-button.main{background:#D6FF57;color:#000;border:0;padding:18px;border-radius:100px;font-weight:900;font-size:17px;width:100%;cursor:pointer}
-.small{color:#555;font-size:11px;margin:10px 0}
-#adBox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;align-items:center;justify-content:center;padding:20px}
-#adBox.show{display:flex}
-.card{background:#181818;border:1px solid #2a2a2a;padding:26px;border-radius:22px;max-width:340px;width:100%}
-.card h2{margin:0 0 8px}
-.card p{color:#999;font-size:13px}
-.card a.btn{display:block;background:#D6FF57;color:#000;padding:16px;border-radius:14px;text-decoration:none;font-weight:900;margin-top:16px}
-.card a.skip{color:#555;font-size:12px;text-decoration:none;display:block;margin-top:12px}
-.badge{display:inline-block;background:#1f1f1f;border:1px solid #2a2a2a;border-radius:100px;padding:6px 12px;font-size:10px;color:#777;margin:4px}
-</style>
-</head>
-<body>
-<div class="wrap">
-<h1>TomoEarn V2</h1>
-<div class="sub">24H REŽIM • 1 TELEFÓN = 1$ DENNE • BEŽÍ NONSTOP</div>
-
-<div id="player"></div>
-
-<div id="stats">
-<div class="stat"><div>ČAS BEHU</div><b id="time">00:00:00</b></div>
-<div class="stat"><div>VIDEÁ</div><b id="videos">0</b></div>
-<div class="stat"><div>ZAROBENÉ</div><b id="earn">$0.00</b></div>
-</div>
-
-<button class="main" id="startBtn">▶ SPUSTIŤ 24H REŽIM</button>
-<div class="small">Ďalšia podpora o <b id="nextAd" style="color:#fff">15:00</b> • Nechaj na nabíjačke + WiFi • Displej nezhasne</div>
-
-<div style="margin:14px 0">
-<span class="badge">YOUTUBE AUTO</span>
-<span class="badge">WAKE LOCK ON</span>
-<span class="badge">ADSTERRA READY</span>
-</div>
-
-<div style="text-align:left;background:#121212;border:1px solid #222;border-radius:16px;padding:14px;font-size:12px;line-height:1.5;color:#999;margin-top:10px">
-<b style="color:#fff">NÁVOD NA 1$:</b><br>
-1. Klikni SPUSTIŤ, povoľ zvuk<br>
-2. Každých 15 min klikni na žlté tlačítko (otvorí reklamu, zavri ju)<br>
-3. Nechaj telefón na nabíjačke<br>
-4. Popri tom v pozadí spusti Pawns.app + Honeygain = + $1 navyše<br>
-→ Spolu $1.92 + $1 = <b style="color:#D6FF57">~ $2.90 denne</b>
-</div>
-</div>
-
-<div id="adBox">
-<div class="card">
-<h2>💛 Podpora TomoEarn</h2>
-<p>Klikni, počkaj 3 sekundy a zavri. Zarobíš $0.02</p>
-<a class="btn" id="adLink" href="https://www.highperformanceformat.com/z3k6a8s4w?key=adsterra_demo" target="_blank" onclick="earned()">KLIKNI A ZAROB $0.02</a>
-<a class="skip" href="#" onclick="closeAd();return false">Preskočiť (bez zárobku)</a>
-<div style="margin-top:14px;font-size:10px;color:#555">ADSTERRA DIRECT LINK • 1 klik = 1 zárobok</div>
-</div>
-</div>
-
+<html lang="sk"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TomoEarn V2</title>
+<style>body{background:#0f0f0f;color:#fff;font-family:Arial;text-align:center;padding:20px}.box{background:#1e1e1e;border-radius:15px;padding:20px;max-width:400px;margin:20px auto;border:1px solid #333}.timer{font-size:48px;color:#00ff88}.btn{background:#00ff88;color:#000;border:none;padding:18px 30px;border-radius:10px;font-size:20px;font-weight:bold;width:100%}.btn:disabled{background:#555}.earn{font-size:24px;color:#ffd700}</style></head>
+<body><h1>🔥 TomoEarn V2 - 1$ Denne</h1><div class="box"><div>ZÁROBOK:</div><div class="earn" id="earn">$0.00</div><div id="clicks">Klikov: 0/50</div></div><div class="box"><div id="status">Pripravený</div><div class="timer" id="timer">15:00</div><button class="btn" id="btn" onclick="openAd()">OTVOR REKLAMU +$0.02</button></div>
 <script>
-const PLAYLIST = ["jNQXAC9IVRw","dQw4w9WgXcQ","5qap5aO4i9A","DWcJFNfaw9c","hT_nvWreIhg","lTRiuFIWV54","jfKfPfyJRdk","2Vv-BfVoq4g","OPf0YbXqDm0","09R8_2nJtjg","RgKAFK5djSk","kJQP7kiw5Fk","JGwWNGJdvx8","YQHsXMglC9A","9bZkp7q19f0","CevxZvSJLk8","fRh_vgS2dFE","QcIy9NiNbmo","pRpeEdMmmQ0","60ItHLz5WEA"];
-const AD_LINK = "https://www.highperformanceformat.com/z3k6a8s4w?key=adsterra_demo";
-const SLOT = 900; // 15 min
-const PER_SLOT = 0.02;
-
-let current=0, elapsed=0, vids=0, timer=null, player=null;
-
-var tag=document.createElement('script'); tag.src="https://www.youtube.com/iframe_api"; document.head.appendChild(tag);
-function onYouTubeIframeAPIReady(){
-  player=new YT.Player('player',{videoId:PLAYLIST[0],playerVars:{autoplay:0,rel:0,modestbranding:1},events:{onStateChange:(e)=>{if(e.data==0){vids++;document.getElementById('videos').innerText=vids;current=(current+1)%PLAYLIST.length;player.loadVideoById(PLAYLIST[current])}} }});
-}
-document.getElementById('adLink').href=AD_LINK;
-
-document.getElementById('startBtn').onclick=async()=>{
-  try{player.playVideo()}catch{}
-  document.getElementById('startBtn').innerText="⏳ BEŽÍ 24H... NEVYPNÍNAJ";
-  try{if(navigator.wakeLock){await navigator.wakeLock.request('screen')}}catch{}
-  if(timer)clearInterval(timer);
-  timer=setInterval(()=>{
-    elapsed++;
-    let h=String(Math.floor(elapsed/3600)).padStart(2,'0'), m=String(Math.floor(elapsed%3600/60)).padStart(2,'0'), s=String(elapsed%60).padStart(2,'0');
-    document.getElementById('time').innerText=h+':'+m+':'+s;
-    document.getElementById('earn').innerText='$'+(Math.floor(elapsed/SLOT)*PER_SLOT).toFixed(2);
-    let next=SLOT-(elapsed%SLOT); let nm=String(Math.floor(next/60)).padStart(2,'0'), ns=String(next%60).padStart(2,'0');
-    document.getElementById('nextAd').innerText=nm+':'+ns;
-    if(elapsed%SLOT==0&&elapsed>0){document.getElementById('adBox').classList.add('show')}
-  },1000);
-};
-function closeAd(){document.getElementById('adBox').classList.remove('show')}
-function earned(){setTimeout(closeAd,2500)}
-</script>
-</body>
-</html>
+const AD_LINK="https://asiafilm.org/4/e0de4311ee957402b2609c6f6d8c3fb5";
+let clicks=parseInt(localStorage.getItem('tomo_clicks')||'0');let earn=parseFloat(localStorage.getItem('tomo_earn')||'0');let timeLeft=0;
+function updateUI(){document.getElementById('earn').innerText='$'+earn.toFixed(2);document.getElementById('clicks').innerText='Klikov: '+clicks+' / 50';}
+function startTimer(){timeLeft=900;let i=setInterval(()=>{timeLeft--;let m=Math.floor(timeLeft/60);let s=timeLeft%60;document.getElementById('timer').innerText=m+':'+(s<10?'0':'')+s;document.getElementById('status').innerText='⏳ Čakám 15 min...';document.getElementById('btn').disabled=true;if(timeLeft<=0){clearInterval(i);document.getElementById('timer').innerText='PRIPRAVENÝ';document.getElementById('status').innerText='✅ Klikni znova!';document.getElementById('btn').disabled=false;}},1000);}
+function openAd(){window.open(AD_LINK,'_blank');clicks++;earn+=0.02;localStorage.setItem('tomo_clicks',clicks);localStorage.setItem('tomo_earn',earn);updateUI();startTimer();}
+updateUI();
+</script></body></html>
