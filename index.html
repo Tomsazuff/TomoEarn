@@ -1,55 +1,46 @@
-<!DOCTYPE html>
-<html lang="sk">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
-<title>TomoEarn</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;color:#fff;font-family:system-ui;overflow:hidden;height:100vh;width:100vw}
-.feed{height:100vh;overflow-y:scroll;scroll-snap-type:y mandatory;-webkit-overflow-scrolling:touch}
-.item{height:100vh;position:relative;scroll-snap-align:start;overflow:hidden;background:#000}
-video{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
-.overlay{position:absolute;inset:0;background:linear-gradient(transparent 60%,rgba(0,0,0,.8));pointer-events:none}
-.top{position:absolute;top:0;left:0;right:0;padding:12px 14px;display:flex;justify-content:space-between;z-index:10;background:linear-gradient(rgba(0,0,0,.6),transparent)}
-.earn{font-weight:800;color:#00ff88}
-.side{position:absolute;right:8px;bottom:120px;z-index:10;display:flex;flex-direction:column;gap:22px;align-items:center}
-.icon{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:24px;backdrop-filter:blur(10px)}
-.info{position:absolute;left:12px;bottom:28px;z-index:10;max-width:70%}
-.info b{font-size:15px;display:block;margin-bottom:4px}
-.info span{font-size:13px;opacity:.8}
-.playbtn{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:10;width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;color:#000;font-size:30px}
-</style>
-</head>
-<body>
-<div class="feed" id="feed"></div>
+<!-- ADSTERRA - Popunder TOP -->
+<script data-cfasync="false" src="https://4xfreedom.com/1/6737b60ec7b55d7069e555ef42e4e4b3"></script>
+
+<!-- ADSTERRA - Social Bar TOP -->
+<script data-cfasync="false" src="https://dcengg.org/14/02cf388361c74f70e93f783141145e41"></script>
+
 <script>
-const AD="https://asiafilm.org/4/e0de4311ee957402b2609c6f6d8c3fb5";
-const vids=[
-"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
-"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
-"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
-"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
-"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
-"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"
-];
-let earn=0;let opened={};
-const feed=document.getElementById('feed');
-vids.forEach((src,i)=>{
-  const d=document.createElement('div');d.className='item';
-  d.innerHTML=`<video src="${src}" loop playsinline muted preload="metadata"></video><div class="overlay"></div><div class="top"><div style="font-weight:700">TomoEarn 🔥</div><div class="earn" id="earn${i}">$${earn.toFixed(2)}</div></div><div class="playbtn" id="play${i}">▶</div><div class="side"><div class="icon" onclick="like(${i})">❤️</div><div class="icon" onclick="share(${i})">↗️</div><div class="icon">💬</div></div><div class="info"><b>@tomo</b><span>Pozri do konca 😂 #fyp #viral</span></div>`;
-  feed.appendChild(d);
-  const v=d.querySelector('video');
-  d.addEventListener('click',()=>{if(v.paused){v.play();document.getElementById('play'+i).style.display='none';v.muted=false;}openAd(i);});
-});
-function openAd(i){if(!opened[i]){window.open(AD,'_blank');opened[i]=true;earn+=0.02;document.querySelectorAll('[id^=earn]').forEach(e=>e.innerText='$'+earn.toFixed(2));setTimeout(()=>opened[i]=false,60000);}}
-function like(i){openAd(i);}function share(i){openAd(i);}
-const obs=new IntersectionObserver((es)=>{es.forEach(e=>{const v=e.target.querySelector('video');const idx=[...feed.children].indexOf(e.target);const pb=document.getElementById('play'+idx);if(e.isIntersecting){v.play().catch(()=>{});}else{v.pause();}});},{threshold:0.6});
-document.querySelectorAll('.item').forEach(it=>obs.observe(it));
+// REEL REKLAMA LOGIKA - 10s potom 5s reklama
+let timeWatched = 0;
+let adShown = false;
+
+setInterval(() => {
+  if (!adShown) {
+    timeWatched++;
+    console.log("Pozerá: " + timeWatched + "s");
+    
+    if (timeWatched == 10) {
+      // PAUZA VIDEO + UKÁŽ REKLAMU NA 5s
+      document.getElementById('video').pause();
+      document.getElementById('ad-overlay').style.display = 'flex';
+      
+      let adTime = 5;
+      let adTimer = setInterval(() => {
+        document.getElementById('ad-count').innerText = adTime;
+        adTime--;
+        if (adTime < 0) {
+          clearInterval(adTimer);
+          document.getElementById('ad-overlay').style.display = 'none';
+          document.getElementById('video').play();
+        }
+      }, 1000);
+      
+      adShown = true;
+    }
+  }
+}, 1000);
 </script>
-</body>
-</html>
+
+<!-- REKLAMA OVERLAY - 5 sekund -->
+<div id="ad-overlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; justify-content:center; align-items:center; flex-direction:column;">
+  <p style="color:white; font-size:20px;">REKLAMA <span id="ad-count">5</span>s</p>
+  <div id="ad-container" style="background:white; padding:20px; border-radius:10px; width:90%; max-width:300px; text-align:center;">
+    🔥 TOP ponuka - čakaj 5 sekúnd
+    <!-- tu sa načíta Social Bar reklama -->
+  </div>
+</div>
